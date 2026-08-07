@@ -4,7 +4,10 @@ A free, open-source German trainer that runs entirely in your browser — from y
 „Hallo“ to near-native C2. No account, no server, no tracking: your progress lives in
 your browser's local storage.
 
-**[▶ Use it here](https://jeelswami.github.io/wortschatz-trainer/)**
+**[▶ Use it here](https://jeelswami.github.io/wortschatz-trainer/)** — or install it as an app:
+it's a PWA. On Android: Chrome menu → *Install app*. On iPhone/iPad: Safari → Share →
+*Add to Home Screen*. On desktop: click the install icon in the address bar. Once
+installed it works fully **offline**.
 
 ## What's inside
 

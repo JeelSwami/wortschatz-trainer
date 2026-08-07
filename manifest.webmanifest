@@ -1,0 +1,18 @@
+{
+  "name": "Wortschatz — Dein Weg zu C2",
+  "short_name": "Wortschatz",
+  "description": "Free German trainer from A1 to C2: 1,100+ verified flashcards with spaced repetition, grammar, placement test and everyday German. Works offline; all data stays on your device.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FAF8F2",
+  "theme_color": "#F2B705",
+  "lang": "de",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

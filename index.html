@@ -3,7 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free German trainer from A1 to C2 — 1,100+ verified flashcards with spaced repetition, everyday and academic German, 38 grammar topics, and a placement test.">
+<meta name="description" content="Free German trainer from A1 to C2 — 1,100+ verified flashcards with spaced repetition, everyday and academic German, 38 grammar topics, and a placement test. Installable, works offline.">
+<meta name="theme-color" content="#F2B705">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Wortschatz">
 <title>Wortschatz — Dein Weg zu C2</title>
 </head>
 <body>
@@ -884,6 +891,14 @@
 
   <h3 class="sec">Niveaus &amp; Quellen</h3>
   <p class="plan-intro" style="font-size:15px">Levels follow the CEFR (A1–C2). A1–B1 assignments are aligned with the official Goethe-Institut Wortlisten; B2–C2 follow Goethe/telc exam-preparation conventions and frequency in edited German (press, academic prose). Vocabulary was mined from real course material (Netzwerk-family A1–B1.1 courses) and curated upward to C2. Found an error anyway? Report it on <a href="https://github.com/JeelSwami/wortschatz-trainer" style="color:var(--der)">GitHub</a> — correctness is the whole point.</p>
+
+  <h3 class="sec">Als App installieren</h3>
+  <div class="gtable"><table>
+    <tr><th>Android</th><td>Open <a href="https://jeelswami.github.io/wortschatz-trainer/" style="color:var(--der)">jeelswami.github.io/wortschatz-trainer</a> in Chrome → menu ⋮ → <em>„App installieren“</em>. Wortschatz appears on your home screen, full-screen and offline-capable.</td></tr>
+    <tr><th>iPhone / iPad</th><td>Open the site in Safari → Share button → <em>„Zum Home-Bildschirm“</em> (Add to Home Screen).</td></tr>
+    <tr><th>Computer</th><td>In Chrome/Edge, click the install icon in the address bar — Wortschatz becomes a desktop app.</td></tr>
+  </table></div>
+  <p class="plan-intro" style="font-size:15px">Once installed, the trainer works without an internet connection — reviews, test, grammar, everything. Your progress stays in the installed app's storage (separate from the browser tab's storage, so pick one home and export a backup now and then).</p>
 
   <h3 class="sec">Deine Daten</h3>
   <p class="plan-intro" style="font-size:15px">Progress, custom cards and checklists live in your browser's local storage — nothing leaves your device, ever. No account, no cookies, no analytics, no tracking. Use <em>Fortschritt → Exportieren</em> for a backup file and <em>Importieren</em> to restore it (e.g. on a new computer). Clearing browser data deletes progress, so export now and then.</p>
@@ -2505,5 +2520,10 @@ renderFilters(); renderList(); initChecks();
 buildSession(); renderHeader();
 </script>
 
+<script>
+if ("serviceWorker" in navigator && (location.hostname === "jeelswami.github.io" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+</script>
 </body>
 </html>
