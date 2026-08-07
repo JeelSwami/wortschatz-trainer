@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free German vocabulary trainer with spaced repetition — 680 cards A1 to C1, grammar topics, and a roadmap to fluency.">
-<title>Wortschatz — Dein Weg zu C1</title>
+<meta name="description" content="Free German trainer from A1 to C2 — 1,100+ verified flashcards with spaced repetition, everyday and academic German, 36 grammar topics, and a placement test.">
+<title>Wortschatz — Dein Weg zu C2</title>
 </head>
 <body>
 <style>
@@ -274,13 +274,28 @@
   .rt p{font-size:13px; color:var(--muted); margin:6px 0 0}
   .principles li{margin-bottom:8px}
   .plan-note{font-size:13px; color:var(--muted); background:var(--surface2); padding:10px 14px; border-radius:8px; margin-top:20px}
+
+  /* ---------- placement test ---------- */
+  .opt{display:block; width:100%; max-width:520px; text-align:left; margin:0 auto;
+       border:1px solid var(--line2); background:var(--surface); border-radius:10px;
+       padding:12px 16px; font-size:16px}
+  .opt:hover{background:var(--surface2)}
+  .opts{display:flex; flex-direction:column; gap:10px; width:100%; margin-top:20px}
+  .tq{font-size:clamp(20px,4vw,26px); font-weight:700; line-height:1.4; text-wrap:balance;
+      font-family:Georgia,serif; margin-top:14px}
+  .result-level{font-family:Futura,"Century Gothic",sans-serif; font-size:64px; font-weight:700; color:var(--gold-ink)}
+  .rev-item{border-left:3px solid var(--again); padding:4px 0 4px 12px; margin-bottom:12px; text-align:left}
+  .rev-item .q{font-weight:600}
+  .rev-item .a{font-size:14px}
+  .rev-item .a b{color:var(--good)}
+  .rev-item .t{font-size:12px; color:var(--muted)}
   footer.app{border-top:1px solid var(--line); padding:20px 0 40px; color:var(--muted); font-size:12px; text-align:center}
 </style>
 
 <header class="app"><div class="wrap head-in">
   <div class="mark">
     <span class="logo"><b>W</b>ortschatz</span>
-    <small>Weg zu C1</small>
+    <small>Weg zu C2</small>
   </div>
   <div class="head-stats">
     <div class="hstat"><div class="v gold num" id="h-streak">0</div><div class="k">Tage-Serie</div></div>
@@ -293,8 +308,10 @@
   <button class="tab on" data-v="study">Lernen<span class="cnt" id="tab-due">0</span></button>
   <button class="tab" data-v="browse">Wörterbuch</button>
   <button class="tab" data-v="grammar">Grammatik</button>
+  <button class="tab" data-v="test">Test</button>
   <button class="tab" data-v="stats">Fortschritt</button>
-  <button class="tab" data-v="plan">Fahrplan C1</button>
+  <button class="tab" data-v="plan">Fahrplan</button>
+  <button class="tab" data-v="help">Hilfe</button>
 </div></nav>
 
 <main class="wrap">
@@ -307,6 +324,11 @@
     <div class="seg" id="dir-seg" role="group" aria-label="Abfragerichtung">
       <button data-d="de-en" class="on">DE→EN</button><button data-d="en-de">EN→DE</button>
     </div>
+    <label class="lbl">Niveau
+      <select id="lvl-sel">
+        <option value="alle">Alle</option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option>
+      </select>
+    </label>
     <label class="lbl">Neue/Tag
       <select id="new-per-day">
         <option>5</option><option>10</option><option selected>15</option><option>20</option><option>30</option>
@@ -328,6 +350,7 @@
   </div>
   <div class="toolbar" id="lvl-filters"></div>
   <div class="toolbar" id="type-filters"></div>
+  <div class="toolbar" id="cat-filters"></div>
   <div class="listmeta" id="listmeta"></div>
   <div class="wlist" id="wlist"></div>
   <details class="addcard">
@@ -343,7 +366,7 @@
         </select>
       </label>
       <label>Niveau
-        <select id="a-l"><option>A1</option><option>A2</option><option selected>B1</option><option>B2</option><option>C1</option></select>
+        <select id="a-l"><option>A1</option><option>A2</option><option selected>B1</option><option>B2</option><option>C1</option><option>C2</option></select>
       </label>
       <label>Artikel (Nomen)
         <select id="a-art"><option value="">–</option><option>der</option><option>die</option><option>das</option></select>
@@ -416,6 +439,13 @@
     <p>Spoken past = Perfekt: haben/sein + Partizip II. Use <strong>sein</strong> with movement (gehen, fahren, kommen) and change of state (aufstehen, einschlafen) — plus bleiben, sein, werden, passieren.</p>
     <div class="gex"><span class="de">Ich habe gearbeitet. — Ich bin nach Hause gegangen.</span><span class="en">I worked. — I went home.</span></div>
     <div class="merke"><b>Merke:</b> Verbs with be-, ver-, er-, ent- and -ieren take no ge-: „bezahlt", „verstanden", „passiert", „studiert".</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Negation — nicht oder kein?</summary><div class="gbody">
+    <p><strong>kein</strong> negates nouns with ein/no article; <strong>nicht</strong> negates everything else (verbs, adjectives, names, nouns with definite article).</p>
+    <div class="gex"><span class="de">Ich habe keine Zeit. — Ich habe kein Auto.</span><span class="en">I have no time. — I don't have a car.</span></div>
+    <div class="gex"><span class="de">Ich komme nicht. Das ist nicht mein Auto. Der Film ist nicht gut.</span><span class="en">I'm not coming. That's not my car. The movie is not good.</span></div>
+    <div class="merke"><b>Merke:</b> „nicht" goes late in the sentence, but BEFORE the part it negates: „Ich kann heute leider nicht kommen."</div>
   </div></details>
   </div>
 
@@ -567,10 +597,50 @@
     </table></div>
     <div class="merke"><b>Merke:</b> Also: „doch" as an answer contradicts a negative question — „Kommst du nicht mit?" — „Doch!" (Yes, I am!)</div>
   </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Die 6 Tempora — the complete tense system</summary><div class="gbody">
+    <p>Every German tense is built from the three Stammformen on your verb cards (stiehlt · stahl · hat gestohlen):</p>
+    <div class="gtable"><table>
+      <tr><th>Präsens</th><td>er stiehlt</td><td>present AND near future („Morgen fahre ich…“)</td></tr>
+      <tr><th>Präteritum</th><td>er stahl</td><td>written narration, news; spoken mainly for war/hatte/Modalverben (plus a few frequent verbs: „es gab“, „ich dachte“, „ich wusste“)</td></tr>
+      <tr><th>Perfekt</th><td>er hat gestohlen</td><td>THE spoken past</td></tr>
+      <tr><th>Plusquamperfekt</th><td>er hatte gestohlen</td><td>past before the past — pairs with „nachdem“</td></tr>
+      <tr><th>Futur I</th><td>er wird stehlen</td><td>future; also assumption („Er wird wohl schlafen“)</td></tr>
+      <tr><th>Futur II</th><td>er wird gestohlen haben</td><td>completed future; assumption about the past</td></tr>
+    </table></div>
+    <div class="merke"><b>Merke:</b> Germans use Präsens + time word for the future far more often than Futur I: „Morgen lerne ich Dativ" is more natural than „Ich werde lernen".</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Wortstellung im Mittelfeld — TeKaMoLo</summary><div class="gbody">
+    <p>Between verb and sentence end, adverbials follow <strong>Te</strong>mporal (when) → <strong>Ka</strong>usal (why) → <strong>Mo</strong>dal (how) → <strong>Lo</strong>kal (where):</p>
+    <div class="gex"><span class="de">Ich fahre morgen (Te) wegen des Seminars (Ka) mit dem Zug (Mo) nach Berlin (Lo).</span><span class="en">Tomorrow I'm taking the train to Berlin because of the seminar.</span></div>
+    <div class="merke"><b>Merke:</b> Pronouns come first in the Mittelfeld: „Ich gebe es dir morgen" — Akkusativ-pronoun before Dativ-pronoun, but noun objects the other way round (Dat before Akk): „Ich gebe meinem Bruder das Buch."</div>
+  </div></details>
   </div>
 
   <div class="glevel">
-  <h3 class="sec">B2 / C1 · Feinschliff</h3>
+  <h3 class="sec">B2 – C2 · Feinschliff</h3>
+
+  <details class="gtopic"><summary><span class="chip lvl">B2</span>Wortbildung — der Vokabel-Multiplikator</summary><div class="gbody">
+    <p>German builds words from parts. Learn the parts once, unlock thousands of words:</p>
+    <div class="gtable"><table>
+      <tr><th>-ung, -heit, -keit, -schaft</th><td>verb/adj → feminine noun</td><td>lösen → die Lösung, frei → die Freiheit</td></tr>
+      <tr><th>-bar, -lich, -los, -voll</th><td>→ adjective</td><td>machbar (doable), hilflos (helpless)</td></tr>
+      <tr><th>un-, miss-</th><td>negation</td><td>unklar, missverstehen</td></tr>
+      <tr><th>ver-</th><td>often „wrongly“ or „completely“</td><td>sich verlaufen (get lost), verschlafen</td></tr>
+      <tr><th>zer-</th><td>apart, to pieces</td><td>zerbrechen, zerstören</td></tr>
+      <tr><th>ent-</th><td>away, removal</td><td>entsorgen, entlassen</td></tr>
+    </table></div>
+    <div class="merke"><b>Merke:</b> Meet an unknown word? Strip the prefix/suffix and guess from the stem before reaching for the dictionary — that habit is what makes C1 reading fast.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B2</span>Gesprochenes Deutsch — how natives actually talk</summary><div class="gbody">
+    <p>Spoken German bends the rules. You'll hear (and may use informally):</p>
+    <div class="gex"><span class="de">Haste Zeit? (= Hast du) · 'n bisschen (= ein) · Ich hab' (= habe)</span><span class="en">Contractions everywhere</span></div>
+    <div class="gex"><span class="de">…, weil ich hab keine Zeit.</span><span class="en">Spoken „weil“ often takes main-clause order — understand it, but write it with verb-final!</span></div>
+    <div class="gex"><span class="de">Das ist schön, ne? / oder? / wa? (Berlin)</span><span class="en">Tag questions vary by region</span></div>
+    <div class="merke"><b>Merke:</b> Cards marked „salopp“ or „nur mündlich“ in the Alltag deck are for speaking with friends — never for essays or emails to your professor.</div>
+  </div></details>
 
   <details class="gtopic"><summary><span class="chip lvl">B2</span>Konjunktiv I — indirekte Rede</summary><div class="gbody">
     <p>News and formal reports quote people with Konjunktiv I: er sei, er habe, er werde, er könne.</p>
@@ -726,6 +796,82 @@
   </ul>
   <p class="plan-note">Tick the boxes as you go — they are saved on this device. When a phase is fully ticked, you have earned the next one.</p>
 </section>
+
+<!-- ============ PLACEMENT TEST ============ -->
+<section class="view" id="view-test">
+  <div id="test-holder"></div>
+</section>
+
+<!-- ============ HELP / ABOUT ============ -->
+<section class="view" id="view-help">
+  <p class="plan-intro" style="margin-top:0"><strong>Wortschatz</strong> is a free German trainer that takes you from A1 to C2: a spaced-repetition card deck built from real course material and exam wordlists, the complete grammar spine, everyday spoken German, and domain vocabulary for university, work and research. Everything runs in your browser — no account, no server, your progress stays on your device.</p>
+
+  <h3 class="sec">Was ist wo? — The tour</h3>
+  <div class="gtable"><table>
+    <tr><th>Lernen</th><td>Your daily session: due reviews + new cards. This is the tab you open every day.</td></tr>
+    <tr><th>Wörterbuch</th><td>Browse and search all cards; filter by level (A1–C2), word type and topic (Alltag, Studium, Beruf, Forschung); add your own cards.</td></tr>
+    <tr><th>Grammatik</th><td>The A1→C2 grammar reference: rules, tables, examples, and „Merke“ boxes with the classic mistakes.</td></tr>
+    <tr><th>Test</th><td>The Einstufungstest: 30 questions that place you between A1 and C2, show your gaps, and set your study level.</td></tr>
+    <tr><th>Fortschritt</th><td>Streak, cards mastered, progress per level, activity chart, and export/import backup.</td></tr>
+    <tr><th>Fahrplan</th><td>The long-term strategy to C1/C2, phase by phase, with tickable milestones.</td></tr>
+    <tr><th>Hilfe</th><td>This page.</td></tr>
+  </table></div>
+
+  <h3 class="sec">So benutzt du den Trainer</h3>
+  <div class="phase"><div class="phase-body">
+    <p><strong>1. Pick your level.</strong> Not sure where you stand? Take the <em>Einstufungstest</em> in the Test tab first. Then set <em>Niveau</em> in the study bar to your level (e.g. B1) — new cards will come only from that level, so the difficulty is honest. Reviews always come back regardless of level. Set it to <em>Alle</em> to mix everything.</p>
+    <p><strong>2. Flip and grade honestly.</strong> Read the front, try to recall the answer, press <em>Aufdecken</em> (Space). Then grade yourself: <strong style="color:var(--again)">Nochmal</strong> = didn't know it (card returns in minutes) · <strong style="color:var(--hard)">Schwer</strong> = barely (shorter interval) · <strong style="color:var(--good)">Gut</strong> = knew it (normal interval) · <strong style="color:var(--easy)">Leicht</strong> = instant (long interval). The algorithm schedules each card exactly when you are about to forget it.</p>
+    <p><strong>3. Stuck? Take a hint.</strong> <em>Hinweis</em> (H) shows the word in a real sentence — in EN→DE mode with the answer blanked out.</p>
+    <p><strong>4. Train both directions.</strong> DE→EN builds reading/listening; EN→DE builds speaking/writing. Switch with the toggle — production is harder and worth more.</p>
+    <p><strong>5. Feed the deck.</strong> Words you meet while reading or watching German go into <em>Wörterbuch → Eigene Karte</em>. A deck that grows with your life is the one you'll keep using.</p>
+  </div></div>
+
+  <h3 class="sec">Die Karte lesen — what everything on a card means</h3>
+  <div class="phase"><div class="phase-body">
+    <p><strong>Nouns</strong> are colored by gender — <span class="g-der"><b>der</b></span> blue, <span class="g-die"><b>die</b></span> red, <span class="g-das"><b>das</b></span> green — and always show their plural. Learn the color with the word; never a noun without its article.</p>
+    <p><strong>Verbs</strong> show three forms, the <em>Stammformen</em>: <span class="forms" style="font-size:14px">stiehlt · stahl · hat gestohlen</span></p>
+    <div class="gtable"><table>
+      <tr><th>stiehlt</th><td>er/sie/es-form <strong>Präsens</strong> (present)</td><td>reveals the vowel change (stehlen → st<b>ie</b>hlt)</td></tr>
+      <tr><th>stahl</th><td><strong>Präteritum</strong> (simple past — written narration, news)</td><td></td></tr>
+      <tr><th>hat gestohlen</th><td><strong>Perfekt</strong> (spoken past)</td><td>shows the auxiliary: <em>hat</em> or <em>ist</em></td></tr>
+    </table></div>
+    <p>From these three forms you can build <strong>every German tense</strong>:</p>
+    <div class="gtable"><table>
+      <tr><th>Präsens</th><td>er stiehlt</td><td>he steals</td></tr>
+      <tr><th>Präteritum</th><td>er stahl</td><td>he stole (written)</td></tr>
+      <tr><th>Perfekt</th><td>er hat gestohlen</td><td>he stole / has stolen (spoken)</td></tr>
+      <tr><th>Plusquamperfekt</th><td>er hatte gestohlen</td><td>he had stolen</td></tr>
+      <tr><th>Futur I</th><td>er wird stehlen</td><td>he will steal</td></tr>
+      <tr><th>Futur II</th><td>er wird gestohlen haben</td><td>he will have stolen</td></tr>
+    </table></div>
+    <p>Cards also show the <strong>fixed preposition + case</strong> (warten <em>auf + Akk</em>), notes like <em>trennbar</em> (separable prefix), register warnings (<em>salopp</em> = casual), and topic chips: <em>Alltag</em> (everyday spoken German), <em>Studium</em>, <em>Beruf</em>, <em>Forschung</em>.</p>
+  </div></div>
+
+  <h3 class="sec">Tastatur</h3>
+  <div class="gtable"><table>
+    <tr><th>Leertaste</th><td>reveal the answer</td></tr>
+    <tr><th>1 · 2 · 3 · 4</th><td>grade: Nochmal · Schwer · Gut · Leicht</td></tr>
+    <tr><th>H</th><td>show hint</td></tr>
+  </table></div>
+
+  <h3 class="sec">Die Methode — why this works</h3>
+  <div class="phase"><div class="phase-body">
+    <p>The trainer is built on the best-replicated findings in learning science:</p>
+    <p><strong>Spacing effect</strong> (Ebbinghaus, 1885; Cepeda et al., 2006): memory decays on a curve, and reviewing just before you forget flattens it. That is exactly what the interval algorithm does — a card you grade <em>Gut</em> comes back in 1 day, then 3, then ~8, then weeks.</p>
+    <p><strong>Testing effect</strong> (Roediger &amp; Karpicke, 2006): retrieving from memory strengthens it far more than re-reading. That is why you must recall <em>before</em> flipping — don't cheat yourself.</p>
+    <p><strong>Generation &amp; production</strong>: producing German (EN→DE mode) builds stronger traces than recognizing it. Train both directions.</p>
+    <p><strong>Dual coding</strong>: pairing words with color (gender colors) and images (the literal pictures in idiom notes) gives memory a second hook.</p>
+    <p><strong>Chunking</strong>: native fluency is stored in chunks, not words — that's why collocations and Wendungen („eine Entscheidung treffen“) are cards of their own.</p>
+    <p><strong>Interleaving</strong>: sessions mix word types and topics instead of blocking them — harder in the moment, better a week later.</p>
+    <div class="merke"><b>Merke:</b> The system only works daily. Twenty honest minutes every day beat three hours on Sunday — that is not motivation talk, it is the spacing effect.</div>
+  </div></div>
+
+  <h3 class="sec">Niveaus &amp; Quellen</h3>
+  <p class="plan-intro" style="font-size:15px">Levels follow the CEFR (A1–C2). A1–B1 assignments are aligned with the official Goethe-Institut Wortlisten; B2–C2 follow Goethe/telc exam-preparation conventions and frequency in edited German (press, academic prose). Vocabulary was mined from real course material (Netzwerk-family A1–B1.1 courses) and curated upward to C2. Found an error anyway? Report it on <a href="https://github.com/JeelSwami/wortschatz-trainer" style="color:var(--der)">GitHub</a> — correctness is the whole point.</p>
+
+  <h3 class="sec">Deine Daten</h3>
+  <p class="plan-intro" style="font-size:15px">Progress, custom cards and checklists live in your browser's local storage — nothing leaves your device. Use <em>Fortschritt → Exportieren</em> for a backup file and <em>Importieren</em> to restore it (e.g. on a new computer). Clearing browser data deletes progress, so export now and then.</p>
+</section>
 </main>
 
 <footer class="app">Wortschatz · Spaced-Repetition-Trainer · Fortschritt bleibt lokal in deinem Browser</footer>
@@ -783,7 +929,7 @@ const DECK=[
 {g:"gehören",e:"to belong to",t:"v",l:"A2",f:"gehört · gehörte · hat gehört",p:"+ Dativ",x:"Das Auto gehört meinem Bruder.",xe:"The car belongs to my brother."},
 {g:"gefallen",e:"to please, to be liked",t:"v",l:"A2",f:"gefällt · gefiel · hat gefallen",p:"+ Dativ",x:"Der Film hat mir gut gefallen.",xe:"I really liked the movie."},
 {g:"schicken",e:"to send",t:"v",l:"A2",f:"schickt · schickte · hat geschickt",x:"Ich schicke dir die Fotos.",xe:"I'll send you the photos."},
-{g:"empfehlen",e:"to recommend",t:"v",l:"A2",f:"empfiehlt · empfahl · hat empfohlen",x:"Welches Restaurant empfiehlst du?",xe:"Which restaurant do you recommend?"},
+{g:"empfehlen",e:"to recommend",t:"v",l:"A1",f:"empfiehlt · empfahl · hat empfohlen",x:"Welches Restaurant empfiehlst du?",xe:"Which restaurant do you recommend?"},
 {g:"treffen",e:"to meet",t:"v",l:"A2",f:"trifft · traf · hat getroffen",x:"Wir treffen uns um sieben.",xe:"We're meeting at seven."},
 {g:"tragen",e:"to wear; to carry",t:"v",l:"A2",f:"trägt · trug · hat getragen",x:"Sie trägt eine rote Jacke.",xe:"She's wearing a red jacket."},
 {g:"anrufen",e:"to call (phone)",t:"v",l:"A2",f:"ruft an · rief an · hat angerufen",x:"Ruf mich morgen an!",xe:"Call me tomorrow!",n:"trennbar"},
@@ -805,7 +951,7 @@ const DECK=[
 {g:"vermeiden",e:"to avoid",t:"v",l:"B1",f:"vermeidet · vermied · hat vermieden",x:"Ich vermeide lange Diskussionen.",xe:"I avoid long discussions."},
 {g:"verbessern",e:"to improve",t:"v",l:"B1",f:"verbessert · verbesserte · hat verbessert",x:"Ich möchte mein Deutsch verbessern.",xe:"I want to improve my German."},
 {g:"vergleichen",e:"to compare",t:"v",l:"B1",f:"vergleicht · verglich · hat verglichen",p:"mit + Dat",x:"Vergleich die Preise, bevor du kaufst.",xe:"Compare prices before you buy."},
-{g:"sich bewerben",e:"to apply (for a job)",t:"v",l:"B1",f:"bewirbt sich · bewarb sich · hat sich beworben",p:"um + Akk",x:"Sie bewirbt sich um die Stelle.",xe:"She's applying for the position."},
+{g:"sich bewerben",e:"to apply (for a job)",t:"v",l:"A2",f:"bewirbt sich · bewarb sich · hat sich beworben",p:"um + Akk",x:"Sie bewirbt sich um die Stelle.",xe:"She's applying for the position."},
 {g:"sich beschweren",e:"to complain",t:"v",l:"B1",f:"beschwert sich · beschwerte sich · hat sich beschwert",p:"über + Akk",x:"Er beschwert sich über den Lärm.",xe:"He's complaining about the noise."},
 {g:"überzeugen",e:"to convince",t:"v",l:"B1",f:"überzeugt · überzeugte · hat überzeugt",p:"von + Dat",x:"Du hast mich überzeugt.",xe:"You've convinced me."},
 {g:"unterstützen",e:"to support",t:"v",l:"B1",f:"unterstützt · unterstützte · hat unterstützt",x:"Meine Familie unterstützt mich.",xe:"My family supports me."},
@@ -815,23 +961,23 @@ const DECK=[
 {g:"verzichten",e:"to do without, to give up",t:"v",l:"B1",f:"verzichtet · verzichtete · hat verzichtet",p:"auf + Akk",x:"Er verzichtet auf Zucker.",xe:"He's giving up sugar."},
 {g:"sich verlassen",e:"to rely on",t:"v",l:"B1",f:"verlässt sich · verließ sich · hat sich verlassen",p:"auf + Akk",x:"Du kannst dich auf mich verlassen.",xe:"You can rely on me."},
 {g:"zunehmen",e:"to increase; to gain weight",t:"v",l:"B1",f:"nimmt zu · nahm zu · hat zugenommen",x:"Die Preise nehmen weiter zu.",xe:"Prices keep increasing.",n:"trennbar · Gegenteil: abnehmen"},
-{g:"stattfinden",e:"to take place",t:"v",l:"B1",f:"findet statt · fand statt · hat stattgefunden",x:"Das Konzert findet morgen statt.",xe:"The concert takes place tomorrow.",n:"trennbar"},
-{g:"teilnehmen",e:"to participate",t:"v",l:"B1",f:"nimmt teil · nahm teil · hat teilgenommen",p:"an + Dat",x:"Ich nehme an dem Kurs teil.",xe:"I'm participating in the course.",n:"trennbar"},
-{g:"sich kümmern",e:"to take care of",t:"v",l:"B1",f:"kümmert sich · kümmerte sich · hat sich gekümmert",p:"um + Akk",x:"Sie kümmert sich um ihre Eltern.",xe:"She takes care of her parents."},
+{g:"stattfinden",e:"to take place",t:"v",l:"A2",f:"findet statt · fand statt · hat stattgefunden",x:"Das Konzert findet morgen statt.",xe:"The concert takes place tomorrow.",n:"trennbar"},
+{g:"teilnehmen",e:"to participate",t:"v",l:"A2",f:"nimmt teil · nahm teil · hat teilgenommen",p:"an + Dat",x:"Ich nehme an dem Kurs teil.",xe:"I'm participating in the course.",n:"trennbar"},
+{g:"sich kümmern",e:"to take care of",t:"v",l:"A1",f:"kümmert sich · kümmerte sich · hat sich gekümmert",p:"um + Akk",x:"Sie kümmert sich um ihre Eltern.",xe:"She takes care of her parents."},
 {g:"betreffen",e:"to concern, to affect",t:"v",l:"B1",f:"betrifft · betraf · hat betroffen",x:"Das Problem betrifft uns alle.",xe:"The problem affects us all."},
-{g:"erlauben",e:"to allow",t:"v",l:"B1",f:"erlaubt · erlaubte · hat erlaubt",x:"Meine Eltern erlauben es nicht.",xe:"My parents don't allow it."},
+{g:"erlauben",e:"to allow",t:"v",l:"A1",f:"erlaubt · erlaubte · hat erlaubt",x:"Meine Eltern erlauben es nicht.",xe:"My parents don't allow it."},
 {g:"verbieten",e:"to forbid",t:"v",l:"B1",f:"verbietet · verbot · hat verboten",x:"Rauchen ist hier verboten.",xe:"Smoking is forbidden here."},
 {g:"unterbrechen",e:"to interrupt",t:"v",l:"B1",f:"unterbricht · unterbrach · hat unterbrochen",x:"Bitte unterbrich mich nicht.",xe:"Please don't interrupt me."},
 {g:"feststellen",e:"to notice, to determine",t:"v",l:"B1",f:"stellt fest · stellte fest · hat festgestellt",x:"Ich habe einen Fehler festgestellt.",xe:"I noticed an error.",n:"trennbar"},
 {g:"sich entscheiden",e:"to decide",t:"v",l:"B1",f:"entscheidet sich · entschied sich · hat sich entschieden",p:"für + Akk",x:"Ich habe mich für den blauen Pulli entschieden.",xe:"I decided on the blue sweater."},
 {g:"ausgeben",e:"to spend (money)",t:"v",l:"B1",f:"gibt aus · gab aus · hat ausgegeben",x:"Er gibt viel Geld für Bücher aus.",xe:"He spends a lot of money on books.",n:"trennbar"},
 /* ---------- B2 Verben ---------- */
-{g:"beeinflussen",e:"to influence",t:"v",l:"B2",f:"beeinflusst · beeinflusste · hat beeinflusst",x:"Werbung beeinflusst unser Verhalten.",xe:"Advertising influences our behavior."},
+{g:"beeinflussen",e:"to influence",t:"v",l:"B1",f:"beeinflusst · beeinflusste · hat beeinflusst",x:"Werbung beeinflusst unser Verhalten.",xe:"Advertising influences our behavior."},
 {g:"berücksichtigen",e:"to take into account",t:"v",l:"B2",f:"berücksichtigt · berücksichtigte · hat berücksichtigt",x:"Wir müssen alle Faktoren berücksichtigen.",xe:"We must take all factors into account."},
 {g:"sich auswirken",e:"to have an effect on",t:"v",l:"B2",f:"wirkt sich aus · wirkte sich aus · hat sich ausgewirkt",p:"auf + Akk",x:"Stress wirkt sich negativ auf die Gesundheit aus.",xe:"Stress has a negative effect on health.",n:"trennbar"},
 {g:"voraussetzen",e:"to presuppose, to require",t:"v",l:"B2",f:"setzt voraus · setzte voraus · hat vorausgesetzt",x:"Der Job setzt gute Deutschkenntnisse voraus.",xe:"The job requires good German skills.",n:"trennbar"},
 {g:"ermöglichen",e:"to make possible, to enable",t:"v",l:"B2",f:"ermöglicht · ermöglichte · hat ermöglicht",x:"Das Stipendium ermöglicht ihr das Studium.",xe:"The scholarship enables her to study."},
-{g:"verursachen",e:"to cause",t:"v",l:"B2",f:"verursacht · verursachte · hat verursacht",x:"Der Sturm hat große Schäden verursacht.",xe:"The storm caused major damage."},
+{g:"verursachen",e:"to cause",t:"v",l:"B1",f:"verursacht · verursachte · hat verursacht",x:"Der Sturm hat große Schäden verursacht.",xe:"The storm caused major damage."},
 {g:"nachvollziehen",e:"to comprehend, to relate to",t:"v",l:"B2",f:"vollzieht nach · vollzog nach · hat nachvollzogen",x:"Ich kann deine Entscheidung gut nachvollziehen.",xe:"I can well understand your decision.",n:"trennbar"},
 {g:"hervorheben",e:"to emphasize, to highlight",t:"v",l:"B2",f:"hebt hervor · hob hervor · hat hervorgehoben",x:"Der Autor hebt diesen Punkt besonders hervor.",xe:"The author particularly emphasizes this point.",n:"trennbar"},
 {g:"betonen",e:"to stress, to emphasize",t:"v",l:"B2",f:"betont · betonte · hat betont",x:"Sie betonte die Wichtigkeit des Projekts.",xe:"She stressed the importance of the project."},
@@ -887,7 +1033,7 @@ const DECK=[
 {g:"Wohnung",art:"die",pl:"-en",e:"apartment",t:"n",l:"A1",x:"Die Wohnung hat drei Zimmer.",xe:"The apartment has three rooms."},
 {g:"Bahnhof",art:"der",pl:"Bahnhöfe",e:"train station",t:"n",l:"A1",x:"Der Bahnhof ist in der Nähe.",xe:"The station is nearby."},
 {g:"Gespräch",art:"das",pl:"-e",e:"conversation",t:"n",l:"A2",x:"Wir hatten ein langes Gespräch.",xe:"We had a long conversation."},
-{g:"Termin",art:"der",pl:"-e",e:"appointment",t:"n",l:"A2",x:"Ich habe morgen einen Termin beim Arzt.",xe:"I have a doctor's appointment tomorrow."},
+{g:"Termin",art:"der",pl:"-e",e:"appointment",t:"n",l:"A1",x:"Ich habe morgen einen Termin beim Arzt.",xe:"I have a doctor's appointment tomorrow."},
 {g:"Rechnung",art:"die",pl:"-en",e:"bill, invoice",t:"n",l:"A2",x:"Die Rechnung, bitte!",xe:"The bill, please!"},
 {g:"Gebäude",art:"das",pl:"–",e:"building",t:"n",l:"A2",x:"Das Gebäude ist sehr alt.",xe:"The building is very old."},
 {g:"Schlüssel",art:"der",pl:"–",e:"key",t:"n",l:"A2",x:"Wo ist mein Schlüssel?",xe:"Where is my key?"},
@@ -905,9 +1051,9 @@ const DECK=[
 {g:"Wirtschaft",art:"die",pl:"(Sg.)",e:"economy",t:"n",l:"B1",x:"Die Wirtschaft wächst wieder.",xe:"The economy is growing again."},
 {g:"Umwelt",art:"die",pl:"(Sg.)",e:"environment",t:"n",l:"B1",x:"Wir müssen die Umwelt schützen.",xe:"We must protect the environment."},
 {g:"Wissenschaft",art:"die",pl:"-en",e:"science",t:"n",l:"B1",x:"Die Wissenschaft hat keine einfache Antwort.",xe:"Science has no simple answer."},
-{g:"Zusammenhang",art:"der",pl:"Zusammenhänge",e:"connection, context",t:"n",l:"B2",x:"Es gibt einen Zusammenhang zwischen den beiden Ereignissen.",xe:"There's a connection between the two events.",n:"im Zusammenhang mit = in connection with"},
+{g:"Zusammenhang",art:"der",pl:"Zusammenhänge",e:"connection, context",t:"n",l:"B1",x:"Es gibt einen Zusammenhang zwischen den beiden Ereignissen.",xe:"There's a connection between the two events.",n:"im Zusammenhang mit = in connection with"},
 {g:"Entwicklung",art:"die",pl:"-en",e:"development",t:"n",l:"B1",x:"Die Entwicklung der Stadt ist beeindruckend.",xe:"The city's development is impressive."},
-{g:"Voraussetzung",art:"die",pl:"-en",e:"prerequisite, condition",t:"n",l:"B2",x:"Gute Noten sind die Voraussetzung für das Stipendium.",xe:"Good grades are the prerequisite for the scholarship."},
+{g:"Voraussetzung",art:"die",pl:"-en",e:"prerequisite, condition",t:"n",l:"B1",x:"Gute Noten sind die Voraussetzung für das Stipendium.",xe:"Good grades are the prerequisite for the scholarship."},
 {g:"Einfluss",art:"der",pl:"Einflüsse",e:"influence",t:"n",l:"B1",x:"Musik hat einen großen Einfluss auf mich.",xe:"Music has a big influence on me.",n:"Einfluss auf + Akk"},
 {g:"Herausforderung",art:"die",pl:"-en",e:"challenge",t:"n",l:"B1",x:"Der neue Job ist eine große Herausforderung.",xe:"The new job is a big challenge."},
 {g:"Maßnahme",art:"die",pl:"-n",e:"measure, action",t:"n",l:"B2",x:"Die Regierung ergreift neue Maßnahmen.",xe:"The government is taking new measures.",n:"Maßnahmen ergreifen = to take measures"},
@@ -920,9 +1066,9 @@ const DECK=[
 {g:"Ursache",art:"die",pl:"-n",e:"cause",t:"n",l:"B1",x:"Die Ursache des Problems ist unklar.",xe:"The cause of the problem is unclear."},
 {g:"Folge",art:"die",pl:"-n",e:"consequence",t:"n",l:"B1",x:"Der Unfall hatte schwere Folgen.",xe:"The accident had serious consequences."},
 {g:"Bereich",art:"der",pl:"-e",e:"area, field",t:"n",l:"B1",x:"Sie arbeitet im Bereich Marketing.",xe:"She works in the field of marketing."},
-{g:"Ziel",art:"das",pl:"-e",e:"goal, destination",t:"n",l:"B1",x:"Mein Ziel ist das C1-Zertifikat.",xe:"My goal is the C1 certificate."},
+{g:"Ziel",art:"das",pl:"-e",e:"goal, destination",t:"n",l:"A2",x:"Mein Ziel ist das C1-Zertifikat.",xe:"My goal is the C1 certificate."},
 {g:"Lösung",art:"die",pl:"-en",e:"solution",t:"n",l:"B1",x:"Wir suchen eine gemeinsame Lösung.",xe:"We're looking for a joint solution."},
-{g:"Unterschied",art:"der",pl:"-e",e:"difference",t:"n",l:"B1",x:"Der Unterschied ist deutlich.",xe:"The difference is clear."},
+{g:"Unterschied",art:"der",pl:"-e",e:"difference",t:"n",l:"A2",x:"Der Unterschied ist deutlich.",xe:"The difference is clear."},
 {g:"Bedeutung",art:"die",pl:"-en",e:"meaning, significance",t:"n",l:"B1",x:"Was ist die Bedeutung dieses Wortes?",xe:"What's the meaning of this word?"},
 {g:"Erkenntnis",art:"die",pl:"-se",e:"insight, finding",t:"n",l:"B2",x:"Die Studie liefert neue Erkenntnisse.",xe:"The study provides new insights."},
 {g:"Anspruch",art:"der",pl:"Ansprüche",e:"claim, demand",t:"n",l:"B2",x:"Sie hat hohe Ansprüche an sich selbst.",xe:"She has high demands of herself.",n:"Anspruch auf + Akk"},
@@ -933,10 +1079,10 @@ const DECK=[
 {g:"Eindruck",art:"der",pl:"Eindrücke",e:"impression",t:"n",l:"B1",x:"Er hat einen guten Eindruck gemacht.",xe:"He made a good impression."},
 {g:"Vertrauen",art:"das",pl:"(Sg.)",e:"trust",t:"n",l:"B1",x:"Vertrauen muss man sich verdienen.",xe:"Trust must be earned.",n:"Vertrauen in + Akk"},
 {g:"Verantwortung",art:"die",pl:"(Sg.)",e:"responsibility",t:"n",l:"B1",x:"Er übernimmt die Verantwortung.",xe:"He takes responsibility.",n:"Verantwortung übernehmen"},
-{g:"Meinung",art:"die",pl:"-en",e:"opinion",t:"n",l:"B1",x:"Meiner Meinung nach ist das falsch.",xe:"In my opinion, that's wrong."},
+{g:"Meinung",art:"die",pl:"-en",e:"opinion",t:"n",l:"A2",x:"Meiner Meinung nach ist das falsch.",xe:"In my opinion, that's wrong."},
 {g:"Gefühl",art:"das",pl:"-e",e:"feeling",t:"n",l:"B1",x:"Ich habe ein gutes Gefühl.",xe:"I have a good feeling."},
 {g:"Möglichkeit",art:"die",pl:"-en",e:"possibility",t:"n",l:"B1",x:"Es gibt mehrere Möglichkeiten.",xe:"There are several possibilities."},
-{g:"Vorschlag",art:"der",pl:"Vorschläge",e:"suggestion",t:"n",l:"B1",x:"Das ist ein guter Vorschlag.",xe:"That's a good suggestion."},
+{g:"Vorschlag",art:"der",pl:"Vorschläge",e:"suggestion",t:"n",l:"A2",x:"Das ist ein guter Vorschlag.",xe:"That's a good suggestion."},
 {g:"Entscheidung",art:"die",pl:"-en",e:"decision",t:"n",l:"B1",x:"Die Entscheidung fällt mir schwer.",xe:"The decision is hard for me.",n:"eine Entscheidung treffen"},
 /* ---------- Nomen C1 ---------- */
 {g:"Nachhaltigkeit",art:"die",pl:"(Sg.)",e:"sustainability",t:"n",l:"C1",x:"Nachhaltigkeit spielt eine immer größere Rolle.",xe:"Sustainability plays an ever greater role."},
@@ -962,7 +1108,7 @@ const DECK=[
 {g:"schwierig",e:"difficult",t:"adj",l:"A2",x:"Die Prüfung war schwierig.",xe:"The exam was difficult."},
 {g:"einfach",e:"simple, easy",t:"adj",l:"A1",x:"Die Aufgabe ist einfach.",xe:"The task is easy."},
 {g:"möglich",e:"possible",t:"adj",l:"A2",x:"Ist das möglich?",xe:"Is that possible?"},
-{g:"notwendig",e:"necessary",t:"adj",l:"B1",x:"Eine Reservierung ist notwendig.",xe:"A reservation is necessary."},
+{g:"notwendig",e:"necessary",t:"adj",l:"A2",x:"Eine Reservierung ist notwendig.",xe:"A reservation is necessary."},
 {g:"erfolgreich",e:"successful",t:"adj",l:"B1",x:"Das Projekt war sehr erfolgreich.",xe:"The project was very successful."},
 {g:"zufrieden",e:"satisfied",t:"adj",l:"A2",p:"mit + Dat",x:"Ich bin zufrieden mit dem Ergebnis.",xe:"I'm satisfied with the result."},
 {g:"ähnlich",e:"similar",t:"adj",l:"B1",p:"+ Dativ",x:"Deine Idee ist meiner sehr ähnlich.",xe:"Your idea is very similar to mine."},
@@ -1150,11 +1296,11 @@ const DECK2=[
 {g:"sich erinnern",e:"to remember",t:"v",l:"A2",f:"erinnert sich · erinnerte sich · hat sich erinnert",p:"an + Akk",x:"Erinnerst du dich an unseren ersten Tag?",xe:"Do you remember our first day?"},
 {g:"erkennen",e:"to recognize",t:"v",l:"A2",f:"erkennt · erkannte · hat erkannt",x:"Ich habe dich auf dem Foto kaum erkannt.",xe:"I hardly recognized you in the photo."},
 {g:"erleben",e:"to experience",t:"v",l:"A2",f:"erlebt · erlebte · hat erlebt",x:"Im Urlaub haben wir viel erlebt.",xe:"We experienced a lot on vacation."},
-{g:"kündigen",e:"to quit, to give notice",t:"v",l:"B1",f:"kündigt · kündigte · hat gekündigt",x:"Er hat seinen Job gekündigt.",xe:"He quit his job."},
+{g:"kündigen",e:"to quit, to give notice",t:"v",l:"A2",f:"kündigt · kündigte · hat gekündigt",x:"Er hat seinen Job gekündigt.",xe:"He quit his job."},
 {g:"sich beeilen",e:"to hurry",t:"v",l:"A2",f:"beeilt sich · beeilte sich · hat sich beeilt",x:"Beeil dich, der Zug fährt gleich!",xe:"Hurry up, the train is about to leave!"},
 {g:"sich bedanken",e:"to say thank you",t:"v",l:"A2",f:"bedankt sich · bedankte sich · hat sich bedankt",p:"bei + Dat, für + Akk",x:"Ich möchte mich bei dir für die Hilfe bedanken.",xe:"I'd like to thank you for the help."},
 {g:"behalten",e:"to keep",t:"v",l:"A2",f:"behält · behielt · hat behalten",x:"Du kannst das Buch behalten.",xe:"You can keep the book."},
-{g:"beraten",e:"to advise",t:"v",l:"B1",f:"berät · beriet · hat beraten",x:"Die Bank berät ihre Kunden kostenlos.",xe:"The bank advises its customers for free."},
+{g:"beraten",e:"to advise",t:"v",l:"A2",f:"berät · beriet · hat beraten",x:"Die Bank berät ihre Kunden kostenlos.",xe:"The bank advises its customers for free."},
 {g:"besitzen",e:"to own",t:"v",l:"B1",f:"besitzt · besaß · hat besessen",x:"Sie besitzt ein kleines Haus am See.",xe:"She owns a small house by the lake."},
 {g:"bitten",e:"to ask, to request",t:"v",l:"A2",f:"bittet · bat · hat gebeten",p:"um + Akk",x:"Darf ich dich um einen Gefallen bitten?",xe:"May I ask you a favor?"},
 {g:"brechen",e:"to break",t:"v",l:"A2",f:"bricht · brach · hat gebrochen",x:"Er hat sich das Bein gebrochen.",xe:"He broke his leg."},
@@ -1163,7 +1309,7 @@ const DECK2=[
 {g:"sich verabreden",e:"to arrange to meet",t:"v",l:"A2",f:"verabredet sich · verabredete sich · hat sich verabredet",p:"mit + Dat",x:"Ich habe mich mit Anna zum Kaffee verabredet.",xe:"I arranged to meet Anna for coffee."},
 {g:"sich verabschieden",e:"to say goodbye",t:"v",l:"A2",f:"verabschiedet sich · verabschiedete sich · hat sich verabschiedet",p:"von + Dat",x:"Er verabschiedete sich von allen Kollegen.",xe:"He said goodbye to all his colleagues."},
 {g:"verbringen",e:"to spend (time)",t:"v",l:"A2",f:"verbringt · verbrachte · hat verbracht",x:"Wir verbringen den Sommer am Meer.",xe:"We're spending the summer at the sea."},
-{g:"verdienen",e:"to earn",t:"v",l:"A2",f:"verdient · verdiente · hat verdient",x:"In diesem Job verdient man gut.",xe:"You earn well in this job."},
+{g:"verdienen",e:"to earn",t:"v",l:"A1",f:"verdient · verdiente · hat verdient",x:"In diesem Job verdient man gut.",xe:"You earn well in this job."},
 {g:"vermissen",e:"to miss (a person)",t:"v",l:"A2",f:"vermisst · vermisste · hat vermisst",x:"Ich vermisse meine Familie sehr.",xe:"I miss my family a lot."},
 {g:"verpassen",e:"to miss (a train, a chance)",t:"v",l:"A2",f:"verpasst · verpasste · hat verpasst",x:"Beeil dich, sonst verpassen wir den Bus!",xe:"Hurry, or we'll miss the bus!"},
 {g:"verschieben",e:"to postpone",t:"v",l:"B1",f:"verschiebt · verschob · hat verschoben",x:"Wir müssen das Treffen auf Freitag verschieben.",xe:"We have to postpone the meeting to Friday."},
@@ -1177,13 +1323,13 @@ const DECK2=[
 {g:"stören",e:"to disturb",t:"v",l:"A2",f:"stört · störte · hat gestört",x:"Störe ich dich gerade?",xe:"Am I disturbing you right now?"},
 {g:"sich streiten",e:"to argue",t:"v",l:"A2",f:"streitet sich · stritt sich · hat sich gestritten",p:"mit + Dat, über + Akk",x:"Die Kinder streiten sich um das Spielzeug.",xe:"The kids are fighting over the toy."},
 {g:"überlegen",e:"to think about, to consider",t:"v",l:"A2",f:"überlegt · überlegte · hat überlegt",x:"Ich überlege noch, ob ich mitkomme.",xe:"I'm still thinking about whether to come along."},
-{g:"übernachten",e:"to stay overnight",t:"v",l:"A2",f:"übernachtet · übernachtete · hat übernachtet",x:"Wir übernachten bei Freunden.",xe:"We're staying overnight with friends."},
+{g:"übernachten",e:"to stay overnight",t:"v",l:"A1",f:"übernachtet · übernachtete · hat übernachtet",x:"Wir übernachten bei Freunden.",xe:"We're staying overnight with friends."},
 {g:"überraschen",e:"to surprise",t:"v",l:"A2",f:"überrascht · überraschte · hat überrascht",x:"Das Ergebnis hat mich überrascht.",xe:"The result surprised me."},
 {g:"übersetzen",e:"to translate",t:"v",l:"A2",f:"übersetzt · übersetzte · hat übersetzt",x:"Kannst du den Satz ins Deutsche übersetzen?",xe:"Can you translate the sentence into German?"},
-{g:"überweisen",e:"to transfer (money)",t:"v",l:"A2",f:"überweist · überwies · hat überwiesen",x:"Ich überweise dir das Geld heute.",xe:"I'll transfer you the money today."},
-{g:"unterschreiben",e:"to sign",t:"v",l:"A2",f:"unterschreibt · unterschrieb · hat unterschrieben",x:"Bitte unterschreiben Sie hier.",xe:"Please sign here."},
+{g:"überweisen",e:"to transfer (money)",t:"v",l:"A1",f:"überweist · überwies · hat überwiesen",x:"Ich überweise dir das Geld heute.",xe:"I'll transfer you the money today."},
+{g:"unterschreiben",e:"to sign",t:"v",l:"A1",f:"unterschreibt · unterschrieb · hat unterschrieben",x:"Bitte unterschreiben Sie hier.",xe:"Please sign here."},
 {g:"untersuchen",e:"to examine",t:"v",l:"A2",f:"untersucht · untersuchte · hat untersucht",x:"Die Ärztin untersucht den Patienten.",xe:"The doctor examines the patient."},
-{g:"vereinbaren",e:"to arrange, to agree on",t:"v",l:"B1",f:"vereinbart · vereinbarte · hat vereinbart",x:"Ich habe einen Termin vereinbart.",xe:"I arranged an appointment.",n:"einen Termin vereinbaren"},
+{g:"vereinbaren",e:"to arrange, to agree on",t:"v",l:"A2",f:"vereinbart · vereinbarte · hat vereinbart",x:"Ich habe einen Termin vereinbart.",xe:"I arranged an appointment.",n:"einen Termin vereinbaren"},
 {g:"vermuten",e:"to suppose, to suspect",t:"v",l:"B1",f:"vermutet · vermutete · hat vermutet",x:"Ich vermute, er ist noch im Büro.",xe:"I suppose he's still at the office."},
 {g:"wiederholen",e:"to repeat, to review",t:"v",l:"A1",f:"wiederholt · wiederholte · hat wiederholt",x:"Können Sie das bitte wiederholen?",xe:"Can you please repeat that?"},
 {g:"heiraten",e:"to marry",t:"v",l:"A2",f:"heiratet · heiratete · hat geheiratet",x:"Sie haben letzten Sommer geheiratet.",xe:"They got married last summer."},
@@ -1195,7 +1341,7 @@ const DECK2=[
 {g:"sorgen",e:"to take care of, to ensure",t:"v",l:"B1",f:"sorgt · sorgte · hat gesorgt",p:"für + Akk",x:"Er sorgt für seine kranke Mutter.",xe:"He takes care of his sick mother."},
 {g:"zurechtkommen",e:"to cope, to manage",t:"v",l:"B1",f:"kommt zurecht · kam zurecht · ist zurechtgekommen",p:"mit + Dat",x:"Kommst du mit der neuen Software zurecht?",xe:"Are you managing with the new software?",n:"trennbar"},
 {g:"genießen",e:"to enjoy",t:"v",l:"A2",f:"genießt · genoss · hat genossen",x:"Wir genießen die Sonne im Park.",xe:"We're enjoying the sun in the park."},
-{g:"gratulieren",e:"to congratulate",t:"v",l:"A2",f:"gratuliert · gratulierte · hat gratuliert",p:"+ Dat, zu + Dat",x:"Ich gratuliere dir zum Geburtstag!",xe:"I congratulate you on your birthday!"},
+{g:"gratulieren",e:"to congratulate",t:"v",l:"A1",f:"gratuliert · gratulierte · hat gratuliert",p:"+ Dat, zu + Dat",x:"Ich gratuliere dir zum Geburtstag!",xe:"I congratulate you on your birthday!"},
 {g:"schenken",e:"to give (as a present)",t:"v",l:"A1",f:"schenkt · schenkte · hat geschenkt",x:"Was schenkst du ihm zum Geburtstag?",xe:"What are you giving him for his birthday?"},
 {g:"schmecken",e:"to taste (good)",t:"v",l:"A1",f:"schmeckt · schmeckte · hat geschmeckt",p:"+ Dativ",x:"Die Suppe schmeckt mir sehr gut.",xe:"The soup tastes very good to me."},
 {g:"zeigen",e:"to show",t:"v",l:"A1",f:"zeigt · zeigte · hat gezeigt",x:"Zeigst du mir die Stadt?",xe:"Will you show me the city?"},
@@ -1253,7 +1399,7 @@ const DECK2=[
 {g:"Bargeld",art:"das",pl:"(Sg.)",e:"cash",t:"n",l:"B1",x:"Ich habe kein Bargeld dabei.",xe:"I don't have cash on me."},
 {g:"Kontoauszug",art:"der",pl:"Kontoauszüge",e:"bank statement",t:"n",l:"B1",x:"Prüf regelmäßig deine Kontoauszüge.",xe:"Check your bank statements regularly."},
 {g:"Dauerauftrag",art:"der",pl:"Daueraufträge",e:"standing order",t:"n",l:"B1",x:"Die Miete zahle ich per Dauerauftrag.",xe:"I pay the rent by standing order."},
-{g:"Kredit",art:"der",pl:"-e",e:"loan, credit",t:"n",l:"B1",x:"Die Bank hat ihm einen Kredit gegeben.",xe:"The bank gave him a loan."},
+{g:"Kredit",art:"der",pl:"-e",e:"loan, credit",t:"n",l:"A2",x:"Die Bank hat ihm einen Kredit gegeben.",xe:"The bank gave him a loan."},
 {g:"Zinsen",art:"die",pl:"(Pl.)",e:"interest (money)",t:"n",l:"B1",x:"Die Zinsen sind wieder gestiegen.",xe:"Interest rates have risen again.",n:"meist Plural"},
 {g:"Verlust",art:"der",pl:"-e",e:"loss",t:"n",l:"B1",x:"Die Firma machte hohe Verluste.",xe:"The company made big losses."},
 {g:"Globalisierung",art:"die",pl:"(Sg.)",e:"globalization",t:"n",l:"B1",x:"Die Globalisierung verbindet die Märkte.",xe:"Globalization connects the markets."},
@@ -1279,14 +1425,14 @@ const DECK2=[
 {g:"Schuh",art:"der",pl:"-e",e:"shoe",t:"n",l:"A1",x:"Diese Schuhe sind sehr bequem.",xe:"These shoes are very comfortable."},
 {g:"Rock",art:"der",pl:"Röcke",e:"skirt",t:"n",l:"A1",x:"Der Rock passt zur Bluse.",xe:"The skirt matches the blouse."},
 {g:"Mütze",art:"die",pl:"-n",e:"cap, beanie",t:"n",l:"A1",x:"Ohne Mütze frierst du.",xe:"Without a beanie you'll freeze."},
-{g:"Gepäck",art:"das",pl:"(Sg.)",e:"luggage",t:"n",l:"A2",x:"Mein Gepäck ist noch am Flughafen.",xe:"My luggage is still at the airport."},
-{g:"Ausweis",art:"der",pl:"-e",e:"ID card",t:"n",l:"A2",x:"Haben Sie Ihren Ausweis dabei?",xe:"Do you have your ID with you?"},
+{g:"Gepäck",art:"das",pl:"(Sg.)",e:"luggage",t:"n",l:"A1",x:"Mein Gepäck ist noch am Flughafen.",xe:"My luggage is still at the airport."},
+{g:"Ausweis",art:"der",pl:"-e",e:"ID card",t:"n",l:"A1",x:"Haben Sie Ihren Ausweis dabei?",xe:"Do you have your ID with you?"},
 {g:"Flughafen",art:"der",pl:"Flughäfen",e:"airport",t:"n",l:"A1",x:"Wir müssen um sechs am Flughafen sein.",xe:"We have to be at the airport at six."},
-{g:"Gleis",art:"das",pl:"-e",e:"track, platform",t:"n",l:"A2",x:"Der Zug fährt von Gleis neun ab.",xe:"The train departs from track nine."},
+{g:"Gleis",art:"das",pl:"-e",e:"track, platform",t:"n",l:"A1",x:"Der Zug fährt von Gleis neun ab.",xe:"The train departs from track nine."},
 {g:"Haltestelle",art:"die",pl:"-n",e:"(bus/tram) stop",t:"n",l:"A1",x:"Die Haltestelle ist gleich um die Ecke.",xe:"The stop is just around the corner."},
-{g:"Abfahrt",art:"die",pl:"-en",e:"departure",t:"n",l:"A2",x:"Die Abfahrt ist um 8:15 Uhr.",xe:"Departure is at 8:15."},
-{g:"Ankunft",art:"die",pl:"Ankünfte",e:"arrival",t:"n",l:"A2",x:"Ruf mich nach der Ankunft an!",xe:"Call me after arrival!"},
-{g:"Sehenswürdigkeit",art:"die",pl:"-en",e:"sight, attraction",t:"n",l:"A2",x:"Berlin hat viele Sehenswürdigkeiten.",xe:"Berlin has many sights."},
+{g:"Abfahrt",art:"die",pl:"-en",e:"departure",t:"n",l:"A1",x:"Die Abfahrt ist um 8:15 Uhr.",xe:"Departure is at 8:15."},
+{g:"Ankunft",art:"die",pl:"Ankünfte",e:"arrival",t:"n",l:"A1",x:"Ruf mich nach der Ankunft an!",xe:"Call me after arrival!"},
+{g:"Sehenswürdigkeit",art:"die",pl:"-en",e:"sight, attraction",t:"n",l:"A1",x:"Berlin hat viele Sehenswürdigkeiten.",xe:"Berlin has many sights."},
 {g:"Strand",art:"der",pl:"Strände",e:"beach",t:"n",l:"A1",x:"Wir waren den ganzen Tag am Strand.",xe:"We were at the beach all day."},
 {g:"Insel",art:"die",pl:"-n",e:"island",t:"n",l:"A2",x:"Rügen ist die größte deutsche Insel.",xe:"Rügen is the largest German island."},
 {g:"Berg",art:"der",pl:"-e",e:"mountain",t:"n",l:"A1",x:"Vom Berg hat man eine tolle Aussicht.",xe:"From the mountain you have a great view."},
@@ -1300,7 +1446,7 @@ const DECK2=[
 {g:"Ecke",art:"die",pl:"-n",e:"corner",t:"n",l:"A1",x:"Das Café ist an der Ecke.",xe:"The café is on the corner."},
 {g:"Kasse",art:"die",pl:"-n",e:"checkout, till",t:"n",l:"A1",x:"Bitte zahlen Sie an der Kasse.",xe:"Please pay at the checkout."},
 {g:"Führerschein",art:"der",pl:"-e",e:"driving license",t:"n",l:"A2",x:"Er macht gerade den Führerschein.",xe:"He's getting his driving license right now."},
-{g:"Gehalt",art:"das",pl:"Gehälter",e:"salary",t:"n",l:"B1",x:"Das Gehalt wird am Monatsende überwiesen.",xe:"The salary is transferred at the end of the month."},
+{g:"Gehalt",art:"das",pl:"Gehälter",e:"salary",t:"n",l:"A2",x:"Das Gehalt wird am Monatsende überwiesen.",xe:"The salary is transferred at the end of the month."},
 {g:"Bewerbung",art:"die",pl:"-en",e:"(job) application",t:"n",l:"A2",x:"Sie hat schon zehn Bewerbungen geschrieben.",xe:"She has already written ten applications."},
 {g:"Vorstellungsgespräch",art:"das",pl:"-e",e:"job interview",t:"n",l:"B1",x:"Morgen habe ich ein Vorstellungsgespräch.",xe:"Tomorrow I have a job interview."},
 {g:"Stellenanzeige",art:"die",pl:"-n",e:"job advertisement",t:"n",l:"B1",x:"Ich habe die Stellenanzeige online gefunden.",xe:"I found the job ad online."},
@@ -1319,7 +1465,7 @@ const DECK2=[
 {g:"Prüfung",art:"die",pl:"-en",e:"exam",t:"n",l:"A2",x:"Sie hat die Prüfung bestanden.",xe:"She passed the exam.",n:"eine Prüfung bestehen/ablegen"},
 {g:"Stipendium",art:"das",pl:"Stipendien",e:"scholarship",t:"n",l:"B1",x:"Er bekommt ein Stipendium für sein Studium.",xe:"He gets a scholarship for his studies."},
 {g:"Vorlesung",art:"die",pl:"-en",e:"lecture",t:"n",l:"A2",x:"Die Vorlesung beginnt um zehn.",xe:"The lecture starts at ten."},
-{g:"Studium",art:"das",pl:"Studien",e:"(university) studies",t:"n",l:"A2",x:"Nach dem Studium will sie ins Ausland.",xe:"After her studies she wants to go abroad."},
+{g:"Studium",art:"das",pl:"Studien",e:"(university) studies",t:"n",l:"A1",x:"Nach dem Studium will sie ins Ausland.",xe:"After her studies she wants to go abroad."},
 {g:"Erinnerung",art:"die",pl:"-en",e:"memory",t:"n",l:"B1",x:"Ich habe schöne Erinnerungen an diese Zeit.",xe:"I have nice memories of that time.",n:"Erinnerung an + Akk"},
 {g:"Zukunft",art:"die",pl:"(Sg.)",e:"future",t:"n",l:"A2",x:"In Zukunft übe ich jeden Tag.",xe:"In the future I'll practice every day."},
 {g:"Vergangenheit",art:"die",pl:"(Sg.)",e:"past",t:"n",l:"B1",x:"Das gehört der Vergangenheit an.",xe:"That belongs to the past."},
@@ -1333,8 +1479,8 @@ const DECK2=[
 {g:"Laune",art:"die",pl:"-n",e:"mood",t:"n",l:"A2",x:"Sie ist heute guter Laune.",xe:"She's in a good mood today.",n:"gut/schlecht gelaunt sein"},
 {g:"Witz",art:"der",pl:"-e",e:"joke",t:"n",l:"A2",x:"Er erzählt gern schlechte Witze.",xe:"He likes telling bad jokes."},
 {g:"Mannschaft",art:"die",pl:"-en",e:"team",t:"n",l:"A2",x:"Unsere Mannschaft hat 2:0 gewonnen.",xe:"Our team won 2-0."},
-{g:"Wettbewerb",art:"der",pl:"-e",e:"competition",t:"n",l:"B1",x:"Sie nimmt an einem Wettbewerb teil.",xe:"She's taking part in a competition."},
-{g:"Verein",art:"der",pl:"-e",e:"club, association",t:"n",l:"A2",x:"Er spielt Fußball im Verein.",xe:"He plays football in a club."},
+{g:"Wettbewerb",art:"der",pl:"-e",e:"competition",t:"n",l:"A2",x:"Sie nimmt an einem Wettbewerb teil.",xe:"She's taking part in a competition."},
+{g:"Verein",art:"der",pl:"-e",e:"club, association",t:"n",l:"A1",x:"Er spielt Fußball im Verein.",xe:"He plays football in a club."},
 {g:"Apotheke",art:"die",pl:"-n",e:"pharmacy",t:"n",l:"A1",x:"Die Apotheke ist bis 18 Uhr geöffnet.",xe:"The pharmacy is open until 6 p.m."},
 {g:"Rezept",art:"das",pl:"-e",e:"prescription; recipe",t:"n",l:"A2",x:"Dieses Medikament gibt es nur auf Rezept.",xe:"This medicine is only available on prescription."},
 {g:"Medikament",art:"das",pl:"-e",e:"medicine, medication",t:"n",l:"A2",x:"Nimm das Medikament dreimal täglich.",xe:"Take the medicine three times a day."},
@@ -1369,17 +1515,17 @@ const DECK2=[
 {g:"neugierig",e:"curious",t:"adj",l:"A2",x:"Ich bin neugierig auf deine Meinung.",xe:"I'm curious about your opinion.",n:"neugierig auf + Akk"},
 {g:"zuverlässig",e:"reliable",t:"adj",l:"B1",x:"Er ist ein zuverlässiger Kollege.",xe:"He's a reliable colleague."},
 {g:"hilfsbereit",e:"helpful",t:"adj",l:"A2",x:"Die Nachbarn sind sehr hilfsbereit.",xe:"The neighbors are very helpful."},
-{g:"dringend",e:"urgent",t:"adj",l:"B1",x:"Ich muss dringend mit dir sprechen.",xe:"I urgently need to talk to you."},
-{g:"gültig",e:"valid",t:"adj",l:"B1",x:"Das Ticket ist einen Monat gültig.",xe:"The ticket is valid for one month."},
+{g:"dringend",e:"urgent",t:"adj",l:"A2",x:"Ich muss dringend mit dir sprechen.",xe:"I urgently need to talk to you."},
+{g:"gültig",e:"valid",t:"adj",l:"A1",x:"Das Ticket ist einen Monat gültig.",xe:"The ticket is valid for one month."},
 {g:"kostenlos",e:"free of charge",t:"adj",l:"A2",x:"Der Eintritt ist heute kostenlos.",xe:"Admission is free today."},
 {g:"sympathisch",e:"likeable",t:"adj",l:"A2",x:"Deine Freundin ist mir sehr sympathisch.",xe:"I find your friend very likeable."},
 {g:"verrückt",e:"crazy",t:"adj",l:"A2",x:"Das ist eine verrückte Idee — machen wir es!",xe:"That's a crazy idea — let's do it!"},
 {g:"einsam",e:"lonely",t:"adj",l:"B1",x:"In der neuen Stadt fühlte er sich einsam.",xe:"He felt lonely in the new city."},
 {g:"besorgt",e:"worried",t:"adj",l:"B1",x:"Sie ist besorgt um ihren Sohn.",xe:"She's worried about her son.",n:"besorgt um + Akk"},
-{g:"deutlich",e:"clear(ly)",t:"adj",l:"B1",x:"Sprechen Sie bitte langsam und deutlich.",xe:"Please speak slowly and clearly."},
+{g:"deutlich",e:"clear(ly)",t:"adj",l:"A2",x:"Sprechen Sie bitte langsam und deutlich.",xe:"Please speak slowly and clearly."},
 {g:"flexibel",e:"flexible",t:"adj",l:"B1",x:"Meine Arbeitszeiten sind flexibel.",xe:"My working hours are flexible."},
 {g:"umweltfreundlich",e:"environmentally friendly",t:"adj",l:"B1",x:"Das Rad ist das umweltfreundlichste Verkehrsmittel.",xe:"The bike is the most eco-friendly means of transport."},
-{g:"selbstständig",e:"self-employed; independent",t:"adj",l:"B1",x:"Sie hat sich selbstständig gemacht.",xe:"She became self-employed.",n:"sich selbstständig machen"},
+{g:"selbstständig",e:"self-employed; independent",t:"adj",l:"A1",x:"Sie hat sich selbstständig gemacht.",xe:"She became self-employed.",n:"sich selbstständig machen"},
 {g:"sinnvoll",e:"sensible, meaningful",t:"adj",l:"B1",x:"Es ist sinnvoll, täglich zu wiederholen.",xe:"It makes sense to review daily."},
 {id:"erfahren-adj",g:"erfahren",e:"experienced",t:"adj",l:"B1",x:"Sie ist eine erfahrene Ärztin.",xe:"She's an experienced doctor."},
 {g:"treu",e:"loyal, faithful",t:"adj",l:"B1",x:"Er ist ein treuer Freund.",xe:"He's a loyal friend."},
@@ -1437,18 +1583,475 @@ const DECK2=[
 {g:"nicht nur … sondern auch",e:"not only … but also",t:"konn",l:"B1",x:"Sie spricht nicht nur Deutsch, sondern auch Französisch.",xe:"She speaks not only German but also French."},
 {g:"zwar … aber",e:"admittedly … but",t:"konn",l:"B1",x:"Das Hotel ist zwar teuer, aber sehr zentral.",xe:"The hotel is admittedly expensive, but very central."}
 /*END-DECK2*/];
+/* =================== DECK 3 — A1-C2 Ausbau: Alltag, Fachsprache, B2-C2 =================== */
+const DECK3=[
+{g:"Kohle",e:"money, dough",t:"n",l:"B1",art:"die",pl:"(Sg.)",x:"Ich hab diesen Monat echt keine Kohle mehr.",xe:"I really have no money left this month.",n:"salopp · wörtlich: coal — Geld verbrennt wie Kohle",k:"alltag"},
+{g:"Kumpel",e:"buddy, mate",t:"n",l:"B1",art:"der",pl:"–",x:"Ich geh mit ein paar Kumpels ein Bier trinken.",xe:"I'm going for a beer with a few buddies.",n:"nur mündlich · ursprünglich: Bergmann im Ruhrgebiet",k:"alltag"},
+{g:"Typ",e:"guy, dude",t:"n",l:"B1",art:"der",pl:"-en",x:"Kennst du den Typen da drüben?",xe:"Do you know that guy over there?",n:"salopp, oft leicht abwertend · „ein netter Typ“ geht aber auch positiv",k:"alltag"},
+{g:"Zeug",e:"stuff",t:"n",l:"B1",art:"das",pl:"(Sg.)",x:"Räum mal dein Zeug vom Tisch, bitte.",xe:"Clear your stuff off the table, please.",n:"nur mündlich locker · „dummes Zeug“ = nonsense",k:"alltag"},
+{g:"Kram",e:"stuff, junk, odds and ends",t:"n",l:"B1",art:"der",pl:"(Sg.)",x:"Der ganze Kram kommt jetzt in den Keller.",xe:"All that stuff is going in the basement now.",n:"salopp · „Mach doch deinen Kram alleine!“ = Do your own thing then!",k:"alltag"},
+{g:"Quatsch",e:"nonsense, rubbish",t:"n",l:"B1",art:"der",pl:"(Sg.)",x:"Red keinen Quatsch, das stimmt doch gar nicht!",xe:"Don't talk nonsense, that's not true at all!",n:"sehr häufig · „Quatsch!“ allein = No way! · Quatsch machen = to fool around",k:"alltag"},
+{g:"Mist",e:"crap, darn it",t:"n",l:"B1",art:"der",pl:"(Sg.)",x:"So ein Mist, ich hab meinen Schlüssel vergessen!",xe:"Darn it, I forgot my key!",n:"mild derb, aber gesellschaftsfähig · wörtlich: manure",k:"alltag"},
+{g:"Bude",e:"pad, place (apartment)",t:"n",l:"B2",art:"die",pl:"-n",x:"Komm vorbei, ich hab sturmfreie Bude!",xe:"Come over, I've got the place to myself!",n:"salopp · „sturmfreie Bude“ = Eltern/Mitbewohner sind weg · wörtlich: shack, booth",k:"alltag"},
+{g:"Klo",e:"loo, toilet",t:"n",l:"A2",art:"das",pl:"-s",x:"Weißt du, wo hier das Klo ist?",xe:"Do you know where the toilet is here?",n:"umgangssprachlich, unter Freunden völlig normal; formeller: die Toilette",k:"alltag"},
+{g:"Zoff",e:"trouble, quarrel, beef",t:"n",l:"B2",art:"der",pl:"(Sg.)",x:"Zu Hause gibt's gerade richtig Zoff.",xe:"There's real trouble at home right now.",n:"salopp · aus dem Jiddischen · Zoff haben mit jemandem",k:"alltag"},
+{g:"Feierabend",e:"end of the workday, after-work time",t:"n",l:"B1",art:"der",pl:"-e",x:"Ich mach jetzt Feierabend, bis morgen!",xe:"I'm calling it a day, see you tomorrow!",n:"Kulturwort · „Schönen Feierabend!“ ist der Standard-Abschied unter Kollegen",k:"alltag"},
+{g:"Ohrwurm",e:"catchy tune stuck in your head",t:"n",l:"B2",art:"der",pl:"Ohrwürmer",x:"Ich hab seit Stunden einen Ohrwurm von dem Song.",xe:"That song has been stuck in my head for hours.",n:"wörtlich: „ear worm“ — der Song kriecht ins Ohr und bleibt",k:"alltag"},
+{g:"Schnapsidee",e:"crazy, hare-brained idea",t:"n",l:"B2",art:"die",pl:"-n",x:"Nachts im November baden? Was für eine Schnapsidee!",xe:"Swimming at night in November? What a crazy idea!",n:"wörtlich: Idee, die man nur nach Schnaps gut findet",k:"alltag"},
+{g:"innerer Schweinehund",e:"one's weaker self, inner couch potato",t:"n",l:"C1",art:"der",pl:"(Sg.)",x:"Ich muss meinen inneren Schweinehund überwinden und joggen gehen.",xe:"I have to overcome my weaker self and go jogging.",n:"wörtlich: „inner pig-dog“ · fast immer mit „überwinden“",k:"alltag"},
+{g:"Fernweh",e:"wanderlust, longing for faraway places",t:"n",l:"B2",art:"das",pl:"(Sg.)",x:"Bei den Urlaubsfotos krieg ich sofort Fernweh.",xe:"Those vacation photos instantly give me wanderlust.",n:"Gegenteil von Heimweh · wörtlich: „far-away ache“",k:"alltag"},
+{g:"Geborgenheit",e:"feeling of security, warmth and belonging",t:"n",l:"C1",art:"die",pl:"(Sg.)",x:"Bei meiner Oma hab ich immer Geborgenheit gespürt.",xe:"At my grandma's I always felt safe and snug.",n:"gilt als unübersetzbar: Mischung aus Sicherheit, Wärme und Vertrauen",k:"alltag"},
+{g:"Kummerspeck",e:"weight gained from comfort eating",t:"n",l:"C1",art:"der",pl:"(Sg.)",x:"Nach der Trennung hab ich ordentlich Kummerspeck angesetzt.",xe:"After the breakup I put on quite a bit of comfort-eating weight.",n:"scherzhaft · wörtlich: „grief bacon“",k:"alltag"},
+{g:"Fingerspitzengefühl",e:"tact, intuitive sensitivity",t:"n",l:"C1",art:"das",pl:"(Sg.)",x:"Das Gespräch mit ihm braucht viel Fingerspitzengefühl.",xe:"That conversation with him needs a lot of tact.",n:"wörtlich: „fingertip feeling“",k:"alltag"},
+{g:"Vorfreude",e:"joyful anticipation",t:"n",l:"B2",art:"die",pl:"(Sg.)",p:"auf + Akk",x:"Die Vorfreude auf den Urlaub ist riesig.",xe:"I'm hugely looking forward to the vacation.",n:"Sprichwort: „Vorfreude ist die schönste Freude“",k:"alltag"},
+{g:"Papierkram",e:"paperwork",t:"n",l:"B2",art:"der",pl:"(Sg.)",x:"Ich muss am Wochenende noch den ganzen Papierkram erledigen.",xe:"I still have to do all the paperwork this weekend.",n:"leicht genervt gemeint · Kram = Zeug, also „paper junk“",k:"alltag"},
+{g:"Muskelkater",e:"sore muscles (after exercise)",t:"n",l:"B1",art:"der",pl:"–",x:"Nach dem Training hab ich heute üblen Muskelkater.",xe:"After the workout my muscles are really sore today.",n:"wörtlich: „muscle tomcat“ — wie ein Kater (hangover), nur in den Muskeln",k:"alltag"},
+{g:"Bauchgefühl",e:"gut feeling",t:"n",l:"B2",art:"das",pl:"-e",x:"Mein Bauchgefühl sagt mir, dass da was nicht stimmt.",xe:"My gut tells me something's off there.",n:"„aus dem Bauch heraus entscheiden“ = to go with your gut",k:"alltag"},
+{g:"Macke",e:"quirk; screw loose; defect",t:"n",l:"B2",art:"die",pl:"-n",x:"Jeder Mensch hat doch irgendeine Macke.",xe:"Everyone has some quirk, after all.",n:"salopp · „Du hast doch 'ne Macke!“ = You're nuts! · auch für kaputte Geräte",k:"alltag"},
+{g:"Morgenmuffel",e:"grump in the morning, not a morning person",t:"n",l:"B2",art:"der",pl:"–",x:"Sprich ihn vor dem Kaffee nicht an, er ist Morgenmuffel.",xe:"Don't talk to him before coffee, he's not a morning person.",n:"Muffel = Griesgram · es gibt auch Sportmuffel und Technikmuffel",k:"alltag"},
+{g:"Schnäppchen",e:"bargain, steal",t:"n",l:"B2",art:"das",pl:"–",x:"Die Jacke war ein echtes Schnäppchen im Sale.",xe:"The jacket was a real bargain in the sale.",n:"von „schnappen“ — man schnappt es sich schnell weg",k:"alltag"},
+{g:"Besserwisser",e:"know-it-all",t:"n",l:"B2",art:"der",pl:"–",x:"Sei nicht so ein Besserwisser, ich kann das schon.",xe:"Don't be such a know-it-all, I've got this.",n:"wörtlich: „better-knower“ · leicht abwertend",k:"alltag"},
+{g:"quatschen",e:"to chat, natter; to talk nonsense",t:"v",l:"B1",f:"quatscht · quatschte · hat gequatscht",p:"mit + Dat",x:"Wir haben stundenlang über alles Mögliche gequatscht.",xe:"We chatted for hours about everything.",n:"nur mündlich · verwandt mit „Quatsch“",k:"alltag"},
+{g:"chillen",e:"to chill, relax",t:"v",l:"B1",f:"chillt · chillte · hat gechillt",x:"Wir chillen heute einfach zu Hause auf dem Sofa.",xe:"We're just chilling at home on the couch today.",n:"aus dem Englischen · Jugendsprache, längst Mainstream",k:"alltag"},
+{g:"kriegen",e:"to get, receive",t:"v",l:"A2",f:"kriegt · kriegte · hat gekriegt",x:"Hast du meine Nachricht gekriegt?",xe:"Did you get my message?",n:"mündlicher Standard statt „bekommen“; im Schriftlichen besser „bekommen“",k:"alltag"},
+{g:"schnallen",e:"to get, grasp (understand)",t:"v",l:"B2",f:"schnallt · schnallte · hat geschnallt",x:"Ich schnall den Witz einfach nicht.",xe:"I just don't get the joke.",n:"salopp · wörtlich: to buckle, to strap",k:"alltag"},
+{g:"pauken",e:"to cram, swot",t:"v",l:"B2",f:"paukt · paukte · hat gepaukt",x:"Ich muss übers Wochenende Vokabeln pauken.",xe:"I have to cram vocabulary over the weekend.",n:"unter Schülern und Studenten · wörtlich: auf die Pauke (kettledrum) hauen",k:"alltag"},
+{g:"abhauen",e:"to take off, clear out",t:"v",l:"B1",f:"haut ab · haute ab · ist abgehauen",x:"Lass uns abhauen, die Party ist langweilig.",xe:"Let's get out of here, the party is boring.",n:"trennbar · salopp · „Hau ab!“ = Get lost! (unhöflich)",k:"alltag"},
+{g:"schleppen",e:"to lug, haul",t:"v",l:"B1",f:"schleppt · schleppte · hat geschleppt",x:"Ich hab die Kisten allein in den vierten Stock geschleppt.",xe:"I lugged the boxes up to the fourth floor by myself.",n:"auch: jemanden mitschleppen = to drag someone along",k:"alltag"},
+{g:"klauen",e:"to nick, steal",t:"v",l:"B1",f:"klaut · klaute · hat geklaut",x:"Mir wurde am Bahnhof das Fahrrad geklaut.",xe:"My bike got stolen at the station.",n:"umgangssprachlich für „stehlen“ · sehr häufig bei Fahrrädern",k:"alltag"},
+{g:"meckern",e:"to grumble, moan",t:"v",l:"B1",f:"meckert · meckerte · hat gemeckert",p:"über + Akk",x:"Er meckert ständig über das Wetter.",xe:"He's constantly moaning about the weather.",n:"wörtlich: to bleat — meckern wie eine Ziege",k:"alltag"},
+{g:"jammern",e:"to whine, complain",t:"v",l:"B1",f:"jammert · jammerte · hat gejammert",p:"über + Akk",x:"Hör auf zu jammern und mach einfach!",xe:"Stop whining and just do it!",n:"leicht abwertend · stärker als meckern: weinerlich",k:"alltag"},
+{g:"gucken",e:"to look, watch",t:"v",l:"A2",f:"guckt · guckte · hat geguckt",x:"Guck mal, da drüben ist ein Regenbogen!",xe:"Look, there's a rainbow over there!",n:"mündlicher Standard im Norden und in der Mitte; im Süden „schauen“ · oft „kucken“ gesprochen",k:"alltag"},
+{g:"klarkommen",e:"to cope, get along (with)",t:"v",l:"B2",f:"kommt klar · kam klar · ist klargekommen",p:"mit + Dat",x:"Kommst du mit dem neuen Chef klar?",xe:"Are you getting along okay with the new boss?",n:"trennbar · nur mündlich · „Kommst du klar?“ = You okay?",k:"alltag"},
+{g:"kapieren",e:"to get it, understand",t:"v",l:"B1",f:"kapiert · kapierte · hat kapiert",x:"Jetzt hab ich's endlich kapiert!",xe:"Now I finally get it!",n:"mündlich · vom Lateinischen capere = fassen",k:"alltag"},
+{g:"labern",e:"to blabber, talk rubbish",t:"v",l:"B2",f:"labert · laberte · hat gelabert",x:"Der labert die ganze Zeit nur Unsinn.",xe:"He just talks rubbish the whole time.",n:"salopp, leicht abwertend · „Laber nicht!“ = Quit blabbering!",k:"alltag"},
+{g:"schmeißen",e:"to chuck, throw",t:"v",l:"B2",f:"schmeißt · schmiss · hat geschmissen",x:"Schmeiß mir mal die Chips rüber!",xe:"Chuck me the chips!",n:"salopp für „werfen“ · auch: eine Party schmeißen = to throw a party",k:"alltag"},
+{g:"verpennen",e:"to oversleep; to sleep through, forget",t:"v",l:"B2",f:"verpennt · verpennte · hat verpennt",x:"Sorry, ich hab heute Morgen total verpennt!",xe:"Sorry, I totally overslept this morning!",n:"salopp · auch: einen Termin verpennen = to clean forget it",k:"alltag"},
+{g:"pennen",e:"to sleep, crash",t:"v",l:"B2",f:"pennt · pennte · hat gepennt",x:"Ich hab am Samstag bis mittags gepennt.",xe:"I slept till noon on Saturday.",n:"salopp, unter Freunden · bei jemandem pennen = to crash at someone's place",k:"alltag"},
+{g:"hinkriegen",e:"to manage, pull off",t:"v",l:"B2",f:"kriegt hin · kriegte hin · hat hingekriegt",x:"Keine Sorge, das kriegen wir schon hin.",xe:"Don't worry, we'll manage that.",n:"trennbar · nur mündlich · neutraler: „hinbekommen“",k:"alltag"},
+{g:"vermasseln",e:"to mess up, botch",t:"v",l:"B2",f:"vermasselt · vermasselte · hat vermasselt",x:"Ich hab die Prüfung total vermasselt.",xe:"I totally messed up the exam.",n:"salopp · aus dem Jiddischen: Massel = Glück — also das Glück verderben",k:"alltag"},
+{g:"ausflippen",e:"to freak out",t:"v",l:"B2",f:"flippt aus · flippte aus · ist ausgeflippt",x:"Meine Mutter flippt aus, wenn sie das sieht.",xe:"My mom will freak out if she sees that.",n:"trennbar · aus dem Englischen (to flip out) · positiv wie negativ möglich",k:"alltag"},
+{g:"spinnen",e:"to be crazy, be kidding",t:"v",l:"B1",f:"spinnt · spann · hat gesponnen",x:"Du spinnst doch, das mache ich nicht!",xe:"You're nuts, I'm not doing that!",n:"fast nur im Präsens · „Ich glaub, ich spinne!“ = I must be dreaming! · wörtlich: to spin wool",k:"alltag"},
+{g:"schwänzen",e:"to skip, cut (class)",t:"v",l:"B2",f:"schwänzt · schwänzte · hat geschwänzt",x:"Er hat heute die Mathestunde geschwänzt.",xe:"He skipped math class today.",n:"typisch für Schule und Uni · die Arbeit schwänzt man eher: blaumachen",k:"alltag"},
+{g:"trödeln",e:"to dawdle",t:"v",l:"B2",f:"trödelt · trödelte · hat getrödelt",x:"Trödel nicht so, wir kommen zu spät!",xe:"Stop dawdling, we'll be late!",n:"oft zu Kindern gesagt · Trödelmarkt = flea market",k:"alltag"},
+{g:"mitkriegen",e:"to catch, notice, pick up on",t:"v",l:"B2",f:"kriegt mit · kriegte mit · hat mitgekriegt",x:"Hast du mitgekriegt, dass die beiden zusammen sind?",xe:"Did you catch that those two are together?",n:"trennbar · nur mündlich · neutraler: „mitbekommen“",k:"alltag"},
+{g:"schiefgehen",e:"to go wrong",t:"v",l:"B1",f:"geht schief · ging schief · ist schiefgegangen",x:"Keine Panik, da kann nichts schiefgehen.",xe:"No panic, nothing can go wrong there.",n:"trennbar · wörtlich: to go crooked · tröstend: „Das geht schon nicht schief!“",k:"alltag"},
+{g:"blaumachen",e:"to skip work, play hooky",t:"v",l:"B2",f:"macht blau · machte blau · hat blaugemacht",x:"Er hat gestern einfach blaugemacht.",xe:"He just skipped work yesterday.",n:"trennbar · wörtlich: „to make blue“ — vom „blauen Montag“ der Handwerker",k:"alltag"},
+{g:"krass",e:"intense, wild, crazy (good or bad)",t:"adj",l:"B1",x:"Krass, das hätte ich nie gedacht!",xe:"Whoa, I never would have thought that!",n:"Jugendsprache, inzwischen weit verbreitet · positiv wie negativ",k:"alltag"},
+{g:"mies",e:"lousy, crappy",t:"adj",l:"B1",x:"Das Wetter ist heute echt mies.",xe:"The weather is really lousy today.",n:"salopp · aus dem Jiddischen · „mies drauf sein“ = to be in a bad mood",k:"alltag"},
+{g:"doof",e:"dumb, silly; annoying",t:"adj",l:"A2",x:"Der Film war echt doof.",xe:"The movie was really dumb.",n:"milder als „dumm“ · norddeutsch geprägt, überall verstanden",k:"alltag"},
+{g:"blöd",e:"stupid; annoying, unfortunate",t:"adj",l:"A2",x:"Blöd, dass es ausgerechnet heute regnet.",xe:"Annoying that it's raining today of all days.",n:"sehr häufig · „Das ist mir voll blöd“ = This is awkward for me",k:"alltag"},
+{g:"geil",e:"awesome, wicked",t:"adj",l:"B1",x:"Das Konzert gestern war so geil!",xe:"The concert yesterday was so awesome!",n:"salopp, nur unter Freunden · ursprünglich „horny“ — im Beruf vermeiden",k:"alltag"},
+{g:"locker",e:"laid-back, relaxed; easily",t:"adj",l:"B1",x:"Bleib mal locker, das schaffen wir.",xe:"Stay relaxed, we'll manage that.",n:"wörtlich: loose · als Adverb: „Das schaffst du locker“ = easily",k:"alltag"},
+{g:"fies",e:"mean, nasty",t:"adj",l:"B1",x:"Das war echt fies von dir!",xe:"That was really mean of you!",n:"auch für Wetter oder Schmerzen: „ein fieser Wind“",k:"alltag"},
+{g:"sauer",e:"mad, cross",t:"adj",l:"B1",p:"auf + Akk",x:"Sie ist sauer auf mich, weil ich zu spät kam.",xe:"She's mad at me because I was late.",n:"mündlicher Standard für „wütend“ · wörtlich: sour",k:"alltag"},
+{g:"pleite",e:"broke",t:"adj",l:"B1",x:"Ich bin diesen Monat komplett pleite.",xe:"I'm completely broke this month.",n:"nur prädikativ (ich bin pleite) · aus dem Jiddischen · Firmen gehen pleite",k:"alltag"},
+{g:"bescheuert",e:"nuts, dumb, ridiculous",t:"adj",l:"B2",x:"Bist du bescheuert? Das kostet ein Vermögen!",xe:"Are you nuts? That costs a fortune!",n:"salopp · nicht höflich, aber keine schwere Beleidigung",k:"alltag"},
+{g:"Bock haben",e:"to feel like (doing something)",t:"wend",l:"B1",p:"auf + Akk",x:"Hast du Bock auf Kino heute Abend?",xe:"Do you feel like going to the movies tonight?",n:"salopp, unter Freunden · wörtlich: „einen Bock haben“ = billy goat · „null Bock“ = zero desire",k:"alltag"},
+{g:"die Nase voll haben",e:"to be fed up (with)",t:"wend",l:"B1",p:"von + Dat",x:"Ich hab die Nase voll von dem ganzen Stress!",xe:"I'm fed up with all this stress!",n:"wörtlich: „to have the nose full“ · derber: „die Schnauze voll haben“",k:"alltag"},
+{g:"einen Kater haben",e:"to have a hangover",t:"wend",l:"B1",x:"Nach der Feier hatte ich einen üblen Kater.",xe:"After the party I had a terrible hangover.",n:"wörtlich: „to have a tomcat“ · verkatert sein = to be hungover",k:"alltag"},
+{g:"sich aufs Ohr hauen",e:"to take a nap, hit the sack",t:"wend",l:"B2",x:"Ich hau mich mal eine Stunde aufs Ohr.",xe:"I'm going to lie down for an hour.",n:"salopp · wörtlich: „to smack oneself on the ear“ — man legt sich aufs Ohr",k:"alltag"},
+{g:"fix und fertig sein",e:"to be completely wiped out",t:"wend",l:"B2",x:"Nach der Schicht war ich fix und fertig.",xe:"After the shift I was completely wiped out.",n:"körperlich oder emotional am Ende · „fix“ verstärkt hier nur",k:"alltag"},
+{g:"Das ist mir Wurst",e:"I couldn't care less",t:"wend",l:"B1",x:"Rot oder blau? Das ist mir Wurst.",xe:"Red or blue? I couldn't care less.",n:"salopp · wörtlich: „That's sausage to me“ · neutraler: „Das ist mir egal“",k:"alltag"},
+{g:"Passt schon",e:"it's fine, no worries",t:"wend",l:"B1",x:"„Sorry für die Verspätung!“ – „Passt schon.“",xe:"'Sorry I'm late!' – 'No worries.'",n:"nur mündlich · je nach Ton: no problem / it'll do / keep the change",k:"alltag"},
+{g:"Geht klar",e:"you got it, will do",t:"wend",l:"B1",x:"„Schickst du mir die Datei?“ – „Geht klar!“",xe:"'Will you send me the file?' – 'You got it!'",n:"nur mündlich · lockere, aber verbindliche Zusage",k:"alltag"},
+{g:"Mach's gut!",e:"take care! (goodbye)",t:"wend",l:"A2",x:"Mach's gut, wir sehen uns nächste Woche!",xe:"Take care, see you next week!",n:"lockerer Abschied · scherzhafte Antwort: „Mach's besser!“",k:"alltag"},
+{g:"Na ja",e:"well... (hesitation, mild doubt)",t:"wend",l:"A2",x:"Na ja, so toll war der Film nicht.",xe:"Well, the movie wasn't that great.",n:"Füllwort für Zögern oder milde Skepsis · sehr häufig",k:"alltag"},
+{g:"Ach so!",e:"oh, I see!",t:"wend",l:"A2",x:"Ach so, jetzt versteh ich, was du meinst!",xe:"Oh I see, now I get what you mean!",n:"signalisiert den Aha-Moment · eines der häufigsten Gesprächswörter",k:"alltag"},
+{g:"Echt jetzt?",e:"seriously? for real?",t:"wend",l:"B1",x:"Echt jetzt? Die beiden haben geheiratet?",xe:"Seriously? Those two got married?",n:"nur mündlich · Überraschung oder Genervtsein, je nach Ton",k:"alltag"},
+{g:"Keine Sorge!",e:"don't worry!",t:"wend",l:"A2",x:"Keine Sorge, ich bin pünktlich da.",xe:"Don't worry, I'll be there on time.",n:"beruhigend · salopper: „Mach dir keinen Kopf!“",k:"alltag"},
+{g:"Von wegen!",e:"yeah, right! no way!",t:"wend",l:"B2",x:"Er will angeblich helfen — von wegen!",xe:"He supposedly wants to help — yeah, right!",n:"nur mündlich · drückt scharfen Widerspruch aus",k:"alltag"},
+{g:"Das kannst du laut sagen",e:"you can say that again",t:"wend",l:"B2",x:"„Der Sommer war viel zu kurz.“ – „Das kannst du laut sagen!“",xe:"'The summer was way too short.' – 'You can say that again!'",n:"kräftige Zustimmung · wörtlich: „You can say that out loud“",k:"alltag"},
+{g:"jemandem auf den Keks gehen",e:"to get on someone's nerves",t:"wend",l:"B2",x:"Die Musik von nebenan geht mir total auf den Keks.",xe:"The music from next door is really getting on my nerves.",n:"salopp · wörtlich: „to walk on someone's cookie“ · Varianten: auf die Nerven / auf den Zeiger gehen",k:"alltag"},
+{g:"auf dem Schlauch stehen",e:"to draw a blank, not get it",t:"wend",l:"B2",x:"Sorry, ich steh gerade voll auf dem Schlauch.",xe:"Sorry, I'm drawing a complete blank right now.",n:"wörtlich: „standing on the hose“ — deshalb fließt gerade nichts",k:"alltag"},
+{g:"Schwein haben",e:"to be lucky, luck out",t:"wend",l:"B2",x:"Da hast du echt Schwein gehabt, dass nichts passiert ist!",xe:"You really lucked out that nothing happened!",n:"wörtlich: „to have pig“ · nur für unverdientes Glück im Nachhinein",k:"alltag"},
+{g:"Es zieht!",e:"there's a draft!",t:"wend",l:"B1",x:"Mach bitte das Fenster zu, es zieht!",xe:"Please close the window, there's a draft!",n:"Kulturklassiker: Deutsche fürchten Zugluft · vom Verb „ziehen“",k:"alltag"},
+{g:"halt",e:"just, simply (resigned particle)",t:"wend",l:"B2",x:"Ist halt so, da kann man nichts machen.",xe:"That's just how it is, nothing you can do.",n:"Modalpartikel: resignierte Selbstverständlichkeit · süddeutsch geprägt, längst überall · nur mündlich",k:"alltag"},
+{g:"Semester",art:"das",pl:"-",e:"semester, university term",t:"n",l:"B1",x:"Im nächsten Semester belege ich drei Seminare.",xe:"Next semester I'm taking three seminars.",k:"studium"},
+{g:"Klausur",art:"die",pl:"-en",e:"written exam (university)",t:"n",l:"B2",x:"Nächste Woche schreibe ich zwei Klausuren.",xe:"Next week I'm taking two written exams.",k:"studium"},
+{g:"Hausarbeit",art:"die",pl:"-en",e:"term paper, seminar paper",t:"n",l:"B2",x:"Die Hausarbeit muss bis Ende März abgegeben werden.",xe:"The term paper has to be submitted by the end of March.",n:"im Unikontext: schriftliche Arbeit, nicht Haushaltsarbeit",k:"studium"},
+{g:"Abgabefrist",art:"die",pl:"-en",e:"submission deadline",t:"n",l:"B2",x:"Die Abgabefrist für die Hausarbeit wurde verlängert.",xe:"The submission deadline for the term paper was extended.",k:"studium"},
+{g:"Modul",art:"das",pl:"-e",e:"module (unit of a degree program)",t:"n",l:"B2",x:"Dieses Modul schließt mit einer mündlichen Prüfung ab.",xe:"This module concludes with an oral exam.",k:"studium"},
+{g:"Studiengang",art:"der",pl:"Studiengänge",e:"degree program, course of study",t:"n",l:"B2",x:"Der Studiengang Informatik ist zulassungsbeschränkt.",xe:"The computer science degree program has restricted admission.",k:"studium"},
+{g:"Regelstudienzeit",art:"die",pl:"-en",e:"standard period of study",t:"n",l:"C1",x:"Die Regelstudienzeit im Bachelor beträgt sechs Semester.",xe:"The standard period of study for a bachelor's is six semesters.",k:"studium"},
+{g:"Leistungsnachweis",art:"der",pl:"-e",e:"proof of academic achievement, course credit",t:"n",l:"C1",x:"Für das Seminar brauche ich noch einen Leistungsnachweis.",xe:"I still need a course credit for the seminar.",k:"studium"},
+{g:"Anwesenheitspflicht",art:"die",pl:"-en",e:"compulsory attendance",t:"n",l:"C1",x:"In diesem Seminar besteht Anwesenheitspflicht.",xe:"Attendance is compulsory in this seminar.",k:"studium"},
+{g:"sich immatrikulieren",e:"to enroll, to matriculate (at a university)",t:"v",l:"C1",f:"immatrikuliert sich · immatrikulierte sich · hat sich immatrikuliert",p:"an + Dat",x:"Sie hat sich an der Universität Leipzig immatrikuliert.",xe:"She enrolled at Leipzig University.",k:"studium"},
+{g:"sich exmatrikulieren",e:"to deregister from university",t:"v",l:"C1",f:"exmatrikuliert sich · exmatrikulierte sich · hat sich exmatrikuliert",x:"Nach dem Abschluss musst du dich exmatrikulieren.",xe:"After graduating you have to deregister from the university.",k:"studium"},
+{g:"Sprechstunde",art:"die",pl:"-n",e:"office hours, consultation hour",t:"n",l:"B2",x:"Ich gehe morgen in die Sprechstunde meiner Professorin.",xe:"Tomorrow I'm going to my professor's office hours.",k:"studium"},
+{g:"zitieren",e:"to quote, to cite",t:"v",l:"B2",f:"zitiert · zitierte · hat zitiert",p:"aus + Dat",x:"In der Einleitung zitiere ich mehrere aktuelle Studien.",xe:"In the introduction I cite several recent studies.",k:"studium"},
+{g:"Quelle",art:"die",pl:"-n",e:"source (also: spring)",t:"n",l:"B1",x:"Alle Quellen müssen im Literaturverzeichnis stehen.",xe:"All sources must appear in the bibliography.",k:"studium"},
+{g:"Zitat",art:"das",pl:"-e",e:"quotation",t:"n",l:"B2",x:"Das Zitat stammt aus einem Aufsatz von 2019.",xe:"The quotation comes from a 2019 essay.",k:"studium"},
+{g:"Fußnote",art:"die",pl:"-n",e:"footnote",t:"n",l:"B2",x:"Die genaue Seitenzahl steht in der Fußnote.",xe:"The exact page number is in the footnote.",k:"studium"},
+{g:"Plagiat",art:"das",pl:"-e",e:"plagiarism",t:"n",l:"C1",x:"Wegen eines Plagiats wurde ihm der Titel aberkannt.",xe:"He was stripped of his degree because of plagiarism.",k:"studium"},
+{g:"Gliederung",art:"die",pl:"-en",e:"outline, structure (of a paper)",t:"n",l:"B2",x:"Bitte schicken Sie mir zuerst eine grobe Gliederung.",xe:"Please send me a rough outline first.",k:"studium"},
+{g:"Klausureinsicht",art:"die",pl:"-en",e:"post-exam review (viewing your graded exam)",t:"n",l:"C1",x:"Bei der Klausureinsicht habe ich zwei Punkte mehr bekommen.",xe:"At the exam review I got two extra points.",k:"studium"},
+{g:"Nachtermin",art:"der",pl:"-e",e:"make-up date, second exam date",t:"n",l:"C1",x:"Wer krank war, kann die Klausur am Nachtermin schreiben.",xe:"Anyone who was ill can take the exam at the resit date.",k:"studium"},
+{g:"Auslandssemester",art:"das",pl:"-",e:"semester abroad",t:"n",l:"B2",x:"Sie verbringt ihr Auslandssemester in Madrid.",xe:"She is spending her semester abroad in Madrid.",k:"studium"},
+{g:"Studiengebühr",art:"die",pl:"-en",e:"tuition fee",t:"n",l:"B2",x:"Private Hochschulen erheben oft hohe Studiengebühren.",xe:"Private universities often charge high tuition fees.",n:"meist im Plural",k:"studium"},
+{g:"Hörsaal",art:"der",pl:"Hörsäle",e:"lecture hall",t:"n",l:"B1",x:"Die Vorlesung findet im größten Hörsaal statt.",xe:"The lecture takes place in the largest lecture hall.",k:"studium"},
+{g:"Seminar",art:"das",pl:"-e",e:"seminar (university course)",t:"n",l:"B1",x:"Im Seminar diskutieren wir jede Woche einen Text.",xe:"In the seminar we discuss a text every week.",k:"studium"},
+{g:"Mensa",art:"die",pl:"Mensen",e:"university cafeteria",t:"n",l:"B1",x:"Mittags essen wir meistens in der Mensa.",xe:"At lunchtime we usually eat in the university cafeteria.",k:"studium"},
+{g:"Kommilitone",art:"der",pl:"-n",e:"fellow student",t:"n",l:"B2",x:"Ich lerne mit zwei Kommilitonen für die Klausur.",xe:"I'm studying for the exam with two fellow students.",n:"n-Deklination: den/dem/des Kommilitonen; weiblich: die Kommilitonin",k:"studium"},
+{g:"Promotion",art:"die",pl:"-en",e:"doctorate, PhD (process of earning it)",t:"n",l:"C1",x:"Nach dem Master beginnt sie mit der Promotion.",xe:"After her master's she is starting her doctorate.",n:"im Unikontext nicht „Beförderung“, sondern Erwerb des Doktortitels",k:"studium"},
+{g:"Doktorand",art:"der",pl:"-en",e:"doctoral candidate, PhD student",t:"n",l:"C1",x:"Der Doktorand präsentiert seine Ergebnisse auf der Tagung.",xe:"The doctoral candidate is presenting his results at the conference.",n:"n-Deklination: den/dem/des Doktoranden; weiblich: die Doktorandin",k:"studium"},
+{g:"Abschlussarbeit",art:"die",pl:"-en",e:"final thesis (bachelor's/master's)",t:"n",l:"B2",x:"Ihre Abschlussarbeit umfasst achtzig Seiten.",xe:"Her final thesis is eighty pages long.",k:"studium"},
+{g:"Verteidigung",art:"die",pl:"-en",e:"defense (of a thesis)",t:"n",l:"C1",x:"Die Verteidigung der Dissertation dauerte zwei Stunden.",xe:"The defense of the dissertation lasted two hours.",k:"studium"},
+{g:"Dozent",art:"der",pl:"-en",e:"lecturer, university instructor",t:"n",l:"B2",x:"Der Dozent stellt die Folien online.",xe:"The lecturer puts the slides online.",n:"n-Deklination: den/dem/des Dozenten; weiblich: die Dozentin",k:"studium"},
+{g:"Stundenplan",art:"der",pl:"Stundenpläne",e:"timetable, class schedule",t:"n",l:"B1",x:"Mein Stundenplan ist dieses Semester ziemlich voll.",xe:"My timetable is pretty full this semester.",k:"studium"},
+{g:"Prüfungsordnung",art:"die",pl:"-en",e:"examination regulations",t:"n",l:"C1",x:"Laut Prüfungsordnung darf man zweimal wiederholen.",xe:"According to the exam regulations you may retake twice.",k:"studium"},
+{g:"Praktikum",art:"das",pl:"Praktika",e:"internship",t:"n",l:"B1",x:"Im Sommer mache ich ein Praktikum bei einer Zeitung.",xe:"This summer I'm doing an internship at a newspaper.",k:"studium"},
+{g:"durchfallen",e:"to fail (an exam)",t:"v",l:"B2",f:"fällt durch · fiel durch · ist durchgefallen",x:"Er ist zum zweiten Mal durch die Klausur gefallen.",xe:"He failed the written exam for the second time.",n:"trennbar · Perfekt mit ist; durch + Akk",k:"studium"},
+{g:"Besprechung",art:"die",pl:"-en",e:"meeting, discussion",t:"n",l:"B1",x:"Die Besprechung wurde auf Montag verschoben.",xe:"The meeting was postponed to Monday.",k:"beruf"},
+{g:"Protokoll",art:"das",pl:"-e",e:"minutes (of a meeting)",t:"n",l:"B2",x:"Wer führt heute das Protokoll?",xe:"Who is taking the minutes today?",n:"das Protokoll führen = to take the minutes",k:"beruf"},
+{g:"Frist",art:"die",pl:"-en",e:"deadline, time limit",t:"n",l:"B2",x:"Die Frist läuft am Freitag um Mitternacht ab.",xe:"The deadline expires on Friday at midnight.",k:"beruf"},
+{g:"Lebenslauf",art:"der",pl:"Lebensläufe",e:"CV, résumé",t:"n",l:"B1",x:"Bitte fügen Sie Ihrer Bewerbung einen tabellarischen Lebenslauf bei.",xe:"Please attach a CV in table form to your application.",k:"beruf"},
+{g:"Anschreiben",art:"das",pl:"-",e:"cover letter",t:"n",l:"B2",x:"Im Anschreiben erklären Sie Ihre Motivation.",xe:"In the cover letter you explain your motivation.",k:"beruf"},
+{g:"Gehaltsverhandlung",art:"die",pl:"-en",e:"salary negotiation",t:"n",l:"C1",x:"In der Gehaltsverhandlung forderte sie zehn Prozent mehr.",xe:"In the salary negotiation she asked for ten percent more.",k:"beruf"},
+{g:"Abteilung",art:"die",pl:"-en",e:"department (of a company)",t:"n",l:"B1",x:"Er leitet seit Januar die Abteilung Einkauf.",xe:"He has been heading the purchasing department since January.",k:"beruf"},
+{g:"Vorgesetzte",art:"der/die",pl:"-n",e:"superior, boss",t:"n",l:"B2",x:"Meine Vorgesetzte ist mit meiner Arbeit sehr zufrieden.",xe:"My superior is very satisfied with my work.",n:"adjektivische Deklination: ein Vorgesetzter, eine Vorgesetzte, die Vorgesetzten",k:"beruf"},
+{g:"Überstunden",art:"die",pl:"(Pl.)",e:"overtime (hours)",t:"n",l:"B2",x:"Diesen Monat habe ich zwanzig Überstunden gemacht.",xe:"This month I've worked twenty hours of overtime.",n:"meist im Plural; Überstunden machen/abbauen",k:"beruf"},
+{g:"Arbeitszeugnis",art:"das",pl:"-se",e:"employer's reference (written)",t:"n",l:"C1",x:"Beim Abschied bekam sie ein sehr gutes Arbeitszeugnis.",xe:"On leaving she received a very good employer's reference.",n:"in Deutschland hat jeder Angestellte Anspruch darauf",k:"beruf"},
+{g:"Kündigungsfrist",art:"die",pl:"-en",e:"notice period",t:"n",l:"C1",x:"Die Kündigungsfrist beträgt drei Monate zum Quartalsende.",xe:"The notice period is three months to the end of the quarter.",k:"beruf"},
+{g:"Probezeit",art:"die",pl:"-en",e:"probation period",t:"n",l:"B2",x:"In der Probezeit kann man schneller gekündigt werden.",xe:"During the probation period you can be dismissed more quickly.",k:"beruf"},
+{g:"Homeoffice",art:"das",pl:"-s",e:"working from home, home office",t:"n",l:"B1",x:"Mittwochs arbeite ich immer im Homeoffice.",xe:"On Wednesdays I always work from home.",n:"im Homeoffice arbeiten/sein",k:"beruf"},
+{g:"Dienstreise",art:"die",pl:"-n",e:"business trip",t:"n",l:"B2",x:"Nächste Woche bin ich auf Dienstreise in Wien.",xe:"Next week I'm on a business trip in Vienna.",k:"beruf"},
+{g:"Auftraggeber",art:"der",pl:"-",e:"client, commissioning party",t:"n",l:"B2",x:"Der Auftraggeber hat die Rechnung noch nicht bezahlt.",xe:"The client has not paid the invoice yet.",k:"beruf"},
+{g:"in Rechnung stellen",e:"to invoice, to charge (someone) for",t:"wend",l:"C1",x:"Die Fahrtkosten stellen wir Ihnen in Rechnung.",xe:"We will charge you for the travel costs.",n:"jemandem etwas in Rechnung stellen",k:"beruf"},
+{g:"einstellen",e:"to hire, to employ",t:"v",l:"B2",f:"stellt ein · stellte ein · hat eingestellt",x:"Die Firma stellt dieses Jahr zwanzig neue Leute ein.",xe:"The company is hiring twenty new people this year.",n:"trennbar · auch: beenden (die Produktion einstellen), regulieren (das Radio einstellen)",k:"beruf"},
+{g:"befördern",e:"to promote (an employee)",t:"v",l:"B2",f:"befördert · beförderte · hat befördert",p:"zu + Dat",x:"Sie wurde zur Teamleiterin befördert.",xe:"She was promoted to team leader.",n:"auch: transportieren (Fahrgäste befördern)",k:"beruf"},
+{g:"einarbeiten",e:"to train (a new employee)",t:"v",l:"C1",f:"arbeitet ein · arbeitete ein · hat eingearbeitet",x:"Die neue Kollegin wird zwei Wochen lang eingearbeitet.",xe:"The new colleague is being trained for two weeks.",n:"trennbar · sich einarbeiten in + Akk = get up to speed",k:"beruf"},
+{g:"delegieren",e:"to delegate",t:"v",l:"C1",f:"delegiert · delegierte · hat delegiert",p:"an + Akk",x:"Gute Chefs delegieren Aufgaben an ihr Team.",xe:"Good bosses delegate tasks to their team.",k:"beruf"},
+{g:"Weiterbildung",art:"die",pl:"-en",e:"further training, professional development",t:"n",l:"B2",x:"Der Arbeitgeber bezahlt mir eine Weiterbildung im Projektmanagement.",xe:"My employer is paying for further training in project management.",k:"beruf"},
+{g:"Feedbackgespräch",art:"das",pl:"-e",e:"feedback meeting, performance review",t:"n",l:"C1",x:"Im jährlichen Feedbackgespräch besprechen wir meine Entwicklung.",xe:"In the annual feedback meeting we discuss my development.",n:"auch: das Mitarbeitergespräch",k:"beruf"},
+{g:"Zielvereinbarung",art:"die",pl:"-en",e:"target agreement (agreed performance goals)",t:"n",l:"C1",x:"Der Bonus hängt von der Zielvereinbarung ab.",xe:"The bonus depends on the target agreement.",k:"beruf"},
+{g:"Betriebsrat",art:"der",pl:"Betriebsräte",e:"works council",t:"n",l:"C1",x:"Der Betriebsrat hat der neuen Regelung zugestimmt.",xe:"The works council approved the new rule.",n:"bezeichnet das Gremium und auch das einzelne Mitglied",k:"beruf"},
+{g:"Teilzeit",art:"die",pl:"(Sg.)",e:"part-time (work)",t:"n",l:"B2",x:"Nach der Elternzeit arbeitet er in Teilzeit.",xe:"After parental leave he works part-time.",n:"in Teilzeit arbeiten; Gegenteil: Vollzeit",k:"beruf"},
+{g:"brutto / netto",e:"gross / net (before/after deductions)",t:"adj",l:"B2",x:"Ich verdiene 3800 Euro brutto, netto bleiben etwa 2500.",xe:"I earn 3,800 euros gross; about 2,500 remain net.",n:"eigentlich Adverbien: brutto = vor Abzügen, netto = nach Abzügen",k:"beruf"},
+{g:"Sozialversicherung",art:"die",pl:"-en",e:"social insurance",t:"n",l:"C1",x:"Die Beiträge zur Sozialversicherung werden automatisch abgezogen.",xe:"Social insurance contributions are deducted automatically.",k:"beruf"},
+{g:"Steuererklärung",art:"die",pl:"-en",e:"tax return",t:"n",l:"B2",x:"Ich muss meine Steuererklärung bis Ende Juli abgeben.",xe:"I have to file my tax return by the end of July.",k:"beruf"},
+{g:"Urlaubsantrag",art:"der",pl:"Urlaubsanträge",e:"leave request, vacation request",t:"n",l:"B2",x:"Mein Urlaubsantrag für August wurde genehmigt.",xe:"My leave request for August was approved.",k:"beruf"},
+{g:"sich krankmelden",e:"to call in sick",t:"v",l:"B2",f:"meldet sich krank · meldete sich krank · hat sich krankgemeldet",p:"bei + Dat",x:"Sie hat sich heute Morgen beim Chef krankgemeldet.",xe:"She called in sick to the boss this morning.",n:"trennbar",k:"beruf"},
+{g:"Gehaltserhöhung",art:"die",pl:"-en",e:"pay raise",t:"n",l:"B2",x:"Nach zwei Jahren bat er um eine Gehaltserhöhung.",xe:"After two years he asked for a pay raise.",k:"beruf"},
+{g:"Arbeitsvertrag",art:"der",pl:"Arbeitsverträge",e:"employment contract",t:"n",l:"B2",x:"Lies den Arbeitsvertrag vor der Unterschrift genau durch.",xe:"Read the employment contract carefully before signing.",k:"beruf"},
+{g:"Elternzeit",art:"die",pl:"-en",e:"parental leave",t:"n",l:"B2",x:"Er nimmt nach der Geburt ein Jahr Elternzeit.",xe:"He is taking a year of parental leave after the birth.",n:"meist im Singular; Elternzeit nehmen",k:"beruf"},
+{g:"befristet",e:"fixed-term, temporary (of contracts)",t:"adj",l:"C1",x:"Die Stelle ist auf zwei Jahre befristet.",xe:"The position is limited to two years.",n:"Gegenteil: unbefristet",k:"beruf"},
+{g:"Kurzarbeit",art:"die",pl:"(Sg.)",e:"short-time work (reduced hours scheme)",t:"n",l:"C1",x:"In der Krise waren viele Beschäftigte in Kurzarbeit.",xe:"During the crisis many employees were on short-time work.",k:"beruf"},
+{g:"Hypothese",art:"die",pl:"-n",e:"hypothesis",t:"n",l:"C1",x:"Die Daten stützen unsere Hypothese nicht.",xe:"The data do not support our hypothesis.",k:"wissenschaft"},
+{g:"These",art:"die",pl:"-n",e:"thesis, claim",t:"n",l:"B2",x:"Seine zentrale These ist umstritten.",xe:"His central thesis is controversial.",k:"wissenschaft"},
+{g:"belegen",e:"to substantiate, to support with evidence",t:"v",l:"B2",f:"belegt · belegte · hat belegt",p:"mit + Dat",x:"Die Autorin belegt ihre These mit zahlreichen Beispielen.",xe:"The author supports her thesis with numerous examples.",n:"auch: einen Kurs belegen (enroll), einen Platz belegen (occupy)",k:"wissenschaft"},
+{g:"widerlegen",e:"to refute, to disprove",t:"v",l:"C1",f:"widerlegt · widerlegte · hat widerlegt",x:"Das Experiment widerlegte die alte Theorie.",xe:"The experiment refuted the old theory.",n:"untrennbar · Gegenteil: bestätigen, belegen",k:"wissenschaft"},
+{g:"Ansatz",art:"der",pl:"Ansätze",e:"approach (methodological)",t:"n",l:"C1",x:"Die Studie verfolgt einen qualitativen Ansatz.",xe:"The study takes a qualitative approach.",k:"wissenschaft"},
+{g:"Studie",art:"die",pl:"-n",e:"study (scientific)",t:"n",l:"B2",x:"Eine neue Studie untersucht den Einfluss von Schlaf.",xe:"A new study examines the influence of sleep.",k:"wissenschaft"},
+{g:"auswerten",e:"to analyze, to evaluate (data)",t:"v",l:"B2",f:"wertet aus · wertete aus · hat ausgewertet",x:"Wir werten die Fragebögen nächste Woche aus.",xe:"We will analyze the questionnaires next week.",n:"trennbar",k:"wissenschaft"},
+{g:"Auswertung",art:"die",pl:"-en",e:"analysis, evaluation (of data)",t:"n",l:"C1",x:"Die Auswertung der Daten dauerte mehrere Monate.",xe:"The analysis of the data took several months.",k:"wissenschaft"},
+{g:"Stichprobe",art:"die",pl:"-n",e:"sample (statistics)",t:"n",l:"C1",x:"Die Stichprobe umfasste 500 zufällig ausgewählte Personen.",xe:"The sample comprised 500 randomly selected people.",n:"auch: stichprobenartige Kontrolle (spot check)",k:"wissenschaft"},
+{g:"Befund",art:"der",pl:"-e",e:"finding, result",t:"n",l:"C1",x:"Die Befunde widersprechen früheren Studien.",xe:"The findings contradict earlier studies.",n:"auch medizinisch: ohne Befund = nothing abnormal",k:"wissenschaft"},
+{g:"Methodik",art:"die",pl:"-en",e:"methodology",t:"n",l:"C1",x:"Die Methodik der Studie wurde stark kritisiert.",xe:"The methodology of the study was heavily criticized.",k:"wissenschaft"},
+{g:"Fachzeitschrift",art:"die",pl:"-en",e:"academic journal",t:"n",l:"B2",x:"Der Artikel erschien in einer renommierten Fachzeitschrift.",xe:"The article appeared in a renowned academic journal.",k:"wissenschaft"},
+{g:"veröffentlichen",e:"to publish",t:"v",l:"B2",f:"veröffentlicht · veröffentlichte · hat veröffentlicht",x:"Das Team veröffentlichte die Ergebnisse im März.",xe:"The team published the results in March.",k:"wissenschaft"},
+{g:"Gutachten",art:"das",pl:"-",e:"expert report, assessment, review",t:"n",l:"C1",x:"Der Professor schreibt ein Gutachten über die Dissertation.",xe:"The professor is writing an assessment report on the dissertation.",k:"wissenschaft"},
+{g:"Begutachtung",art:"die",pl:"-en",e:"peer review, expert assessment",t:"n",l:"C1",x:"Der Aufsatz befindet sich noch in der Begutachtung.",xe:"The paper is still under peer review.",k:"wissenschaft"},
+{g:"Versuchsaufbau",art:"der",pl:"Versuchsaufbauten",e:"experimental setup",t:"n",l:"C1",x:"Der Versuchsaufbau ist im Anhang genau beschrieben.",xe:"The experimental setup is described in detail in the appendix.",k:"wissenschaft"},
+{g:"Datenerhebung",art:"die",pl:"-en",e:"data collection",t:"n",l:"C1",x:"Die Datenerhebung erfolgte über Online-Fragebögen.",xe:"The data collection was carried out via online questionnaires.",k:"wissenschaft"},
+{g:"Forschungsförderung",art:"die",pl:"-en",e:"research funding",t:"n",l:"C1",x:"Das Projekt erhält Forschungsförderung vom Bund.",xe:"The project receives research funding from the federal government.",n:"meist im Singular",k:"wissenschaft"},
+{g:"forschen",e:"to do research",t:"v",l:"B2",f:"forscht · forschte · hat geforscht",p:"zu + Dat / an + Dat",x:"Sie forscht seit Jahren zu erneuerbaren Energien.",xe:"She has been doing research on renewable energy for years.",k:"wissenschaft"},
+{g:"Fachliteratur",art:"die",pl:"(Sg.)",e:"specialist literature",t:"n",l:"C1",x:"Vor der Hausarbeit muss ich viel Fachliteratur lesen.",xe:"Before the term paper I have to read a lot of specialist literature.",k:"wissenschaft"},
+{g:"Fazit",art:"das",pl:"-s",e:"conclusion, upshot",t:"n",l:"B2",x:"Im Fazit fasst sie die wichtigsten Ergebnisse zusammen.",xe:"In the conclusion she summarizes the most important results.",n:"ein Fazit ziehen = to draw a conclusion",k:"wissenschaft"},
+{g:"Forschungsstand",art:"der",pl:"(Sg.)",e:"state of research, current scholarship",t:"n",l:"C1",x:"Das erste Kapitel gibt einen Überblick über den Forschungsstand.",xe:"The first chapter gives an overview of the state of research.",k:"wissenschaft"},
+{g:"anprangern",e:"to denounce publicly, to pillory",t:"v",l:"C2",f:"prangert an · prangerte an · hat angeprangert",x:"Die Presse prangert die Missstände in den Heimen an.",xe:"The press denounces the abuses in the care homes.",n:"trennbar · vom Pranger (pillory) — Bild: jemanden öffentlich an den Pranger stellen"},
+{g:"bezichtigen",e:"to accuse (of)",t:"v",l:"C2",f:"bezichtigt · bezichtigte · hat bezichtigt",p:"+ Genitiv",x:"Man bezichtigte den Minister der Lüge.",xe:"The minister was accused of lying.",n:"gehoben, mit Genitivobjekt wie „beschuldigen“"},
+{g:"sich anmaßen",e:"to presume, to arrogate to oneself",t:"v",l:"C2",f:"maßt sich an · maßte sich an · hat sich angemaßt",x:"Ich maße mir kein Urteil über seine Motive an.",xe:"I do not presume to judge his motives.",n:"trennbar · sich (Dat) etwas anmaßen — dazu „anmaßend“ (arrogant)"},
+{g:"verharren",e:"to remain, to persist (in a state)",t:"v",l:"C2",f:"verharrt · verharrte · hat verharrt",p:"in + Dat",x:"Die Regierung verharrt in ihrer Blockadehaltung.",xe:"The government persists in its obstructive stance.",n:"gehoben: reglos oder stur in etwas verbleiben — von „harren“ (warten)"},
+{g:"untergraben",e:"to undermine",t:"v",l:"C2",f:"untergräbt · untergrub · hat untergraben",x:"Solche Skandale untergraben das Vertrauen in die Institutionen.",xe:"Such scandals undermine trust in the institutions.",n:"untrennbar — Bild: das Fundament von unten weggraben"},
+{g:"kulminieren",e:"to culminate",t:"v",l:"C2",f:"kulminiert · kulminierte · hat kulminiert",p:"in + Dat",x:"Der Streit kulminierte in einer offenen Regierungskrise.",xe:"The dispute culminated in an open government crisis.",n:"lat. culmen „Gipfel“ — eine Entwicklung erreicht ihren Höhepunkt"},
+{g:"sich ergeben aus",e:"to result from, to follow from",t:"v",l:"C2",f:"ergibt sich · ergab sich · hat sich ergeben",p:"aus + Dat",x:"Aus den Daten ergibt sich ein völlig anderes Bild.",xe:"A completely different picture emerges from the data.",n:"Standardformel wissenschaftlicher Prosa: „Daraus ergibt sich, dass …“"},
+{g:"aushebeln",e:"to override, to nullify (rules, laws)",t:"v",l:"C2",f:"hebelt aus · hebelte aus · hat ausgehebelt",x:"Die Verordnung hebelt geltendes Parlamentsrecht aus.",xe:"The decree overrides existing parliamentary law.",n:"trennbar · aus dem Ringen: den Gegner mit einem Hebelgriff zu Fall bringen"},
+{g:"monieren",e:"to criticize, to raise objections to",t:"v",l:"C2",f:"moniert · monierte · hat moniert",x:"Der Rechnungshof monierte die intransparente Vergabepraxis.",xe:"The audit office criticized the opaque awarding of contracts.",n:"lat. monere „mahnen“ — sachlich beanstanden; typisches Behörden- und Pressewort"},
+{g:"attestieren",e:"to attest, to credit someone with",t:"v",l:"C2",f:"attestiert · attestierte · hat attestiert",p:"+ Dativ",x:"Beobachter attestieren der Regierung handwerkliche Fehler.",xe:"Observers attest that the government made technical blunders.",n:"vom Attest (ärztliche Bescheinigung); lat. testis „Zeuge“"},
+{g:"suggerieren",e:"to convey the (false) impression, to insinuate",t:"v",l:"C2",f:"suggeriert · suggerierte · hat suggeriert",x:"Die Statistik suggeriert eine Sicherheit, die es nicht gibt.",xe:"The statistics suggest a certainty that does not exist.",n:"nicht „vorschlagen“! — unterschwellig einen Eindruck erzeugen"},
+{g:"evozieren",e:"to evoke",t:"v",l:"C2",f:"evoziert · evozierte · hat evoziert",x:"Der Roman evoziert die Atmosphäre der Nachkriegsjahre.",xe:"The novel evokes the atmosphere of the postwar years.",n:"lat. evocare „herausrufen“ — Bilder, Gefühle, Assoziationen hervorrufen"},
+{g:"eruieren",e:"to ascertain, to find out (by inquiry)",t:"v",l:"C2",f:"eruiert · eruierte · hat eruiert",x:"Die Ermittler konnten die Herkunft der Gelder nicht eruieren.",xe:"The investigators could not ascertain the origin of the funds.",n:"lat. eruere „ausgraben“ — Bild: eine Information mühsam ausgraben"},
+{g:"insinuieren",e:"to insinuate",t:"v",l:"C2",f:"insinuiert · insinuierte · hat insinuiert",x:"Der Artikel insinuiert, die Ministerin habe davon gewusst.",xe:"The article insinuates that the minister knew about it.",n:"bildungssprachlich, abwertender als „suggerieren“"},
+{g:"konterkarieren",e:"to thwart, to run counter to",t:"v",l:"C2",f:"konterkariert · konterkarierte · hat konterkariert",x:"Die Äußerungen konterkarieren die Bemühungen um Deeskalation.",xe:"The remarks undercut the efforts at de-escalation.",n:"frz. contrecarrer „durchkreuzen“ — Lieblingswort der Leitartikel"},
+{g:"torpedieren",e:"to torpedo, to sabotage (plans)",t:"v",l:"C2",f:"torpediert · torpedierte · hat torpediert",x:"Die Opposition torpediert das Reformvorhaben seit Monaten.",xe:"The opposition has been torpedoing the reform project for months.",n:"Bild: ein Vorhaben wie ein Schiff mit einem Torpedo versenken"},
+{g:"gipfeln",e:"to peak, to culminate",t:"v",l:"C2",f:"gipfelt · gipfelte · hat gegipfelt",p:"in + Dat",x:"Die Kritik gipfelte in der Forderung nach seinem Rücktritt.",xe:"The criticism culminated in the demand for his resignation.",n:"vom Gipfel (summit) — das deutsche Pendant zu „kulminieren“"},
+{g:"bagatellisieren",e:"to trivialize, to play down",t:"v",l:"C2",f:"bagatellisiert · bagatellisierte · hat bagatellisiert",x:"Der Konzern bagatellisiert die Risiken des Verfahrens.",xe:"The corporation plays down the risks of the process.",n:"von der Bagatelle (Kleinigkeit); Synonym: verharmlosen"},
+{g:"verkennen",e:"to fail to recognize, to misjudge",t:"v",l:"C2",f:"verkennt · verkannte · hat verkannt",x:"Wer das behauptet, verkennt den Ernst der Lage.",xe:"Anyone claiming that misjudges the gravity of the situation.",n:"ver- als Präfix des Irrtums; „ein verkanntes Genie“ = an unrecognized genius"},
+{g:"unterstellen",e:"to impute, to insinuate (an intention)",t:"v",l:"C2",f:"unterstellt · unterstellte · hat unterstellt",p:"+ Dativ",x:"Sie unterstellt ihm, aus reinem Eigennutz zu handeln.",xe:"She imputes to him that he acts out of pure self-interest.",n:"in dieser Bedeutung untrennbar; trennbar = unterstellen (to store, to shelter)"},
+{g:"sich berufen",e:"to invoke, to cite as authority",t:"v",l:"C2",f:"beruft sich · berief sich · hat sich berufen",p:"auf + Akk",x:"Der Anwalt beruft sich auf ein Urteil des Verfassungsgerichts.",xe:"The lawyer invokes a ruling of the constitutional court.",n:"Bild: eine Autorität als Zeugen „herbeirufen“"},
+{g:"obliegen",e:"to be incumbent upon (a duty)",t:"v",l:"C2",f:"obliegt · oblag · hat obgelegen",p:"+ Dativ",x:"Die Beweislast obliegt der Staatsanwaltschaft.",xe:"The burden of proof rests with the prosecution.",n:"Juristen- und Amtsdeutsch; dazu die Obliegenheit (obligation)"},
+{g:"anmuten",e:"to seem, to strike one as",t:"v",l:"C2",f:"mutet an · mutete an · hat angemutet",x:"Der Vorschlag mutet auf den ersten Blick paradox an.",xe:"At first glance, the proposal seems paradoxical.",n:"trennbar, gehoben: „etwas mutet seltsam an“ = es wirkt seltsam"},
+{g:"entbehren",e:"to lack, to be devoid of",t:"v",l:"C2",f:"entbehrt · entbehrte · hat entbehrt",p:"+ Genitiv",x:"Der Vorwurf entbehrt jeder Grundlage.",xe:"The accusation is devoid of any foundation.",n:"mit Genitiv feste Pressefloskel: „entbehrt nicht einer gewissen Ironie“"},
+{g:"ausklammern",e:"to leave aside, to exclude (a topic)",t:"v",l:"C2",f:"klammert aus · klammerte aus · hat ausgeklammert",x:"Die heikle Finanzierungsfrage wurde bewusst ausgeklammert.",xe:"The delicate question of funding was deliberately left aside.",n:"trennbar · Bild aus der Mathematik: etwas vor die Klammer ziehen"},
+{g:"verwässern",e:"to water down, to dilute (a law, reform)",t:"v",l:"C2",f:"verwässert · verwässerte · hat verwässert",x:"Im Vermittlungsausschuss wurde das Gesetz stark verwässert.",xe:"The law was heavily watered down in the mediation committee.",n:"Bild: Wein mit Wasser strecken — die Substanz geht verloren"},
+{g:"zementieren",e:"to cement, to entrench (a state of affairs)",t:"v",l:"C2",f:"zementiert · zementierte · hat zementiert",x:"Das Urteil zementiert die bestehenden Machtverhältnisse.",xe:"The ruling cements the existing power structures.",n:"Bild: etwas in Beton gießen — meist kritisch gemeint"},
+{g:"Diskrepanz",e:"discrepancy",t:"n",l:"C2",art:"die",pl:"-en",p:"zwischen + Dat",x:"Zwischen Anspruch und Wirklichkeit klafft eine erhebliche Diskrepanz.",xe:"There is a considerable discrepancy between aspiration and reality.",n:"typische Kollokation: „eine Diskrepanz klafft“"},
+{g:"Prämisse",e:"premise, presupposition",t:"n",l:"C2",art:"die",pl:"-n",x:"Die Argumentation beruht auf einer fragwürdigen Prämisse.",xe:"The argument rests on a questionable premise.",n:"lat. praemittere „vorausschicken“ — das Vorausgesetzte eines Schlusses"},
+{g:"Kohärenz",e:"coherence",t:"n",l:"C2",art:"die",pl:"(Sg.)",x:"Dem Regierungsprogramm fehlt es an innerer Kohärenz.",xe:"The government program lacks internal coherence.",n:"Adjektiv: kohärent"},
+{g:"Postulat",e:"postulate, (normative) demand",t:"n",l:"C2",art:"das",pl:"-e",x:"Das Postulat der Chancengleichheit wird selten eingelöst.",xe:"The postulate of equal opportunity is rarely fulfilled.",n:"lat. postulare „fordern“ — eine als gültig gesetzte Forderung"},
+{g:"Redundanz",e:"redundancy (superfluous repetition)",t:"n",l:"C2",art:"die",pl:"-en",x:"Der Vortrag litt unter zahlreichen Redundanzen.",xe:"The lecture suffered from numerous redundancies.",n:"Adjektiv: redundant"},
+{g:"Zäsur",e:"caesura, sharp historical break",t:"n",l:"C2",art:"die",pl:"-en",x:"Der Mauerfall markiert eine tiefe Zäsur in der deutschen Geschichte.",xe:"The fall of the Wall marks a profound turning point in German history.",n:"ursprünglich Einschnitt im Vers, heute: historischer Einschnitt"},
+{g:"Gratwanderung",e:"balancing act, tightrope walk",t:"n",l:"C2",art:"die",pl:"-en",x:"Die Rede war eine Gratwanderung zwischen Kritik und Loyalität.",xe:"The speech was a balancing act between criticism and loyalty.",n:"Bild: Wanderung auf dem Grat (ridge) — rechts und links droht der Absturz"},
+{g:"Zerreißprobe",e:"severe test (of unity), acid test",t:"n",l:"C2",art:"die",pl:"-n",x:"Der Streit wurde zur Zerreißprobe für die Koalition.",xe:"The dispute became a severe test of the coalition's unity.",n:"Bild: Materialprüfung, bei der gezogen wird, bis etwas reißt"},
+{g:"Quintessenz",e:"quintessence, essential point",t:"n",l:"C2",art:"die",pl:"(Sg.)",x:"Die Quintessenz der Studie lässt sich in einem Satz zusammenfassen.",xe:"The gist of the study can be summed up in one sentence.",n:"lat. quinta essentia, das „fünfte Element“ der Alchemisten — das Wesentliche"},
+{g:"Paradigma",e:"paradigm",t:"n",l:"C2",art:"das",pl:"Paradigmen",x:"Das alte Paradigma der Abschreckung gilt vielen als überholt.",xe:"Many consider the old paradigm of deterrence outdated.",n:"Kompositum: der Paradigmenwechsel"},
+{g:"Konsens",e:"consensus",t:"n",l:"C2",art:"der",pl:"(Sg.)",p:"über + Akk",x:"Über das Ziel besteht Konsens, über den Weg nicht.",xe:"There is consensus on the goal, but not on the way there.",n:"Gegenwort: der Dissens"},
+{g:"Dissens",e:"dissent, disagreement",t:"n",l:"C2",art:"der",pl:"(Sg.)",x:"In der Steuerfrage blieb ein grundlegender Dissens bestehen.",xe:"A fundamental disagreement remained on the tax question.",n:"förmlicher als „Streit“: sachliche Uneinigkeit; Gegenwort: der Konsens"},
+{g:"Affront",e:"affront, open insult",t:"n",l:"C2",art:"der",pl:"-s",p:"gegen + Akk",x:"Die Absage wurde als Affront gegen den Gastgeber gewertet.",xe:"The cancellation was seen as an affront to the host.",n:"frz., Aussprache [aˈfʁõː]"},
+{g:"Eklat",e:"scandal, uproar, scene",t:"n",l:"C2",art:"der",pl:"-s",x:"Die Sitzung endete mit einem Eklat und vorzeitigen Abgängen.",xe:"The session ended in an uproar, with people walking out early.",n:"frz. éclat, Aussprache ohne t: [eˈkla] — verwandt mit „eklatant“"},
+{g:"Debakel",e:"debacle, fiasco",t:"n",l:"C2",art:"das",pl:"–",x:"Die Wahl geriet für die Volksparteien zum Debakel.",xe:"The election turned into a debacle for the major parties.",n:"frz. débâcle „Eisbruch“ — das Eis bricht, alles stürzt zusammen"},
+{g:"Alleingang",e:"solo effort, unilateral action",t:"n",l:"C2",art:"der",pl:"Alleingänge",x:"Der Kanzler entschied im Alleingang, ohne die Partner zu konsultieren.",xe:"The chancellor decided unilaterally, without consulting the partners.",n:"aus dem Fußball; politisch meist kritisch: „im Alleingang“"},
+{g:"Handhabe",e:"legal basis, means of action (against)",t:"n",l:"C2",art:"die",pl:"(Sg.)",p:"gegen + Akk",x:"Gegen solche Portale bietet das Gesetz bislang keine Handhabe.",xe:"So far, the law provides no means of action against such platforms.",n:"Bild: der Griff (die Handhabe), an dem man eine Sache anpacken kann"},
+{g:"Brisanz",e:"explosiveness (of an issue)",t:"n",l:"C2",art:"die",pl:"(Sg.)",x:"Das Thema hat durch die Enthüllungen zusätzliche Brisanz gewonnen.",xe:"The revelations have made the issue even more explosive.",n:"von brisant (urspr. Sprengstoff-Fachwort) — politisch „hochexplosiv“"},
+{g:"Deutungshoheit",e:"interpretive authority, control of the narrative",t:"n",l:"C2",art:"die",pl:"(Sg.)",p:"über + Akk",x:"Beide Lager ringen um die Deutungshoheit über die Krise.",xe:"Both camps are vying for control of the narrative about the crisis.",n:"Deutung + Hoheit (sovereignty) — wer bestimmt, wie etwas zu verstehen ist"},
+{g:"Gemengelage",e:"complex mix (of interests, factors)",t:"n",l:"C2",art:"die",pl:"-n",x:"Hinter dem Konflikt steht eine unübersichtliche Gemengelage von Interessen.",xe:"Behind the conflict lies a tangled mix of interests.",n:"urspr. Agrarrecht — heute Leitartikel-Wort"},
+{g:"Gretchenfrage",e:"the crucial, awkward question",t:"n",l:"C2",art:"die",pl:"-n",x:"Die Gretchenfrage lautet: Wie hältst du es mit der Atomkraft?",xe:"The crucial question is: where do you stand on nuclear power?",n:"aus Goethes „Faust“ — Gretchen fragt: „Nun sag, wie hast du's mit der Religion?“"},
+{g:"Zerwürfnis",e:"rift, falling-out",t:"n",l:"C2",art:"das",pl:"-se",x:"Das Zerwürfnis zwischen den Parteiflügeln ist kaum noch zu kitten.",xe:"The rift between the party's wings can hardly be mended.",n:"zu „sich zerwerfen“ = sich überwerfen, sich zerstreiten"},
+{g:"Unwägbarkeit",e:"imponderable, incalculable factor",t:"n",l:"C2",art:"die",pl:"-en",x:"Die Prognose steht unter dem Vorbehalt zahlreicher Unwägbarkeiten.",xe:"The forecast is subject to numerous imponderables.",n:"meist Plural · was sich nicht „wägen“ lässt"},
+{g:"akribisch",e:"meticulous, painstaking",t:"adj",l:"C2",x:"Die Reporter haben die Geldflüsse akribisch rekonstruiert.",xe:"The reporters meticulously reconstructed the money flows.",n:"griech. akribḗs „genau“ — dazu die Akribie (meticulousness)"},
+{g:"stringent",e:"rigorous, tightly argued",t:"adj",l:"C2",x:"Das Buch entwickelt seine These stringent und ohne Umwege.",xe:"The book develops its thesis rigorously and without digressions.",n:"lat. stringere „straff ziehen“ — logisch zwingend; Substantiv: die Stringenz"},
+{g:"lapidar",e:"terse, laconic (strikingly brief)",t:"adj",l:"C2",x:"Auf alle Nachfragen kam die lapidare Antwort: „Kein Kommentar.“",xe:"To all inquiries came the terse reply: 'No comment.'",n:"lat. lapis „Stein“ — knapp wie eine in Stein gemeißelte Inschrift"},
+{g:"prägnant",e:"concise and precise, pithy",t:"adj",l:"C2",x:"Sie fasste die Ergebnisse in drei prägnanten Sätzen zusammen.",xe:"She summed up the findings in three pithy sentences.",n:"viel Inhalt auf engem Raum; die Prägnanz"},
+{g:"obsolet",e:"obsolete",t:"adj",l:"C2",x:"Durch die Einigung ist die alte Regelung obsolet geworden.",xe:"The agreement has rendered the old rule obsolete.",n:"bildungssprachlich für „überholt, hinfällig“"},
+{g:"rudimentär",e:"rudimentary",t:"adj",l:"C2",x:"Seine Kenntnisse des Steuerrechts sind bestenfalls rudimentär.",xe:"His knowledge of tax law is rudimentary at best.",n:"lat. rudimentum „erster Anfang“"},
+{g:"eklatant",e:"blatant, glaring",t:"adj",l:"C2",x:"Der Bericht offenbart eklatante Mängel bei der Aufsicht.",xe:"The report reveals glaring deficiencies in oversight.",n:"ein Missstand, der ins Auge springt; vgl. der Eklat"},
+{g:"subtil",e:"subtle",t:"adj",l:"C2",x:"Der Film übt subtile Kritik am Kulturbetrieb.",xe:"The film offers subtle criticism of the cultural establishment.",n:"lat. subtilis „feingewebt“ — fein, kaum merklich"},
+{g:"marginal",e:"marginal, negligible",t:"adj",l:"C2",x:"Die Unterschiede zwischen beiden Entwürfen sind marginal.",xe:"The differences between the two drafts are marginal.",n:"lat. margo „Rand“ — nur am Rande bedeutsam; dazu: marginalisieren"},
+{g:"elaboriert",e:"elaborate, highly developed (style, theory)",t:"adj",l:"C2",x:"Der Aufsatz ist in einem elaborierten Stil verfasst.",xe:"The essay is written in an elaborate style.",n:"Soziolinguistik: „elaborierter Code“ (Bernstein)"},
+{g:"mutmaßlich",e:"suspected, presumed, alleged",t:"adj",l:"C2",x:"Der mutmaßliche Täter wurde noch am Abend gefasst.",xe:"The suspected perpetrator was caught that same evening.",n:"Pressestandard bei laufenden Verfahren (Unschuldsvermutung); zu „mutmaßen“"},
+{g:"etwaig",e:"any (possible), potential",t:"adj",l:"C2",x:"Etwaige Ansprüche sind schriftlich geltend zu machen.",xe:"Any claims must be asserted in writing.",n:"Verwaltungs- und Vertragsdeutsch; von „etwa“"},
+{g:"hinlänglich",e:"sufficient(ly), adequately",t:"adj",l:"C2",x:"Die Probleme des Projekts sind hinlänglich bekannt.",xe:"The project's problems are sufficiently well known.",n:"feste Kollokation: „hinlänglich bekannt“"},
+{g:"dezidiert",e:"emphatic, resolute (opinion, stance)",t:"adj",l:"C2",x:"Sie vertritt in dieser Frage eine dezidiert andere Auffassung.",xe:"She holds an emphatically different view on this question.",n:"entschieden, klar Position beziehend"},
+{g:"profund",e:"profound, thorough (knowledge)",t:"adj",l:"C2",x:"Er gilt als profunder Kenner der russischen Literatur.",xe:"He is considered a profound connoisseur of Russian literature.",n:"typische Kollokation: „profunde Kenntnisse“"},
+{g:"inhärent",e:"inherent",t:"adj",l:"C2",p:"+ Dativ",x:"Dem Modell ist ein systematischer Fehler inhärent.",xe:"A systematic error is inherent in the model.",n:"lat. inhaerere „anhaften“ — im Wesen einer Sache liegend"},
+{g:"plakativ",e:"crude(ly simplified), slogan-like",t:"adj",l:"C2",x:"Die Kampagne arbeitet mit bewusst plakativen Parolen.",xe:"The campaign deliberately works with crude, poster-style slogans.",n:"vom Plakat: auffällig, aber ohne Differenzierung — meist abwertend"},
+{g:"vermessen",e:"presumptuous, audacious",t:"adj",l:"C2",x:"Es wäre vermessen, daraus schon einen Trend abzuleiten.",xe:"It would be presumptuous to infer a trend from that already.",n:"das rechte Maß überschreitend — Wortfamilie von „sich anmaßen“"},
+{g:"prekär",e:"precarious",t:"adj",l:"C2",x:"Viele Beschäftigte arbeiten in prekären Verhältnissen.",xe:"Many employees work in precarious conditions.",n:"unsicher, heikel; „prekäre Beschäftigung“"},
+{g:"süffisant",e:"smug, complacently mocking",t:"adj",l:"C2",x:"Er quittierte den Einwand mit einem süffisanten Lächeln.",xe:"He met the objection with a smug smile.",n:"überheblich-spöttisch, beliebt im Feuilleton"},
+{g:"jemandem reinen Wein einschenken",e:"to tell someone the plain truth",t:"wend",l:"C2",x:"Irgendwann muss die Regierung den Bürgern reinen Wein einschenken.",xe:"At some point the government must level with its citizens.",n:"Bild: unverdünnten, nicht gepanschten Wein einschenken — nichts beschönigen"},
+{g:"etwas auf die lange Bank schieben",e:"to put something off indefinitely",t:"wend",l:"C2",x:"Die Reform darf nicht länger auf die lange Bank geschoben werden.",xe:"The reform must not be put off any longer.",n:"Bild: Gerichtsakten, die auf der langen Bank liegen blieben, statt verhandelt zu werden"},
+{g:"mit zweierlei Maß messen",e:"to apply double standards",t:"wend",l:"C2",x:"Kritiker werfen dem Westen vor, mit zweierlei Maß zu messen.",xe:"Critics accuse the West of applying double standards.",n:"Bild: der Händler, der je nach Kunde ein anderes Maß anlegt"},
+{g:"das Kind beim Namen nennen",e:"to call a spade a spade",t:"wend",l:"C2",x:"Der Bericht nennt das Kind beim Namen: Es war Korruption.",xe:"The report calls a spade a spade: it was corruption.",n:"Bild: nicht herumreden, sondern das Kind direkt mit seinem Namen ansprechen"},
+{g:"im Sande verlaufen",e:"to peter out, to come to nothing",t:"wend",l:"C2",x:"Die Ermittlungen verliefen nach wenigen Monaten im Sande.",xe:"The investigation petered out after a few months.",n:"Bild: ein Bach, der im Wüstensand versickert, ohne das Meer zu erreichen"},
+{g:"über den eigenen Schatten springen",e:"to overcome one's own nature or reluctance",t:"wend",l:"C2",x:"Beim Kompromiss musste die Partei über den eigenen Schatten springen.",xe:"For the compromise, the party had to overcome its own instincts.",n:"Bild: dem eigenen Schatten entkommt man nie — der Sprung darüber ist das scheinbar Unmögliche"},
+{g:"die Kirche im Dorf lassen",e:"to keep things in proportion, not exaggerate",t:"wend",l:"C2",x:"Bei aller Kritik sollte man die Kirche im Dorf lassen.",xe:"For all the criticism, let us keep things in proportion.",n:"Bild: die Kirche gehört ins Dorf — man soll sie nicht bei Prozessionen hinaustragen"},
+{g:"jemandem auf den Zahn fühlen",e:"to grill someone, to sound someone out",t:"wend",l:"C2",x:"Im Ausschuss wurde dem Zeugen gründlich auf den Zahn gefühlt.",xe:"In the committee, the witness was thoroughly grilled.",n:"Bild: der Zahnarzt tastet ab, welcher Zahn faul ist"},
+{g:"den Bock zum Gärtner machen",e:"to set the fox to guard the henhouse",t:"wend",l:"C2",x:"Ihn zum Kontrolleur zu ernennen hieße, den Bock zum Gärtner zu machen.",xe:"Appointing him as supervisor would mean setting the fox to guard the henhouse.",n:"Bild: der Ziegenbock frisst genau die Beete, die er hüten soll"},
+{g:"sich weit aus dem Fenster lehnen",e:"to stick one's neck out",t:"wend",l:"C2",x:"Mit dieser Prognose lehnt sich der Minister weit aus dem Fenster.",xe:"With this forecast, the minister is really sticking his neck out.",n:"Bild: wer sich zu weit hinauslehnt, riskiert den Sturz — eine riskante Festlegung"},
+{g:"Öl ins Feuer gießen",e:"to add fuel to the fire",t:"wend",l:"C2",x:"Statt zu vermitteln, goss der Sprecher zusätzlich Öl ins Feuer.",xe:"Instead of mediating, the spokesman added more fuel to the fire.",n:"Bild: Öl lässt die Flammen auflodern — einen Streit weiter anheizen"},
+{g:"jemandem den Wind aus den Segeln nehmen",e:"to take the wind out of someone's sails",t:"wend",l:"C2",x:"Mit dem Zugeständnis nahm sie den Kritikern den Wind aus den Segeln.",xe:"With the concession, she took the wind out of her critics' sails.",n:"Bild aus der Seefahrt: dem Gegner die Antriebskraft entziehen"},
+{g:"zwischen den Zeilen lesen",e:"to read between the lines",t:"wend",l:"C2",x:"Wer zwischen den Zeilen liest, erkennt die Distanzierung vom Parteichef.",xe:"Reading between the lines, one senses the distancing from the party leader.",n:"Bild: die eigentliche Botschaft steht nicht im Text, sondern im Zwischenraum"},
+{g:"in trockenen Tüchern sein",e:"to be signed and sealed, safely wrapped up",t:"wend",l:"C2",x:"Der Koalitionsvertrag ist noch längst nicht in trockenen Tüchern.",xe:"The coalition agreement is far from signed and sealed.",n:"Bild: das gebadete Kind wird in trockene Tücher gewickelt — die Sache ist geborgen"},
+{g:"den Nagel auf den Kopf treffen",e:"to hit the nail on the head",t:"wend",l:"C2",x:"Mit ihrer Analyse trifft die Autorin den Nagel auf den Kopf.",xe:"With her analysis, the author hits the nail on the head.",n:"Bild: der Hammerschlag, der exakt den Nagelkopf trifft"},
+{g:"auf Granit beißen",e:"to meet with unyielding resistance",t:"wend",l:"C2",x:"Mit dieser Forderung beißt die Opposition bei der Regierung auf Granit.",xe:"With this demand, the opposition is getting nowhere with the government.",n:"Bild: wer in Granit beißt, bricht sich die Zähne aus"},
+{g:"die Flinte ins Korn werfen",e:"to throw in the towel",t:"wend",l:"C2",x:"Trotz der Rückschläge wirft das Team die Flinte nicht ins Korn.",xe:"Despite the setbacks, the team is not throwing in the towel.",n:"Bild: der Soldat wirft sein Gewehr ins Kornfeld und flieht — vorschnell aufgeben"},
+{g:"Kreide fressen",e:"to feign meekness, adopt a conciliatory tone",t:"wend",l:"C2",x:"Vor der Wahl frisst der Parteichef auffällig Kreide.",xe:"Before the election, the party leader is being conspicuously conciliatory.",n:"aus „Der Wolf und die sieben Geißlein“: der Wolf frisst Kreide für eine sanfte Stimme"},
+{g:"am seidenen Faden hängen",e:"to hang by a thread",t:"wend",l:"C2",x:"Nach dem Misstrauensvotum hing die Koalition am seidenen Faden.",xe:"After the no-confidence vote, the coalition hung by a thread.",n:"Bild: das Damoklesschwert, das nur an einem dünnen Faden über dem Thron hängt"},
+{g:"das Fass zum Überlaufen bringen",e:"to be the last straw",t:"wend",l:"C2",x:"Die neuen Enthüllungen brachten das Fass zum Überlaufen.",xe:"The new revelations were the last straw.",n:"Bild: ein letzter Tropfen lässt das randvolle Fass überlaufen"},
+{g:"mithin",e:"consequently, hence (formal)",t:"konn",l:"C2",x:"Die Frist ist verstrichen, der Anspruch mithin erloschen.",xe:"The deadline has passed; the claim has consequently lapsed.",n:"Amts- und Wissenschaftsdeutsch für „folglich, also“"},
+{g:"indes",e:"meanwhile; however (formal)",t:"konn",l:"C2",x:"Die Märkte reagierten gelassen; die Politik indes zeigte sich alarmiert.",xe:"The markets reacted calmly; politicians, however, were alarmed.",n:"auch „indessen“ — zeitlich (unterdessen) und adversativ (jedoch)"},
+{g:"allenfalls",e:"at most, at best",t:"adj",l:"C2",x:"Die Maßnahme lindert allenfalls die Symptome, nicht die Ursachen.",xe:"At best, the measure alleviates the symptoms, not the causes.",n:"Adverb · = höchstens — nicht zu verwechseln mit „jedenfalls“ (in any case)"},
+{g:"zusehends",e:"visibly, more and more rapidly",t:"adj",l:"C2",x:"Die Stimmung in der Fraktion verschlechterte sich zusehends.",xe:"The mood in the parliamentary group visibly deteriorated.",n:"Adverb · so schnell, dass man die Veränderung beim Zusehen bemerkt"},
+{g:"in Frage kommen",e:"to be an option",t:"wend",l:"C1",x:"Ein Umzug kommt für mich nicht in Frage.",xe:"Moving is not an option for me.",n:"auch: infrage kommen; Perfekt mit „ist“"},
+{g:"zur Folge haben",e:"to result in, to entail",t:"wend",l:"C1",x:"Der Personalmangel hat lange Wartezeiten zur Folge.",xe:"The staff shortage results in long waiting times.",n:"nominaler Ersatz für „führen zu“"},
+{g:"in Kraft treten",e:"to come into force",t:"wend",l:"C1",x:"Das neue Gesetz tritt im Januar in Kraft.",xe:"The new law comes into force in January.",n:"Perfekt mit „ist“: ist in Kraft getreten"},
+{g:"Kritik üben",e:"to criticize, to voice criticism",t:"wend",l:"C1",p:"an + Dat",x:"Die Opposition übte scharfe Kritik an der Reform.",xe:"The opposition sharply criticized the reform.",n:"gehobener als „kritisieren“; Kollokation: scharfe/heftige Kritik"},
+{g:"in Erwägung ziehen",e:"to consider, to contemplate",t:"wend",l:"C1",x:"Wir ziehen einen Standortwechsel ernsthaft in Erwägung.",xe:"We are seriously considering a change of location.",n:"= erwägen; formeller Schriftstil"},
+{g:"zum Einsatz kommen",e:"to be used, to be deployed",t:"wend",l:"C1",x:"Bei der Operation kommen modernste Roboter zum Einsatz.",xe:"State-of-the-art robots are used in the operation.",n:"Passiv-Ersatz für „eingesetzt werden“; Perfekt mit „ist“"},
+{g:"Bezug nehmen",e:"to refer to",t:"wend",l:"C1",p:"auf + Akk",x:"Ich nehme Bezug auf Ihr Schreiben vom 3. Mai.",xe:"I refer to your letter of May 3rd.",n:"typische Briefformel; = sich beziehen auf"},
+{g:"in Angriff nehmen",e:"to tackle, to set about",t:"wend",l:"C1",x:"Die Regierung will die Steuerreform endlich in Angriff nehmen.",xe:"The government finally wants to tackle the tax reform.",n:"= mit etwas beginnen"},
+{g:"zur Kenntnis nehmen",e:"to take note of",t:"wend",l:"C1",x:"Der Vorstand nahm den Bericht ohne Kommentar zur Kenntnis.",xe:"The board took note of the report without comment.",n:"oft distanziert: nur registrieren, nicht billigen"},
+{g:"unter Druck setzen",e:"to put under pressure",t:"wend",l:"C1",x:"Die Konkurrenz setzt die Branche zunehmend unter Druck.",xe:"The competition is putting the industry under increasing pressure.",n:"Zustand: unter Druck stehen"},
+{g:"zur Diskussion stellen",e:"to put up for discussion",t:"wend",l:"C1",x:"Der Ausschuss stellte den Entwurf erneut zur Diskussion.",xe:"The committee put the draft up for discussion again.",n:"Zustand: zur Diskussion stehen"},
+{g:"in Zweifel ziehen",e:"to call into question",t:"wend",l:"C1",x:"Mehrere Experten zogen die Studienergebnisse in Zweifel.",xe:"Several experts called the study results into question.",n:"= anzweifeln, bezweifeln"},
+{g:"Abstand nehmen",e:"to refrain from, to abandon (a plan)",t:"wend",l:"C1",p:"von + Dat",x:"Die Stadt nahm von dem geplanten Bauprojekt Abstand.",xe:"The city abandoned the planned construction project.",n:"formell; = verzichten auf"},
+{g:"zur Rechenschaft ziehen",e:"to hold accountable",t:"wend",l:"C1",x:"Die Verantwortlichen müssen zur Rechenschaft gezogen werden.",xe:"Those responsible must be held accountable.",n:"oft im Passiv; Rechenschaft ablegen = give account"},
+{g:"in Aussicht stellen",e:"to hold out the prospect of",t:"wend",l:"C1",x:"Der Konzern stellte den Mitarbeitern eine Prämie in Aussicht.",xe:"The company held out the prospect of a bonus to its employees.",n:"vorsichtiger als „versprechen“"},
+{g:"Einfluss nehmen",e:"to exert influence on",t:"wend",l:"C1",p:"auf + Akk",x:"Lobbyisten versuchen, auf die Gesetzgebung Einfluss zu nehmen.",xe:"Lobbyists try to influence legislation.",n:"= beeinflussen; auch: Einfluss ausüben auf"},
+{g:"zur Sprache bringen",e:"to bring up, to raise (a topic)",t:"wend",l:"C1",x:"Sie brachte das Problem in der Sitzung zur Sprache.",xe:"She brought up the problem in the meeting.",n:"= ansprechen; Zustand: zur Sprache kommen"},
+{g:"Stellung nehmen",e:"to take a position, to comment on",t:"wend",l:"C1",p:"zu + Dat",x:"Der Minister wollte zu den Vorwürfen nicht Stellung nehmen.",xe:"The minister did not want to comment on the accusations.",n:"typische Prüfungsaufgabe: „Nehmen Sie Stellung!“"},
+{g:"in Einklang bringen",e:"to reconcile, to harmonize",t:"wend",l:"C1",p:"mit + Dat",x:"Wie lassen sich Beruf und Familie in Einklang bringen?",xe:"How can work and family be reconciled?",n:"Zustand: im Einklang stehen mit"},
+{g:"zum Erliegen kommen",e:"to come to a standstill",t:"wend",l:"C1",x:"Der Verkehr kam wegen des Schneesturms völlig zum Erliegen.",xe:"Traffic came to a complete standstill because of the blizzard.",n:"Perfekt mit „ist“; aktiv: etwas zum Erliegen bringen"},
+{g:"anstatt dass",e:"instead of (doing sth)",t:"konn",l:"C1",x:"Anstatt dass er half, sah er nur zu.",xe:"Instead of helping, he just watched.",n:"Subjunktion: Verb am Ende; bei gleichem Subjekt besser: anstatt … zu + Infinitiv"},
+{g:"ohne dass",e:"without (sth happening)",t:"konn",l:"C1",x:"Er verließ den Raum, ohne dass es jemand bemerkte.",xe:"He left the room without anyone noticing.",n:"Subjunktion: Verb am Ende; bei gleichem Subjekt: ohne … zu + Infinitiv"},
+{g:"als ob",e:"as if",t:"konn",l:"C1",x:"Sie tat, als ob sie nichts gehört hätte.",xe:"She acted as if she had heard nothing.",n:"Verb am Ende + Konjunktiv II; Variante: „als hätte sie …“ (Verb direkt nach „als“)"},
+{g:"insofern als",e:"insofar as",t:"konn",l:"C1",x:"Die Studie ist wichtig, insofern als sie neue Daten liefert.",xe:"The study is important insofar as it provides new data.",n:"Subjunktion: Verb am Ende; formeller Schriftstil"},
+{g:"je nachdem",e:"depending on",t:"konn",l:"C1",x:"Je nachdem, wie das Wetter wird, fahren wir ans Meer.",xe:"Depending on how the weather turns out, we will go to the sea.",n:"+ ob/W-Wort, danach Nebensatz mit Verb am Ende"},
+{g:"wenngleich",e:"although, albeit",t:"konn",l:"C1",x:"Das Ergebnis ist positiv, wenngleich Zweifel bestehen bleiben.",xe:"The result is positive, although doubts remain.",n:"Subjunktion wie „obwohl“: Verb am Ende; gehoben"},
+{g:"ungeachtet",e:"regardless of, notwithstanding",t:"konn",l:"C1",p:"+ Genitiv",x:"Ungeachtet aller Proteste wurde das Gesetz verabschiedet.",xe:"The law was passed regardless of all protests.",n:"Präposition + Gen; mit Satz: „ungeachtet dessen, dass …“"},
+{g:"sei es … sei es",e:"be it … or",t:"konn",l:"C1",x:"Jeder kann helfen, sei es mit Geld, sei es mit Zeit.",xe:"Everyone can help, be it with money or with time.",n:"feste Doppelformel; ändert die Wortstellung des Hauptsatzes nicht"},
+{g:"zumindest",e:"at least",t:"konn",l:"C1",x:"Zumindest hat er sich für den Fehler entschuldigt.",xe:"At least he apologized for the mistake.",n:"Adverb auf Position 1 → danach sofort das Verb (Inversion)"},
+{g:"immerhin",e:"at least, after all",t:"konn",l:"C1",x:"Immerhin konnten alle Bewohner rechtzeitig gerettet werden.",xe:"At least all residents could be rescued in time.",n:"Adverb auf Position 1 → Inversion; drückt Anerkennung trotz Kritik aus"},
+{g:"erachten",e:"to deem, to consider (as)",t:"v",l:"C1",f:"erachtet · erachtete · hat erachtet",p:"als + Akk",x:"Der Rat erachtet weitere Maßnahmen als notwendig.",xe:"The council deems further measures necessary.",n:"formell; auch: etwas für nötig erachten · „meines Erachtens“ (m. E.) = in my view"},
+{g:"unterbinden",e:"to stop, to put an end to",t:"v",l:"C1",f:"unterbindet · unterband · hat unterbunden",x:"Die Polizei will den illegalen Handel unterbinden.",xe:"The police want to stop the illegal trade.",n:"untrennbar; stärker als „verhindern“"},
+{g:"bewerkstelligen",e:"to manage, to accomplish",t:"v",l:"C1",f:"bewerkstelligt · bewerkstelligte · hat bewerkstelligt",x:"Wie er das bewerkstelligt hat, bleibt ein Rätsel.",xe:"How he managed that remains a mystery.",n:"gehoben; = zustande bringen"},
+{g:"eindämmen",e:"to curb, to contain",t:"v",l:"C1",f:"dämmt ein · dämmte ein · hat eingedämmt",x:"Die Regierung versucht, die Inflation einzudämmen.",xe:"The government is trying to curb inflation.",n:"trennbar · Bild: einen Damm bauen; typisch: Kosten/Ausbreitung eindämmen"},
+{g:"entkräften",e:"to refute, to invalidate (arguments)",t:"v",l:"C1",f:"entkräftet · entkräftete · hat entkräftet",x:"Der Anwalt konnte alle Vorwürfe überzeugend entkräften.",xe:"The lawyer was able to convincingly refute all accusations.",n:"wörtlich: einem Argument die Kraft nehmen"},
+{g:"sich erübrigen",e:"to become unnecessary, to be superfluous",t:"v",l:"C1",f:"erübrigt sich · erübrigte sich · hat sich erübrigt",x:"Damit erübrigt sich jede weitere Diskussion.",xe:"That makes any further discussion unnecessary.",n:"häufig: „Die Frage erübrigt sich.“"},
+{g:"herbeiführen",e:"to bring about, to cause",t:"v",l:"C1",f:"führt herbei · führte herbei · hat herbeigeführt",x:"Der Vermittler wollte eine rasche Einigung herbeiführen.",xe:"The mediator wanted to bring about a swift agreement.",n:"trennbar · typisch: eine Wende/Lösung herbeiführen"},
+{g:"absehen",e:"to refrain from",t:"v",l:"C1",f:"sieht ab · sah ab · hat abgesehen",p:"von + Dat",x:"Die Behörde sah von einer Strafe ab.",xe:"The authority refrained from imposing a penalty.",n:"trennbar · nicht verwechseln: „abgesehen von“ = apart from"},
+{g:"beanstanden",e:"to object to, to find fault with",t:"v",l:"C1",f:"beanstandet · beanstandete · hat beanstandet",x:"Die Prüfer beanstandeten mehrere Mängel im Bericht.",xe:"The auditors objected to several defects in the report.",n:"Amtssprache; Nomen: die Beanstandung"},
+{g:"begünstigen",e:"to favor, to foster",t:"v",l:"C1",f:"begünstigt · begünstigte · hat begünstigt",x:"Das milde Klima begünstigt den Weinanbau in der Region.",xe:"The mild climate favors wine-growing in the region.",n:"auch juristisch: jemanden begünstigen = give unfair advantage"},
+{g:"erschließen",e:"to open up, to develop (markets, sources)",t:"v",l:"C1",f:"erschließt · erschloss · hat erschlossen",x:"Das Unternehmen will neue Märkte in Asien erschließen.",xe:"The company wants to open up new markets in Asia.",n:"reflexiv: „Der Sinn erschließt sich mir nicht.“"},
+{g:"vorantreiben",e:"to push ahead with, to advance",t:"v",l:"C1",f:"treibt voran · trieb voran · hat vorangetrieben",x:"Die EU will den Ausbau erneuerbarer Energien vorantreiben.",xe:"The EU wants to push ahead with expanding renewable energies.",n:"trennbar · typisch: ein Projekt/eine Entwicklung vorantreiben"},
+{g:"resultieren",e:"to result (from)",t:"v",l:"C1",f:"resultiert · resultierte · hat resultiert",p:"aus + Dat",x:"Die Verzögerungen resultieren aus fehlendem Personal.",xe:"The delays result from a lack of staff.",n:"schriftsprachlich; „resultieren in“ gilt als Anglizismus, besser vermeiden"},
+{g:"einräumen",e:"to concede, to admit",t:"v",l:"C1",f:"räumt ein · räumte ein · hat eingeräumt",x:"Der Minister räumte ein, Fehler gemacht zu haben.",xe:"The minister admitted to having made mistakes.",n:"trennbar · zweite Bedeutung: jemandem ein Recht einräumen = grant"},
+{g:"verharmlosen",e:"to play down, to trivialize",t:"v",l:"C1",f:"verharmlost · verharmloste · hat verharmlost",x:"Kritiker werfen ihm vor, das Problem zu verharmlosen.",xe:"Critics accuse him of playing down the problem.",n:"von „harmlos“; Gegenteil: dramatisieren"},
+{g:"beruhen",e:"to be based (on)",t:"v",l:"C1",f:"beruht · beruhte · hat beruht",p:"auf + Dat",x:"Der Film beruht auf einer wahren Begebenheit.",xe:"The film is based on a true story.",n:"„etwas auf sich beruhen lassen“ = let a matter rest"},
+{g:"abzielen",e:"to aim (at), to be directed (at)",t:"v",l:"C1",f:"zielt ab · zielte ab · hat abgezielt",p:"auf + Akk",x:"Die Kampagne zielt auf junge Wähler ab.",xe:"The campaign is aimed at young voters.",n:"trennbar · = zum Ziel haben"},
+{g:"Ausmaß",e:"extent, scale",t:"n",l:"C1",art:"das",pl:"-e",x:"Das volle Ausmaß der Schäden ist noch unklar.",xe:"The full extent of the damage is still unclear.",n:"in erheblichem Ausmaß = to a considerable extent"},
+{g:"Anreiz",e:"incentive",t:"n",l:"C1",art:"der",pl:"-e",p:"zu + Dat",x:"Der Staat schafft finanzielle Anreize zum Energiesparen.",xe:"The state creates financial incentives for saving energy.",n:"Anreize schaffen/setzen"},
+{g:"Befugnis",e:"authority, (legal) power",t:"n",l:"C1",art:"die",pl:"-se",x:"Die Polizei überschritt eindeutig ihre Befugnisse.",xe:"The police clearly exceeded their powers.",n:"befugt sein, etwas zu tun = be authorized"},
+{g:"Vorgehen",e:"course of action, procedure",t:"n",l:"C1",art:"das",pl:"(Sg.)",x:"Das harte Vorgehen der Behörden stieß auf Kritik.",xe:"The authorities' tough action met with criticism.",n:"substantivierter Infinitiv; Verb: vorgehen (ist vorgegangen)"},
+{g:"Einbuße",e:"loss, forfeiture",t:"n",l:"C1",art:"die",pl:"-n",x:"Die Branche musste erhebliche Einbußen hinnehmen.",xe:"The industry had to accept considerable losses.",n:"meist Plural; Verb: einbüßen"},
+{g:"Teilhabe",e:"participation (social, political)",t:"n",l:"C1",art:"die",pl:"(Sg.)",p:"an + Dat",x:"Bildung ermöglicht Teilhabe am gesellschaftlichen Leben.",xe:"Education enables participation in social life.",n:"soziologischer Schlüsselbegriff; vgl. teilhaben an"},
+{g:"Umsetzung",e:"implementation",t:"n",l:"C1",art:"die",pl:"-en",x:"Die Umsetzung der Reform scheiterte am Geld.",xe:"The implementation of the reform failed for lack of money.",n:"Verb: umsetzen; etwas in die Tat umsetzen"},
+{g:"Missstand",e:"deplorable state of affairs, abuse",t:"n",l:"C1",art:"der",pl:"Missstände",x:"Journalisten deckten erhebliche Missstände in der Klinik auf.",xe:"Journalists uncovered serious abuses at the clinic.",n:"Missstände aufdecken/beseitigen; meist Plural"},
+{g:"Bereitschaft",e:"willingness, readiness",t:"n",l:"C1",art:"die",pl:"(Sg.)",p:"zu + Dat",x:"Die Bereitschaft zu Kompromissen ist deutlich gesunken.",xe:"The willingness to compromise has clearly declined.",n:"auch: Bereitschaft, etwas zu tun"},
+{g:"Erfordernis",e:"requirement, necessity",t:"n",l:"C1",art:"das",pl:"-se",x:"Der Lehrplan wird den Erfordernissen der Praxis angepasst.",xe:"The curriculum is being adapted to practical requirements.",n:"formell; vgl. erforderlich = required"},
+{g:"Gefälle",e:"disparity, gap; gradient",t:"n",l:"C1",art:"das",pl:"–",x:"Zwischen Stadt und Land besteht ein starkes Gefälle.",xe:"There is a strong disparity between town and country.",n:"Komposita: Lohngefälle, Nord-Süd-Gefälle"},
+{g:"Errungenschaft",e:"achievement, attainment",t:"n",l:"C1",art:"die",pl:"-en",x:"Der Sozialstaat gilt als große Errungenschaft des 20. Jahrhunderts.",xe:"The welfare state is considered a great achievement of the 20th century.",n:"von „erringen“ = to gain through struggle"},
+{g:"Bestreben",e:"endeavor, effort",t:"n",l:"C1",art:"das",pl:"(Sg.)",x:"Ihr Bestreben, alles perfekt zu machen, lähmt sie manchmal.",xe:"Her endeavor to make everything perfect sometimes paralyzes her.",n:"feste Wendung: im Bestreben, … zu + Infinitiv"},
+{g:"Schlussfolgerung",e:"conclusion, inference",t:"n",l:"C1",art:"die",pl:"-en",x:"Welche Schlussfolgerungen lassen sich aus den Daten ziehen?",xe:"What conclusions can be drawn from the data?",n:"Schlussfolgerungen ziehen aus + Dat"},
+{g:"Kluft",e:"gap, divide",t:"n",l:"C1",art:"die",pl:"Klüfte",p:"zwischen + Dat",x:"Die Kluft zwischen Arm und Reich vertieft sich weiter.",xe:"The gap between rich and poor continues to deepen.",n:"bildlich; wörtlich: Felsspalte"},
+{g:"fundiert",e:"well-founded, sound",t:"adj",l:"C1",x:"Sie lieferte eine fundierte Analyse der Lage.",xe:"She provided a well-founded analysis of the situation.",n:"Kollokation: fundierte Kenntnisse/Kritik"},
+{g:"weitreichend",e:"far-reaching",t:"adj",l:"C1",x:"Das Urteil hat weitreichende Folgen für die Branche.",xe:"The ruling has far-reaching consequences for the industry.",n:"Kollokation: weitreichende Folgen/Entscheidungen/Befugnisse"},
+{g:"tiefgreifend",e:"profound, radical",t:"adj",l:"C1",x:"Die Digitalisierung bewirkt tiefgreifende Veränderungen der Arbeitswelt.",xe:"Digitalization is bringing about profound changes in the world of work.",n:"auch Schreibung: tief greifend"},
+{g:"flächendeckend",e:"comprehensive, nationwide, blanket",t:"adj",l:"C1",x:"Ein flächendeckendes Netz an Ladestationen fehlt noch.",xe:"A comprehensive network of charging stations is still lacking.",n:"wörtlich: die ganze Fläche deckend"},
+{g:"zwiespältig",e:"ambivalent, mixed, conflicted",t:"adj",l:"C1",x:"Die Reaktionen auf den Film waren äußerst zwiespältig.",xe:"The reactions to the film were extremely mixed.",n:"Nomen: der Zwiespalt = inner conflict"},
+{g:"einschlägig",e:"relevant, pertinent",t:"adj",l:"C1",x:"Sie verfügt über einschlägige Erfahrung in der Branche.",xe:"She has relevant experience in the industry.",n:"Vorsicht, auch negativ: einschlägig vorbestraft"},
+{g:"ausschlaggebend",e:"decisive, crucial",t:"adj",l:"C1",x:"Der Preis war für die Entscheidung ausschlaggebend.",xe:"The price was decisive for the decision.",n:"vgl. „den Ausschlag geben“ = be the deciding factor"},
+{g:"bedenklich",e:"worrying, questionable",t:"adj",l:"C1",x:"Der Zustand der Brücke ist äußerst bedenklich.",xe:"The condition of the bridge is extremely worrying.",n:"auch: ethisch/rechtlich bedenklich"},
+{g:"ernüchternd",e:"sobering, disillusioning",t:"adj",l:"C1",x:"Die Ergebnisse der Studie sind ernüchternd.",xe:"The results of the study are sobering.",n:"von „nüchtern“ (sober); Nomen: die Ernüchterung"},
+{g:"verwerflich",e:"reprehensible",t:"adj",l:"C1",x:"Ein solches Verhalten ist moralisch verwerflich.",xe:"Such behavior is morally reprehensible.",n:"vgl. verwerfen = to reject (an idea)"},
+{g:"vielschichtig",e:"multilayered, complex",t:"adj",l:"C1",x:"Die Ursachen des Problems sind äußerst vielschichtig.",xe:"The causes of the problem are extremely complex.",n:"wörtlich: aus vielen Schichten bestehend"},
+{g:"lückenhaft",e:"patchy, incomplete",t:"adj",l:"C1",x:"Die Beweislage ist nach wie vor lückenhaft.",xe:"The evidence is still patchy.",n:"die Lücke = gap; Gegenteil: lückenlos"},
+{g:"folgenschwer",e:"momentous, with grave consequences",t:"adj",l:"C1",x:"Der Pilot traf eine folgenschwere Fehlentscheidung.",xe:"The pilot made a decision with grave consequences.",n:"meist negativ konnotiert"},
+{g:"haltlos",e:"baseless, unfounded",t:"adj",l:"C1",x:"Diese Anschuldigungen sind völlig haltlos.",xe:"These accusations are completely baseless.",n:"Kollokation: haltlose Behauptungen/Vorwürfe"},
+{g:"besorgniserregend",e:"alarming, worrying",t:"adj",l:"C1",x:"Die Zahl der Fehltage stieg besorgniserregend an.",xe:"The number of absence days rose alarmingly.",n:"aus „Besorgnis“ + „erregend“; stärker als „bedenklich“"},
+{g:"verschwenden",e:"to waste",t:"v",l:"B2",f:"verschwendet · verschwendete · hat verschwendet",x:"Wir sollten kein Wasser und keine Energie verschwenden.",xe:"We shouldn't waste water or energy.",n:"Gegenteil: sparen"},
+{g:"einschränken",e:"to limit, to restrict",t:"v",l:"B2",f:"schränkt ein · schränkte ein · hat eingeschränkt",x:"Die Stadt will den Autoverkehr im Zentrum einschränken.",xe:"The city wants to restrict car traffic in the center.",n:"trennbar"},
+{g:"sich erholen",e:"to recover, to relax",t:"v",l:"B2",f:"erholt sich · erholte sich · hat sich erholt",p:"von + Dat",x:"Nach der Operation erholte er sich nur langsam.",xe:"After the operation he recovered only slowly."},
+{g:"einwandern",e:"to immigrate",t:"v",l:"B2",f:"wandert ein · wanderte ein · ist eingewandert",x:"Ihre Großeltern sind in den Sechzigerjahren nach Deutschland eingewandert.",xe:"Her grandparents immigrated to Germany in the sixties.",n:"trennbar; Gegenteil: auswandern"},
+{g:"sich integrieren",e:"to integrate",t:"v",l:"B2",f:"integriert sich · integrierte sich · hat sich integriert",p:"in + Akk",x:"Sie hat sich schnell in die neue Klasse integriert.",xe:"She integrated quickly into the new class."},
+{g:"sich anpassen",e:"to adapt",t:"v",l:"B2",f:"passt sich an · passte sich an · hat sich angepasst",p:"an + Akk",x:"Städte müssen sich an das veränderte Klima anpassen.",xe:"Cities have to adapt to the changed climate.",n:"trennbar"},
+{g:"sich engagieren",e:"to get involved, to be committed",t:"v",l:"B2",f:"engagiert sich · engagierte sich · hat sich engagiert",p:"für + Akk",x:"Er engagiert sich seit Jahren für den Tierschutz.",xe:"He has been committed to animal welfare for years.",n:"Aussprache französisch: [angaschieren]"},
+{g:"sich beteiligen",e:"to take part, to participate",t:"v",l:"B2",f:"beteiligt sich · beteiligte sich · hat sich beteiligt",p:"an + Dat",x:"Tausende beteiligten sich an der Demonstration gegen Rassismus.",xe:"Thousands took part in the demonstration against racism."},
+{g:"fordern",e:"to demand",t:"v",l:"B2",f:"fordert · forderte · hat gefordert",x:"Die Opposition fordert höhere Löhne für Pflegekräfte.",xe:"The opposition is demanding higher wages for care workers.",n:"nicht verwechseln mit fördern = unterstützen"},
+{g:"fördern",e:"to promote, to support",t:"v",l:"B2",f:"fördert · förderte · hat gefördert",x:"Der Staat fördert den Ausbau erneuerbarer Energien.",xe:"The state promotes the expansion of renewable energies.",n:"nicht verwechseln mit fordern = verlangen"},
+{g:"abschaffen",e:"to abolish",t:"v",l:"B2",f:"schafft ab · schaffte ab · hat abgeschafft",x:"Einige Parteien wollen die Studiengebühren abschaffen.",xe:"Some parties want to abolish tuition fees.",n:"trennbar; Gegenteil: einführen"},
+{g:"einführen",e:"to introduce (a rule, a system)",t:"v",l:"B2",f:"führt ein · führte ein · hat eingeführt",x:"2015 wurde der Mindestlohn in Deutschland eingeführt.",xe:"The minimum wage was introduced in Germany in 2015.",n:"trennbar"},
+{g:"berichten",e:"to report",t:"v",l:"B2",f:"berichtet · berichtete · hat berichtet",p:"über + Akk",x:"Die Presse berichtete tagelang über den Skandal.",xe:"The press reported on the scandal for days."},
+{g:"bezweifeln",e:"to doubt (something)",t:"v",l:"B2",f:"bezweifelt · bezweifelte · hat bezweifelt",x:"Ich bezweifle, dass diese Zahlen wirklich stimmen.",xe:"I doubt that these figures are really correct.",n:"etwas bezweifeln, aber: an etwas zweifeln"},
+{g:"widersprechen",e:"to contradict, to disagree",t:"v",l:"B2",f:"widerspricht · widersprach · hat widersprochen",p:"+ Dativ",x:"In diesem Punkt muss ich dir widersprechen.",xe:"On this point I have to disagree with you.",n:"untrennbar; Perfekt ohne ge-"},
+{g:"ablehnen",e:"to reject, to refuse",t:"v",l:"B2",f:"lehnt ab · lehnte ab · hat abgelehnt",x:"Sie hat den Vorschlag aus guten Gründen abgelehnt.",xe:"She rejected the proposal for good reasons.",n:"trennbar"},
+{g:"begründen",e:"to justify, to give reasons for",t:"v",l:"B2",f:"begründet · begründete · hat begründet",x:"Bitte begründen Sie Ihre Position mit Beispielen.",xe:"Please justify your position with examples.",n:"Schlüsselverb im Prüfungsteil Schreiben"},
+{g:"zusammenfassen",e:"to summarize",t:"v",l:"B2",f:"fasst zusammen · fasste zusammen · hat zusammengefasst",x:"Fassen Sie den Text in eigenen Worten zusammen.",xe:"Summarize the text in your own words.",n:"trennbar"},
+{g:"sich äußern",e:"to comment, to express oneself",t:"v",l:"B2",f:"äußert sich · äußerte sich · hat sich geäußert",p:"zu + Dat",x:"Der Minister wollte sich nicht zu den Plänen äußern.",xe:"The minister did not want to comment on the plans."},
+{g:"sich lohnen",e:"to be worth it",t:"v",l:"B2",f:"lohnt sich · lohnte sich · hat sich gelohnt",x:"Ein Vergleich der Preise lohnt sich fast immer.",xe:"Comparing prices is almost always worth it."},
+{g:"schaden",e:"to harm, to damage",t:"v",l:"B2",f:"schadet · schadete · hat geschadet",p:"+ Dativ",x:"Zu wenig Schlaf schadet auf Dauer der Gesundheit.",xe:"Too little sleep harms your health in the long run.",n:"Dativ-Verb: Rauchen schadet dir"},
+{g:"Datenschutz",e:"data protection, privacy",t:"n",l:"B2",art:"der",pl:"(Sg.)",x:"Beim Datenschutz gelten in Europa strenge Regeln.",xe:"Strict rules apply to data protection in Europe."},
+{g:"Gerücht",e:"rumor",t:"n",l:"B2",art:"das",pl:"-e",x:"Im Internet verbreiten sich Gerüchte besonders schnell.",xe:"Rumors spread especially fast on the internet."},
+{g:"Umfrage",e:"survey, poll",t:"n",l:"B2",art:"die",pl:"-n",x:"Laut einer aktuellen Umfrage sparen viele Deutsche mehr.",xe:"According to a recent survey, many Germans are saving more.",n:"„laut einer Umfrage“ = nützlich für die Grafikbeschreibung"},
+{g:"Klimawandel",e:"climate change",t:"n",l:"B2",art:"der",pl:"(Sg.)",x:"Der Klimawandel ist die größte Aufgabe unserer Zeit.",xe:"Climate change is the greatest task of our time."},
+{g:"Dürre",e:"drought",t:"n",l:"B2",art:"die",pl:"-n",x:"Lange Dürren bedrohen die Ernten in vielen Ländern.",xe:"Long droughts threaten harvests in many countries."},
+{g:"Überschwemmung",e:"flood",t:"n",l:"B2",art:"die",pl:"-en",x:"Nach dem Starkregen kam es zu schweren Überschwemmungen.",xe:"After the heavy rain there was severe flooding.",n:"auch: das Hochwasser"},
+{g:"Verpackung",e:"packaging",t:"n",l:"B2",art:"die",pl:"-en",x:"Viele Verpackungen landen nach einmaligem Gebrauch im Müll.",xe:"A lot of packaging ends up in the trash after one use."},
+{g:"Ernährung",e:"diet, nutrition",t:"n",l:"B2",art:"die",pl:"(Sg.)",x:"Eine ausgewogene Ernährung stärkt das Immunsystem.",xe:"A balanced diet strengthens the immune system.",n:"sich gesund ernähren = Verb dazu"},
+{g:"Sucht",e:"addiction",t:"n",l:"B2",art:"die",pl:"Süchte",x:"Ständiges Scrollen am Handy kann zur Sucht werden.",xe:"Constant scrolling on your phone can become an addiction.",n:"süchtig nach + Dat"},
+{g:"Impfung",e:"vaccination",t:"n",l:"B2",art:"die",pl:"-en",x:"Die Impfung schützt vor einem schweren Verlauf der Krankheit.",xe:"The vaccination protects against a severe course of the illness."},
+{g:"Herkunft",e:"origin, background",t:"n",l:"B2",art:"die",pl:"(Sg.)",x:"Niemand darf wegen seiner Herkunft benachteiligt werden.",xe:"No one may be disadvantaged because of their origin."},
+{g:"Aufenthaltserlaubnis",e:"residence permit",t:"n",l:"B2",art:"die",pl:"-se",x:"Sie wartet seit Monaten auf ihre Aufenthaltserlaubnis.",xe:"She has been waiting for her residence permit for months."},
+{g:"Zusammenhalt",e:"cohesion, solidarity",t:"n",l:"B2",art:"der",pl:"(Sg.)",x:"In der Krise wächst der Zusammenhalt in der Nachbarschaft.",xe:"In the crisis, cohesion in the neighborhood grows.",n:"nicht verwechseln mit Zusammenhang = Verbindung"},
+{g:"Armut",e:"poverty",t:"n",l:"B2",art:"die",pl:"(Sg.)",x:"Auch in reichen Ländern leben viele Kinder in Armut.",xe:"Even in rich countries many children live in poverty.",n:"Gegenteil: der Reichtum"},
+{g:"Bevölkerung",e:"population",t:"n",l:"B2",art:"die",pl:"-en",x:"Die Bevölkerung in ländlichen Regionen wird immer älter.",xe:"The population in rural regions is getting older and older.",n:"meist im Singular"},
+{g:"Diskriminierung",e:"discrimination",t:"n",l:"B2",art:"die",pl:"-en",x:"Diskriminierung am Arbeitsplatz ist gesetzlich verboten.",xe:"Discrimination in the workplace is prohibited by law."},
+{g:"Umgang",e:"way of dealing (with), handling",t:"n",l:"B2",art:"der",pl:"(Sg.)",p:"mit + Dat",x:"Wir diskutieren über den richtigen Umgang mit Geld.",xe:"We are discussing the right way to handle money."},
+{g:"Steuer",e:"tax",t:"n",l:"B2",art:"die",pl:"-n",x:"Auf Tabak zahlt man in Deutschland hohe Steuern.",xe:"You pay high taxes on tobacco in Germany.",n:"Achtung: das Steuer = Lenkrad"},
+{g:"Eifersucht",e:"jealousy",t:"n",l:"B2",art:"die",pl:"(Sg.)",x:"Seine ständige Eifersucht belastete die Beziehung sehr.",xe:"His constant jealousy put a great strain on the relationship.",n:"eifersüchtig auf + Akk"},
+{g:"Sehnsucht",e:"longing, yearning",t:"n",l:"B2",art:"die",pl:"Sehnsüchte",p:"nach + Dat",x:"Im Ausland hatte sie große Sehnsucht nach ihrer Familie.",xe:"Abroad she felt a great longing for her family."},
+{g:"Ware",e:"goods, merchandise",t:"n",l:"B2",art:"die",pl:"-n",x:"Beschädigte Ware kann man normalerweise umtauschen.",xe:"You can normally exchange damaged goods."},
+{g:"Vertrag",e:"contract",t:"n",l:"B2",art:"der",pl:"Verträge",x:"Lies den Vertrag genau, bevor du ihn unterschreibst.",xe:"Read the contract carefully before you sign it.",n:"einen Vertrag abschließen / kündigen"},
+{g:"Kündigung",e:"cancellation, termination",t:"n",l:"B2",art:"die",pl:"-en",x:"Die Kündigung des Handyvertrags muss schriftlich erfolgen.",xe:"The cellphone contract must be canceled in writing.",n:"auch: Kündigung durch den Arbeitgeber"},
+{g:"Ansicht",e:"view, opinion",t:"n",l:"B2",art:"die",pl:"-en",x:"Meiner Ansicht nach greift dieses Argument zu kurz.",xe:"In my view this argument falls short.",n:"meiner Ansicht nach = meines Erachtens"},
+{g:"Einwand",e:"objection",t:"n",l:"B2",art:"der",pl:"Einwände",p:"gegen + Akk",x:"Gegen diesen Plan gibt es einige berechtigte Einwände.",xe:"There are some justified objections to this plan.",n:"einen Einwand erheben / entkräften"},
+{g:"glaubwürdig",e:"credible, believable",t:"adj",l:"B2",x:"Wie glaubwürdig ist diese Quelle wirklich?",xe:"How credible is this source really?",n:"Gegenteil: unglaubwürdig"},
+{g:"einseitig",e:"one-sided, biased",t:"adj",l:"B2",x:"Der Artikel stellt das Thema sehr einseitig dar.",xe:"The article presents the topic in a very one-sided way."},
+{g:"sachlich",e:"objective, matter-of-fact",t:"adj",l:"B2",x:"Bleiben Sie bitte sachlich, auch wenn Sie anderer Meinung sind.",xe:"Please stay objective, even if you disagree.",n:"Gegenteil: emotional, persönlich"},
+{g:"klimafreundlich",e:"climate-friendly",t:"adj",l:"B2",x:"Wir versuchen, möglichst klimafreundlich zu reisen.",xe:"We try to travel in as climate-friendly a way as possible.",n:"Gegenteil: klimaschädlich"},
+{g:"schädlich",e:"harmful",t:"adj",l:"B2",p:"für + Akk",x:"Zu viel Zucker ist schädlich für die Zähne.",xe:"Too much sugar is harmful to your teeth."},
+{g:"ansteckend",e:"contagious",t:"adj",l:"B2",x:"Die Grippe ist in den ersten Tagen besonders ansteckend.",xe:"The flu is especially contagious in the first few days.",n:"auch übertragen: ansteckendes Lachen"},
+{g:"erschöpft",e:"exhausted",t:"adj",l:"B2",x:"Nach der Nachtschicht war sie völlig erschöpft.",xe:"After the night shift she was completely exhausted.",n:"stärker als müde"},
+{g:"beunruhigt",e:"worried, alarmed",t:"adj",l:"B2",p:"über + Akk",x:"Viele Eltern sind über die Wirkung sozialer Medien beunruhigt.",xe:"Many parents are alarmed about the effect of social media."},
+{g:"gelassen",e:"calm, composed",t:"adj",l:"B2",x:"Er reagiert selbst auf harte Kritik erstaunlich gelassen.",xe:"He reacts astonishingly calmly even to harsh criticism.",n:"gelassen bleiben = ruhig bleiben"},
+{g:"einfühlsam",e:"empathetic, sensitive",t:"adj",l:"B2",x:"Die Ärztin überbrachte die Diagnose sehr einfühlsam.",xe:"The doctor delivered the diagnosis very sensitively."},
+{g:"rücksichtslos",e:"inconsiderate, reckless",t:"adj",l:"B2",x:"Manche Autofahrer verhalten sich im Stadtverkehr rücksichtslos.",xe:"Some drivers behave recklessly in city traffic.",n:"Gegenteil: rücksichtsvoll"},
+{g:"weltoffen",e:"open-minded, cosmopolitan",t:"adj",l:"B2",x:"Berlin gilt als weltoffene und tolerante Stadt.",xe:"Berlin is considered an open-minded and tolerant city."},
+{g:"solidarisch",e:"in solidarity, supportive",t:"adj",l:"B2",p:"mit + Dat",x:"Viele Kollegen zeigten sich solidarisch mit den Streikenden.",xe:"Many colleagues showed solidarity with the strikers."},
+{g:"erschwinglich",e:"affordable",t:"adj",l:"B2",x:"In Großstädten sind Wohnungen kaum noch erschwinglich.",xe:"In big cities, apartments are hardly affordable anymore.",n:"sich etwas leisten können = Umschreibung"},
+{g:"meines Erachtens",e:"in my opinion",t:"wend",l:"B2",x:"Meines Erachtens wird das Problem völlig unterschätzt.",xe:"In my opinion the problem is completely underestimated.",n:"formeller als „ich finde“; Abkürzung: m. E."},
+{g:"etwas infrage stellen",e:"to question, to call into doubt",t:"wend",l:"B2",x:"Der Bericht stellt die offiziellen Zahlen infrage.",xe:"The report calls the official figures into question.",n:"Duden empfiehlt „infrage“, auch „in Frage“ korrekt"},
+{g:"in der Regel",e:"as a rule, usually",t:"wend",l:"B2",x:"In der Regel antwortet die Firma innerhalb eines Tages.",xe:"As a rule, the company replies within one day.",n:"formeller als „meistens“"},
+{g:"im Durchschnitt",e:"on average",t:"wend",l:"B2",x:"Im Durchschnitt sehen Jugendliche täglich drei Stunden Videos.",xe:"On average, young people watch three hours of videos daily.",n:"nützlich für die Grafikbeschreibung"},
+{g:"im Gegensatz zu",e:"in contrast to",t:"wend",l:"B2",p:"+ Dativ",x:"Im Gegensatz zu früher kaufen viele nur noch online.",xe:"In contrast to the past, many now shop only online."},
+{g:"es kommt darauf an",e:"it depends",t:"wend",l:"B2",x:"Ob sich das lohnt? Es kommt darauf an.",xe:"Whether it's worth it? It depends.",n:"es kommt auf + Akk an"},
+{g:"unter Druck stehen",e:"to be under pressure",t:"wend",l:"B2",x:"Viele Studierende stehen vor Prüfungen enorm unter Druck.",xe:"Many students are under enormous pressure before exams.",n:"auch: jemanden unter Druck setzen"},
+{g:"Familie",art:"die",pl:"-n",e:"family",t:"n",l:"A1",x:"Meine Familie wohnt in Berlin.",xe:"My family lives in Berlin."},
+{g:"Kind",art:"das",pl:"-er",e:"child",t:"n",l:"A1",x:"Die Kinder spielen im Garten.",xe:"The children are playing in the garden."},
+{g:"Eltern",art:"die",pl:"(Pl.)",e:"parents",t:"n",l:"A1",x:"Meine Eltern kommen am Sonntag zu Besuch.",xe:"My parents are coming to visit on Sunday.",n:"nur Plural"},
+{g:"Bruder",art:"der",pl:"Brüder",e:"brother",t:"n",l:"A1",x:"Mein Bruder ist zwei Jahre älter als ich.",xe:"My brother is two years older than me."},
+{g:"Schwester",art:"die",pl:"-n",e:"sister",t:"n",l:"A1",x:"Meine Schwester studiert in München.",xe:"My sister studies in Munich."},
+{g:"Haus",art:"das",pl:"Häuser",e:"house",t:"n",l:"A1",x:"Wir haben ein kleines Haus mit Garten.",xe:"We have a small house with a garden."},
+{g:"Zimmer",art:"das",pl:"–",e:"room",t:"n",l:"A1",x:"Die Wohnung hat drei Zimmer.",xe:"The apartment has three rooms."},
+{g:"Küche",art:"die",pl:"-n",e:"kitchen",t:"n",l:"A1",x:"Wir essen meistens in der Küche.",xe:"We usually eat in the kitchen."},
+{g:"Tisch",art:"der",pl:"-e",e:"table",t:"n",l:"A1",x:"Das Buch liegt auf dem Tisch.",xe:"The book is lying on the table."},
+{g:"Bett",art:"das",pl:"-en",e:"bed",t:"n",l:"A1",x:"Ich gehe heute früh ins Bett.",xe:"I am going to bed early today."},
+{g:"Straße",art:"die",pl:"-n",e:"street",t:"n",l:"A1",x:"Wir wohnen in einer ruhigen Straße.",xe:"We live on a quiet street."},
+{g:"Wasser",art:"das",pl:"(Sg.)",e:"water",t:"n",l:"A1",x:"Ein Glas Wasser, bitte.",xe:"A glass of water, please."},
+{g:"Brot",art:"das",pl:"-e",e:"bread",t:"n",l:"A1",x:"Zum Frühstück esse ich Brot mit Käse.",xe:"For breakfast I eat bread with cheese."},
+{g:"Milch",art:"die",pl:"(Sg.)",e:"milk",t:"n",l:"A1",x:"Trinkst du den Kaffee mit Milch?",xe:"Do you drink your coffee with milk?"},
+{g:"Arzt",art:"der",pl:"Ärzte",e:"doctor",t:"n",l:"A1",x:"Ich muss morgen zum Arzt gehen.",xe:"I have to go to the doctor tomorrow.",n:"weiblich: die Ärztin, -nen"},
+{g:"Zeitung",art:"die",pl:"-en",e:"newspaper",t:"n",l:"A1",x:"Er liest jeden Morgen die Zeitung.",xe:"He reads the newspaper every morning."},
+{g:"Wetter",art:"das",pl:"(Sg.)",e:"weather",t:"n",l:"A1",x:"Das Wetter ist heute wirklich schön.",xe:"The weather is really nice today."},
+{g:"Sprache",art:"die",pl:"-n",e:"language",t:"n",l:"A1",x:"Welche Sprachen sprichst du?",xe:"Which languages do you speak?"},
+{g:"lesen",f:"liest · las · hat gelesen",e:"to read",t:"v",l:"A1",x:"Abends lese ich gern ein Buch.",xe:"In the evening I like to read a book."},
+{g:"schreiben",f:"schreibt · schrieb · hat geschrieben",e:"to write",t:"v",l:"A1",x:"Ich schreibe dir morgen eine E-Mail.",xe:"I will write you an email tomorrow."},
+{g:"hören",f:"hört · hörte · hat gehört",e:"to hear, to listen",t:"v",l:"A1",x:"Ich höre beim Kochen gern Musik.",xe:"I like listening to music while cooking."},
+{g:"fragen",f:"fragt · fragte · hat gefragt",e:"to ask",t:"v",l:"A1",x:"Frag doch den Lehrer, wenn du etwas nicht verstehst.",xe:"Just ask the teacher if you do not understand something."},
+{g:"antworten",f:"antwortet · antwortete · hat geantwortet",e:"to answer",t:"v",l:"A1",x:"Sie hat mir bis jetzt nicht geantwortet.",xe:"She has not answered me yet.",n:"+ Dativ (jemandem antworten)"},
+{g:"spielen",f:"spielt · spielte · hat gespielt",e:"to play",t:"v",l:"A1",x:"Die Kinder spielen draußen Fußball.",xe:"The children are playing football outside."},
+{g:"suchen",f:"sucht · suchte · hat gesucht",e:"to look for",t:"v",l:"A1",x:"Ich suche meinen Schlüssel schon seit einer Stunde.",xe:"I have been looking for my key for an hour."},
+{g:"kochen",f:"kocht · kochte · hat gekocht",e:"to cook",t:"v",l:"A1",x:"Heute koche ich Suppe für uns alle.",xe:"Today I am cooking soup for all of us."},
+{g:"bringen",f:"bringt · brachte · hat gebracht",e:"to bring",t:"v",l:"A1",x:"Kannst du mir bitte ein Glas Wasser bringen?",xe:"Can you please bring me a glass of water?"},
+{g:"bestellen",f:"bestellt · bestellte · hat bestellt",e:"to order",t:"v",l:"A1",x:"Wir haben zwei Kaffee bestellt.",xe:"We ordered two coffees."},
+{g:"besuchen",f:"besucht · besuchte · hat besucht",e:"to visit",t:"v",l:"A1",x:"Am Wochenende besuchen wir meine Oma.",xe:"On the weekend we are visiting my grandma."},
+{g:"kennen",f:"kennt · kannte · hat gekannt",e:"to know (a person or thing)",t:"v",l:"A1",x:"Kennst du dieses Restaurant?",xe:"Do you know this restaurant?",n:"kennen = vertraut sein mit; wissen = Fakten kennen"},
+{g:"sich waschen",f:"wäscht sich · wusch sich · hat sich gewaschen",e:"to wash (oneself)",t:"v",l:"A1",x:"Ich wasche mir vor dem Essen die Hände.",xe:"I wash my hands before eating.",n:"mit Körperteil: Dativ-Pronomen (ich wasche mir die Hände)"},
+{g:"groß",e:"big, tall",t:"adj",l:"A1",x:"Berlin ist eine große Stadt.",xe:"Berlin is a big city."},
+{g:"klein",e:"small",t:"adj",l:"A1",x:"Wir haben nur eine kleine Wohnung.",xe:"We only have a small apartment."},
+{g:"neu",e:"new",t:"adj",l:"A1",x:"Ist das dein neues Auto?",xe:"Is that your new car?"},
+{g:"alt",e:"old",t:"adj",l:"A1",x:"Wie alt bist du?",xe:"How old are you?"},
+{g:"schnell",e:"fast",t:"adj",l:"A1",x:"Der Zug ist sehr schnell.",xe:"The train is very fast."},
+{g:"langsam",e:"slow",t:"adj",l:"A1",x:"Können Sie bitte langsamer sprechen?",xe:"Can you please speak more slowly?"},
+{g:"billig",e:"cheap",t:"adj",l:"A1",x:"Das Hotel war gut und billig.",xe:"The hotel was good and cheap."},
+{g:"teuer",e:"expensive",t:"adj",l:"A1",x:"Die Mieten in München sind sehr teuer.",xe:"Rents in Munich are very expensive."},
+{g:"schön",e:"beautiful, nice",t:"adj",l:"A1",x:"Das war ein schöner Abend.",xe:"That was a lovely evening."}
+/*END-DECK3*/];
+
 
 /* =================== STATE =================== */
 const LS_KEY="wortschatz-v1";
 const TYPES={v:"Verb",n:"Nomen",adj:"Adjektiv",konn:"Konnektor",wend:"Wendung"};
-const LEVELS=["A1","A2","B1","B2","C1"];
+const LEVELS=["A1","A2","B1","B2","C1","C2"];
+const KLABEL={alltag:"Alltag",studium:"Studium",beruf:"Beruf",wissenschaft:"Forschung"};
 let S; // {cards:{}, log:{}, custom:[], settings:{}, checks:{}}
 function load(){ try{S=JSON.parse(localStorage.getItem(LS_KEY))||{}}catch(e){S={}}
   S.cards=S.cards||{}; S.log=S.log||{}; S.custom=S.custom||[]; S.checks=S.checks||{};
   S.settings=Object.assign({newPerDay:15},S.settings||{});
 }
 function save(){ localStorage.setItem(LS_KEY,JSON.stringify(S)) }
-function allCards(){ return DECK.concat(DECK2,S.custom) }
+function allCards(){ return DECK.concat(DECK2,DECK3,S.custom) }
 function cid(c){ return c.id || c.g }
 function todayStr(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0") }
 function endOfToday(){ const d=new Date(); d.setHours(23,59,59,999); return d.getTime() }
@@ -1490,7 +2093,8 @@ function buildSession(){
   const due=cards.filter(c=>{const st=cardState(cid(c)); return st&&st.due<=eod});
   const introduced=dayLog().neu;
   const nNew=Math.max(0,S.settings.newPerDay-introduced);
-  const fresh=cards.filter(c=>!cardState(cid(c))).slice(0,nNew);
+  const wantLvl=S.settings.lvl&&S.settings.lvl!=="alle"?S.settings.lvl:null;
+  const fresh=cards.filter(c=>!cardState(cid(c))&&(!wantLvl||c.l===wantLvl)).slice(0,nNew);
   queue=shuffle(due);
   // neue Karten einstreuen: jede 3. Position
   let pos=2;
@@ -1530,7 +2134,7 @@ function renderStage(){
     return;
   }
   const c=current, dir=S.settings.dir||"de-en";
-  const chips='<div class="chips"><span class="chip">'+TYPES[c.t]+'</span><span class="chip lvl">'+esc(c.l)+'</span></div>';
+  const chips='<div class="chips"><span class="chip">'+TYPES[c.t]+'</span><span class="chip lvl">'+esc(c.l)+'</span>'+(c.k?'<span class="chip">'+KLABEL[c.k]+'</span>':"")+'</div>';
   let front;
   if(dir==="de-en"){
     front=chips+wordHtml(c)+(c.p?'<div class="prepnote">'+esc(c.p)+'</div>':"");
@@ -1644,19 +2248,23 @@ function renderHeader(){
 }
 
 /* =================== BROWSE =================== */
-let fLvl="alle", fTyp="alle";
+let fLvl="alle", fTyp="alle", fCat="alle";
 function renderFilters(){
-  const lf=$("#lvl-filters"), tf=$("#type-filters");
+  const lf=$("#lvl-filters"), tf=$("#type-filters"), cf=$("#cat-filters");
   lf.innerHTML=["alle",...LEVELS].map(l=>'<button class="fchip'+(fLvl===l?" on":"")+'" data-l="'+l+'">'+l.toUpperCase()+'</button>').join("");
   tf.innerHTML=[["alle","Alle"],["v","Verben"],["n","Nomen"],["adj","Adjektive"],["konn","Konnektoren"],["wend","Wendungen"]]
     .map(([k,lab])=>'<button class="fchip'+(fTyp===k?" on":"")+'" data-t="'+k+'">'+lab+'</button>').join("");
+  cf.innerHTML=[["alle","Alle Themen"],["alltag","Alltag"],["studium","Studium"],["beruf","Beruf"],["wissenschaft","Forschung"]]
+    .map(([k,lab])=>'<button class="fchip'+(fCat===k?" on":"")+'" data-k="'+k+'">'+lab+'</button>').join("");
   lf.querySelectorAll(".fchip").forEach(b=>b.onclick=()=>{fLvl=b.dataset.l; renderFilters(); renderList()});
   tf.querySelectorAll(".fchip").forEach(b=>b.onclick=()=>{fTyp=b.dataset.t; renderFilters(); renderList()});
+  cf.querySelectorAll(".fchip").forEach(b=>b.onclick=()=>{fCat=b.dataset.k; renderFilters(); renderList()});
 }
 function renderList(){
   const q=($("#q").value||"").toLowerCase().trim();
   const rows=allCards().filter(c=>
     (fLvl==="alle"||c.l===fLvl)&&(fTyp==="alle"||c.t===fTyp)&&
+    (fCat==="alle"||c.k===fCat)&&
     (!q||c.g.toLowerCase().includes(q)||c.e.toLowerCase().includes(q))
   );
   $("#listmeta").textContent=rows.length+" Karten";
@@ -1735,12 +2343,116 @@ function initChecks(){
   });
 }
 
+/* =================== EINSTUFUNGSTEST =================== */
+/* 30 Fragen, 5 pro Niveau A1-C2. a = Index der richtigen Antwort. topic = Hinweis für die Auswertung. */
+const QUESTIONS=[
+{l:"A1",q:"„___ heißt du?“ — „Ich heiße Nina.“",o:["Was","Wie","Wer","Wo"],a:1,topic:"W-Fragen"},
+{l:"A1",q:"Ich ___ aus Indien.",o:["komme","kommst","kommt","kommen"],a:0,topic:"Präsens — Konjugation"},
+{l:"A1",q:"___ Buch ist neu.",o:["Der","Die","Das","Den"],a:2,topic:"Artikel & Genus"},
+{l:"A1",q:"Wir ___ heute ins Kino.",o:["gehe","gehst","geht","gehen"],a:3,topic:"Präsens — Konjugation"},
+{l:"A1",q:"„Sprichst du Deutsch?“ — „Ja, ein ___.“",o:["bisschen","viel","klein","wenige"],a:0,topic:"Alltagsfloskeln"},
+{l:"A2",q:"Gestern ___ ich meine Oma besucht.",o:["bin","habe","hatte","werde"],a:1,topic:"Perfekt — haben oder sein?"},
+{l:"A2",q:"Er fährt mit ___ Bus zur Arbeit.",o:["der","den","dem","das"],a:2,topic:"Dativ"},
+{l:"A2",q:"Ich stehe jeden Tag um 7 Uhr ___.",o:["an","auf","aus","ab"],a:1,topic:"Trennbare Verben"},
+{l:"A2",q:"Das Wetter ist heute ___ als gestern.",o:["gut","am besten","mehr gut","besser"],a:3,topic:"Komparativ & Superlativ"},
+{l:"A2",q:"Ich bleibe zu Hause, ___ ich krank bin.",o:["weil","denn","deshalb","oder"],a:0,topic:"Nebensätze — weil, dass, wenn"},
+{l:"B1",q:"Wenn ich mehr Zeit ___, würde ich ein Instrument lernen.",o:["habe","hatte","hätte","haben würde"],a:2,topic:"Konjunktiv II"},
+{l:"B1",q:"Das Auto ___ gerade repariert.",o:["wird","ist","hat","war"],a:0,topic:"Passiv"},
+{l:"B1",q:"Der Mann, ___ dort steht, ist mein Nachbar.",o:["den","dem","dessen","der"],a:3,topic:"Relativsätze"},
+{l:"B1",q:"Ich freue mich schon ___ deinen Besuch nächste Woche.",o:["über","auf","für","an"],a:1,topic:"Verben mit Präpositionen"},
+{l:"B1",q:"___ des schlechten Wetters gingen wir spazieren.",o:["Obwohl","Wegen","Trotz","Anstelle"],a:2,topic:"Genitiv"},
+{l:"B2",q:"Er tut so, als ___ er alles wüsste.",o:["ob","damit","dass","wie"],a:0,topic:"als ob + Konjunktiv II"},
+{l:"B2",q:"Die von der Regierung ___ Maßnahmen wurden kritisiert.",o:["beschließenden","beschlossene","beschlossenen","beschließende"],a:2,topic:"Partizipialattribute"},
+{l:"B2",q:"Je mehr du übst, ___ besser wirst du.",o:["so","je","als","desto"],a:3,topic:"Zweiteilige Konnektoren"},
+{l:"B2",q:"Das Problem lässt sich leicht ___.",o:["lösen","gelöst","zu lösen","lösend"],a:0,topic:"Passiversatzformen"},
+{l:"B2",q:"„etwas berücksichtigen“ bedeutet:",o:["etwas vergessen","etwas beachten","etwas verbieten","etwas verhindern"],a:1,topic:"Wortschatz B2"},
+{l:"C1",q:"Der Minister sagte, die Lage ___ stabil.",o:["ist","wird","sei","hat"],a:2,topic:"Konjunktiv I — indirekte Rede"},
+{l:"C1",q:"„Er soll sehr reich sein“ bedeutet:",o:["Er muss reich werden.","Man sagt, dass er reich ist.","Er möchte reich sein.","Er ist sicher reich."],a:1,topic:"Modalverben — subjektive Bedeutung"},
+{l:"C1",q:"___ seiner Verdienste wurde er entlassen.",o:["Anhand","Zufolge","Mangels","Ungeachtet"],a:3,topic:"C1-Konnektoren"},
+{l:"C1",q:"Die Ergebnisse sind mit Vorsicht zu ___.",o:["genießen","essen","sehen","prüfen"],a:0,topic:"Wendungen"},
+{l:"C1",q:"„in Kauf nehmen“ heißt:",o:["etwas kaufen","etwas ablehnen","einen Nachteil akzeptieren","etwas bezahlen"],a:2,topic:"Wendungen"},
+{l:"C2",q:"Hätte ich davon gewusst, ___ ich anders entschieden.",o:["würde","hätte","wäre","war"],a:1,topic:"Konditionalsätze ohne wenn"},
+{l:"C2",q:"Er hat das Angebot ablehnen ___.",o:["gemusst","musste","müssen","muss"],a:2,topic:"Doppelter Infinitiv"},
+{l:"C2",q:"„eklatant“ bedeutet:",o:["geheim","offenkundig und krass","geringfügig","fragwürdig"],a:1,topic:"Wortschatz C2"},
+{l:"C2",q:"„die Kirche im Dorf lassen“ heißt:",o:["religiös sein","zu Hause bleiben","traditionell denken","nicht übertreiben"],a:3,topic:"Redewendungen"},
+{l:"C2",q:"„monieren“ bedeutet:",o:["beanstanden","loben","bezweifeln","verharmlosen"],a:0,topic:"Wortschatz C2"}
+];
+let tIdx=0, tAnswers=[], tActive=false;
+function testStart(){
+  tIdx=0; tAnswers=[]; tActive=true; renderTest();
+}
+function testLevelDone(lvl){
+  const qs=QUESTIONS.map((q,i)=>({q,i})).filter(o=>o.q.l===lvl);
+  if(qs.some(o=>tAnswers[o.i]===undefined)) return null;
+  return qs.filter(o=>tAnswers[o.i]===o.q.a).length;
+}
+function renderTest(){
+  const h=$("#test-holder");
+  if(!tActive){
+    const last=S.test;
+    h.innerHTML='<div class="stage done-box"><h2>Einstufungstest</h2>'+
+      '<p>30 questions from A1 to C2 — grammar, vocabulary, idioms. No dictionary, no guessing games: if you don’t know, pick your best instinct and move on. The test stops automatically when you hit your ceiling. Takes about 10 minutes.</p>'+
+      (last?'<p class="num"><strong>Letztes Ergebnis: '+esc(last.level)+'</strong> ('+esc(last.date)+')</p>':"")+
+      '<button class="btn-flip" id="t-start">Test starten</button></div>';
+    $("#t-start").onclick=testStart;
+    return;
+  }
+  if(tIdx>=QUESTIONS.length){ finishTest(); return }
+  const q=QUESTIONS[tIdx];
+  h.innerHTML='<div class="sess-bar"><span class="lbl num">Frage '+(tIdx+1)+' / '+QUESTIONS.length+'</span>'+
+    '<div class="prog"><i style="width:'+Math.round(tIdx/QUESTIONS.length*100)+'%"></i></div>'+
+    '<span class="chip lvl">'+q.l+'</span></div>'+
+    '<div class="stage"><div class="tq">'+esc(q.q)+'</div><div class="opts">'+
+    q.o.map((o,i)=>'<button class="opt" data-i="'+i+'">'+esc(o)+'</button>').join("")+
+    '</div></div>';
+  h.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    tAnswers[tIdx]=+b.dataset.i;
+    // Frühabbruch: Niveau mit 0-1 richtigen beendet den Test
+    const done=testLevelDone(q.l);
+    tIdx++;
+    if(done!==null&&done<=1&&q.l!=="C2"){ tIdx=QUESTIONS.length }
+    renderTest();
+  });
+}
+function finishTest(){
+  tActive=false;
+  const per={};
+  LEVELS.forEach(l=>{ per[l]=testLevelDone(l) });
+  // Platzierung: höchstes Niveau mit >=3/5, alle darunter ebenfalls >=3
+  let placed=null;
+  for(const l of LEVELS){ const s=per[l]; if(s!==null&&s>=3) placed=l; else break }
+  const placedLabel=placed||"unter A1";
+  const nextIdx=placed?Math.min(LEVELS.length-1,LEVELS.indexOf(placed)+1):0;
+  const nextLvl=placed==="C2"?"C2":LEVELS[nextIdx];
+  S.test={date:todayStr(),level:placedLabel,per:per}; save();
+  const wrong=QUESTIONS.map((q,i)=>({q,i})).filter(o=>tAnswers[o.i]!==undefined&&tAnswers[o.i]!==o.q.a);
+  const h=$("#test-holder");
+  h.innerHTML='<div class="stage done-box">'+
+    '<p class="lbl" style="letter-spacing:.14em;text-transform:uppercase">Dein Niveau</p>'+
+    '<div class="result-level">'+esc(placedLabel)+'</div>'+
+    '<div class="lvlbars" style="width:100%;max-width:420px;margin:18px auto">'+
+      LEVELS.map(l=>{const s=per[l];return '<div class="lvlbar"><span class="tag">'+l+'</span><div class="track"><i style="width:'+(s===null?0:s/5*100)+'%"></i></div><span class="n num">'+(s===null?"–":s+" / 5")+'</span></div>'}).join("")+
+    '</div>'+
+    '<p>Empfehlung: Lerne jetzt <strong>'+esc(nextLvl)+'</strong>-Karten und arbeite die Grammatik-Themen deiner Fehler durch.</p>'+
+    '<div class="actions"><button class="btn-flip" id="t-apply">Niveau '+esc(nextLvl)+' im Training einstellen</button>'+
+    '<button class="btn-sec" id="t-again">Test wiederholen</button></div>'+
+    (wrong.length?'<div style="margin-top:26px;width:100%;max-width:560px;text-align:left"><h3 class="sec">Deine Fehler — und wo du sie reparierst</h3>'+
+      wrong.map(o=>'<div class="rev-item"><div class="q">'+esc(o.q.q)+'</div>'+
+        '<div class="a">Deine Antwort: '+esc(o.q.o[tAnswers[o.i]])+' · Richtig: <b>'+esc(o.q.o[o.q.a])+'</b></div>'+
+        '<div class="t">→ Grammatik: '+esc(o.q.topic)+'</div></div>').join("")+'</div>':"")+
+    '</div>';
+  $("#t-apply").onclick=()=>{ S.settings.lvl=nextLvl; save(); $("#lvl-sel").value=nextLvl; buildSession();
+    document.querySelector('[data-v="study"]').click(); };
+  $("#t-again").onclick=testStart;
+}
+
 /* =================== TABS =================== */
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
   document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===t));
   document.querySelectorAll("section.view").forEach(v=>v.classList.toggle("on",v.id==="view-"+t.dataset.v));
   if(t.dataset.v==="stats") renderStats();
   if(t.dataset.v==="browse") renderList();
+  if(t.dataset.v==="test"&&!tActive) renderTest();
   if(t.dataset.v==="study"&&!current&&queue.length===0) buildSession();
 });
 
@@ -1748,6 +2460,8 @@ document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
 load();
 $("#new-per-day").value=[5,10,15,20,30].includes(S.settings.newPerDay)?S.settings.newPerDay:15;
 $("#new-per-day").onchange=e=>{ S.settings.newPerDay=+e.target.value; save(); buildSession(); };
+$("#lvl-sel").value=S.settings.lvl||"alle";
+$("#lvl-sel").onchange=e=>{ S.settings.lvl=e.target.value; save(); buildSession(); };
 document.querySelectorAll("#dir-seg button").forEach(b=>{
   b.classList.toggle("on",(S.settings.dir||"de-en")===b.dataset.d);
   b.onclick=()=>{

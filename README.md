@@ -1,32 +1,45 @@
-# Wortschatz — Dein Weg zu C1 🇩🇪
+# Wortschatz — Dein Weg zu C2 🇩🇪
 
-A free, open-source German vocabulary trainer that runs entirely in your browser.
-No account, no server, no tracking — your progress lives in your browser's local storage.
+A free, open-source German trainer that runs entirely in your browser — from your first
+„Hallo“ to near-native C2. No account, no server, no tracking: your progress lives in
+your browser's local storage.
 
 **[▶ Use it here](https://jeelswami.github.io/wortschatz-trainer/)**
 
-## Why this exists
+## What's inside
 
-Most flashcard apps let you learn German words the wrong way: without the article,
-without the plural, without the verb forms, without the preposition. This trainer
-bakes the right habits in:
+| Tab | What it does |
+|---|---|
+| **Lernen** | Daily spaced-repetition session: due reviews + new cards from *your* level |
+| **Wörterbuch** | Browse/search 1,000+ cards; filter by level (A1–C2), word type and topic; add your own |
+| **Grammatik** | The complete A1→C2 grammar spine in 36 compact topics with tables, examples and common-mistake warnings |
+| **Test** | Einstufungstest: 30 questions that place you between A1 and C2 and point you at your gaps |
+| **Fortschritt** | Streak, mastery stats, per-level progress, backup export/import |
+| **Fahrplan** | A phased long-term strategy to C1/C2 with tickable milestones |
+| **Hilfe** | How everything works, incl. the science behind the method |
 
-- **Nouns are color-coded by gender** — <ins>der</ins> (blue), <ins>die</ins> (red), <ins>das</ins> (green) — and always carry their plural.
-- **Verbs always show their three key forms** (*gibt · gab · hat gegeben*) and their fixed preposition + case (*sich bewerben **um + Akk***).
-- **Chunks, not just words** — idioms and collocations (*eine Entscheidung treffen, in Betracht ziehen*) are first-class cards.
-- **Spaced repetition** (simplified SM-2): cards you struggle with come back sooner, cards you know come back in weeks.
+## The deck (1,000+ cards, A1→C2)
 
-## Features
+- **Nouns are color-coded by gender** — der (blue), die (red), das (green) — always with plural.
+- **Verbs show the three Stammformen** — *stiehlt · stahl · hat gestohlen* = er/sie/es-**Präsens** · **Präteritum** · **Perfekt** (with its haben/sein auxiliary). From these three forms you can build all six German tenses — the Hilfe tab shows how.
+- **Prepositions + case are part of the card** (*sich bewerben um + Akk*), as are separable-prefix markers and register warnings.
+- **Chunks are first-class**: Funktionsverbgefüge (*in Kraft treten*), idioms (*die Kirche im Dorf lassen*), and exam connectors.
+- **Topic decks**: Alltagsdeutsch (how Germans actually talk — *krass, Bock haben, Feierabend*), Studium (university life), Beruf (office & contracts), Forschung (academic German).
+- Every single card carries a natural German example sentence **with English translation**, and many carry mnemonic hooks (etymology, literal images).
 
-- 680-card curated deck from A1 to C1, built from real course material — every card with an example sentence and English translation
-- Both directions: German → English and English → German (with cloze hints)
-- **Hinweis** button: see the word in a real example sentence before you answer
-- **Grammatik** tab: the A1→C1 grammar spine in 31 compact topics with examples and common-mistake warnings
-- **Fahrplan** tab: a phased study roadmap to C1/C2 with progress checklists
-- Add your own cards (mined from your own reading) — stored locally
-- Streak tracking, per-level progress, 14-day activity chart
-- Export / import your progress as JSON
-- Light & dark theme, keyboard-first (Space = flip, 1–4 = grade, H = hint)
+## Levels & sources
+
+Levels follow the CEFR. A1–B1 vocabulary is aligned with the official Goethe-Institut
+Wortlisten and mined from real course material (Netzwerk-family A1–B1.1); B2–C2 follows
+Goethe/telc exam-preparation conventions and frequency in edited German (quality press,
+academic prose). All content went through independent proofreading passes before release.
+
+## The method (why it works)
+
+Spaced repetition (spacing effect), active recall before flipping (testing effect),
+production practice via the EN→DE mode (generation effect), gender colors and idiom
+images (dual coding), collocation cards (chunking), and mixed sessions (interleaving).
+Details and references in the app's Hilfe tab.
 
 ## Running locally
 
@@ -39,9 +52,10 @@ open wortschatz-trainer/index.html
 
 ## Contributing
 
-Found a wrong article, a bad plural, a mistranslation? Please open an issue or PR —
-correctness is the whole point. New vocabulary PRs are welcome if entries follow the
-card format (article, plural, verb forms, preposition, example sentence with translation).
+Found a wrong article, plural, verb form, or an unnatural example? Open an issue or PR —
+correctness is the whole point. New cards are welcome if they follow the card format
+(gender + plural for nouns, three forms + auxiliary for verbs, preposition + case,
+example sentence with translation).
 
 ## License
 
