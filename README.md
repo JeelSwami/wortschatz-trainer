@@ -74,6 +74,12 @@ No account, no cookies, no analytics, no tracking. All data stays in your browse
 local storage. The placement test is a self-assessment aid, not a certificate — for an
 official CEFR certificate, take a Goethe/telc/ÖSD exam.
 
-## License
+## License & credit
 
-MIT — learn freely.
+**© Jeel Swami · [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)**
+
+Free for **personal study**, tutoring and classroom use. You may share and adapt it,
+but you must **credit Jeel Swami** with a link to this repository — and **commercial
+use is not permitted** (no selling, no paid bundles, no ad-supported redistribution)
+without written permission. For commercial licensing, open an issue or contact
+[@JeelSwami](https://github.com/JeelSwami).
