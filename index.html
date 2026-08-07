@@ -1,0 +1,1765 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free German vocabulary trainer with spaced repetition — 680 cards A1 to C1, grammar topics, and a roadmap to fluency.">
+<title>Wortschatz — Dein Weg zu C1</title>
+</head>
+<body>
+<style>
+  :root{
+    --bg:#FAF8F2; --surface:#FFFFFF; --surface2:#F3EFE4;
+    --ink:#1C1914; --muted:#6E675C; --line:#E5E0D2; --line2:#D8D2C0;
+    --gold:#F2B705; --gold-ink:#7A5C00; --gold-soft:#FBEBBB;
+    --der:#2456C6; --die:#C6273B; --das:#1E8E5A;
+    --again:#C6273B; --hard:#B07C00; --good:#1E8E5A; --easy:#2456C6;
+    --again-bg:#F9E4E6; --hard-bg:#F7EDCF; --good-bg:#E1F1E8; --easy-bg:#E3EAF9;
+    --shadow:0 1px 2px rgba(28,25,20,.06), 0 6px 24px rgba(28,25,20,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#171510; --surface:#1F1C15; --surface2:#26221A;
+      --ink:#F1ECDF; --muted:#A69D8A; --line:#332E24; --line2:#453E30;
+      --gold:#F5C518; --gold-ink:#F5C518; --gold-soft:#3A3009;
+      --der:#7FA3F2; --die:#F2828F; --das:#63C795;
+      --again:#F2828F; --hard:#E5B84C; --good:#63C795; --easy:#7FA3F2;
+      --again-bg:#3A2226; --hard-bg:#38301A; --good-bg:#1E322A; --easy-bg:#222C41;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171510; --surface:#1F1C15; --surface2:#26221A;
+    --ink:#F1ECDF; --muted:#A69D8A; --line:#332E24; --line2:#453E30;
+    --gold:#F5C518; --gold-ink:#F5C518; --gold-soft:#3A3009;
+    --der:#7FA3F2; --die:#F2828F; --das:#63C795;
+    --again:#F2828F; --hard:#E5B84C; --good:#63C795; --easy:#7FA3F2;
+    --again-bg:#3A2226; --hard-bg:#38301A; --good-bg:#1E322A; --easy-bg:#222C41;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 24px rgba(0,0,0,.3);
+  }
+  :root[data-theme="light"]{
+    --bg:#FAF8F2; --surface:#FFFFFF; --surface2:#F3EFE4;
+    --ink:#1C1914; --muted:#6E675C; --line:#E5E0D2; --line2:#D8D2C0;
+    --gold:#F2B705; --gold-ink:#7A5C00; --gold-soft:#FBEBBB;
+    --der:#2456C6; --die:#C6273B; --das:#1E8E5A;
+    --again:#C6273B; --hard:#B07C00; --good:#1E8E5A; --easy:#2456C6;
+    --again-bg:#F9E4E6; --hard-bg:#F7EDCF; --good-bg:#E1F1E8; --easy-bg:#E3EAF9;
+    --shadow:0 1px 2px rgba(28,25,20,.06), 0 6px 24px rgba(28,25,20,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:Futura, "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif}
+  .serif{font-family:Georgia, "Times New Roman", serif}
+  .num{font-variant-numeric:tabular-nums}
+  button{font:inherit; color:inherit; cursor:pointer}
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible{
+    outline:2px solid var(--gold); outline-offset:2px;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:0 20px}
+
+  /* ---------- header ---------- */
+  header.app{border-bottom:1px solid var(--line); background:var(--surface)}
+  .head-in{display:flex; align-items:center; gap:14px; padding:14px 0}
+  .mark{display:flex; align-items:baseline; gap:10px}
+  .mark .logo{
+    font-family:Futura,"Century Gothic","Avenir Next",sans-serif;
+    font-weight:700; font-size:22px; letter-spacing:.01em;
+  }
+  .mark .logo b{background:var(--gold); color:#1C1914; padding:0 6px; margin-right:2px}
+  .mark small{color:var(--muted); font-size:12px; letter-spacing:.14em; text-transform:uppercase}
+  .head-stats{margin-left:auto; display:flex; gap:18px; align-items:center}
+  .hstat{text-align:right}
+  .hstat .v{font-weight:700; font-size:17px}
+  .hstat .k{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em}
+  .hstat .v.gold{color:var(--gold-ink)}
+  @media (max-width:640px){ .mark small{display:none} .head-stats{gap:12px} }
+
+  /* ---------- tabs ---------- */
+  nav.tabs{background:var(--surface); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:5}
+  .tabs-in{display:flex; gap:2px}
+  .tab{
+    appearance:none; border:0; background:none; padding:12px 16px 10px;
+    font-size:14px; font-weight:600; color:var(--muted);
+    border-bottom:3px solid transparent; letter-spacing:.02em;
+  }
+  .tab:hover{color:var(--ink)}
+  .tab.on{color:var(--ink); border-bottom-color:var(--gold)}
+  .tab .cnt{
+    display:inline-block; min-width:20px; text-align:center; margin-left:6px;
+    background:var(--gold); color:#1C1914; border-radius:10px;
+    font-size:11px; font-weight:700; padding:1px 6px;
+  }
+  main{padding:28px 0 80px}
+  section.view{display:none}
+  section.view.on{display:block}
+
+  /* ---------- study ---------- */
+  .sess-bar{display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap}
+  .sess-bar .prog{flex:1; height:4px; background:var(--line); border-radius:2px; min-width:120px; overflow:hidden}
+  .sess-bar .prog i{display:block; height:100%; background:var(--gold); width:0%}
+  .sess-bar .lbl{font-size:13px; color:var(--muted)}
+  .sess-bar select{
+    border:1px solid var(--line2); background:var(--surface); color:var(--ink);
+    border-radius:6px; padding:4px 8px; font-size:13px;
+  }
+  .stage{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:40px 32px; min-height:340px;
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:6px;
+  }
+  .chips{display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
+  .chip{
+    font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    padding:3px 10px; border-radius:999px; border:1px solid var(--line2); color:var(--muted);
+  }
+  .chip.lvl{background:var(--gold-soft); border-color:transparent; color:var(--gold-ink)}
+  .bigword{
+    font-family:Futura,"Century Gothic","Avenir Next",sans-serif;
+    font-size:clamp(34px, 7vw, 54px); font-weight:700; line-height:1.15;
+    margin:18px 0 4px; text-wrap:balance;
+  }
+  .g-der{color:var(--der)} .g-die{color:var(--die)} .g-das{color:var(--das)}
+  .prepnote{font-size:15px; color:var(--muted); font-weight:600}
+  .back{width:100%; max-width:560px; border-top:1px solid var(--line); margin-top:22px; padding-top:20px;
+        display:flex; flex-direction:column; gap:12px; animation:reveal .25s ease}
+  @keyframes reveal{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion: reduce){ .back{animation:none} }
+  .meaning{font-size:22px; font-weight:700}
+  .forms{
+    font-size:15px; color:var(--ink); background:var(--surface2);
+    border-radius:8px; padding:8px 14px; display:inline-block; align-self:center;
+    font-variant-numeric:tabular-nums;
+  }
+  .plural{font-size:14px; color:var(--muted)}
+  .example{font-style:italic; font-size:17px; line-height:1.5}
+  .example-en{font-size:14px; color:var(--muted)}
+  .cardnote{font-size:13px; color:var(--muted); background:var(--surface2); border-radius:8px; padding:8px 12px}
+  .actions{display:flex; gap:10px; justify-content:center; margin-top:22px; flex-wrap:wrap}
+  .btn-flip{
+    appearance:none; border:0; background:var(--gold); color:#1C1914;
+    font-weight:700; font-size:16px; padding:12px 28px; border-radius:10px;
+  }
+  .btn-flip:hover{filter:brightness(1.05)}
+  .grade{
+    appearance:none; border:1px solid var(--line2); border-radius:10px;
+    padding:10px 16px; min-width:104px; background:var(--surface);
+    display:flex; flex-direction:column; gap:2px; align-items:center;
+  }
+  .grade b{font-size:15px}
+  .grade span{font-size:12px; color:var(--muted)}
+  .grade .key{font-size:10px; color:var(--muted); letter-spacing:.08em}
+  .grade.again{background:var(--again-bg)} .grade.again b{color:var(--again)}
+  .grade.hard{background:var(--hard-bg)} .grade.hard b{color:var(--hard)}
+  .grade.good{background:var(--good-bg)} .grade.good b{color:var(--good)}
+  .grade.easy{background:var(--easy-bg)} .grade.easy b{color:var(--easy)}
+  .done-box{text-align:center; padding:60px 20px}
+  .done-box h2{font-family:Futura,"Century Gothic",sans-serif; font-size:30px; margin:0 0 8px}
+  .done-box p{color:var(--muted); margin:0 0 20px}
+  .btn-sec{
+    appearance:none; border:1px solid var(--line2); background:var(--surface);
+    border-radius:10px; padding:10px 20px; font-weight:600;
+  }
+  .btn-sec:hover{background:var(--surface2)}
+  .genders-legend{display:flex; gap:16px; justify-content:center; margin-top:16px; font-size:12px; color:var(--muted)}
+  .genders-legend i{font-style:normal; font-weight:700}
+  .seg{display:flex; border:1px solid var(--line2); border-radius:8px; overflow:hidden}
+  .seg button{appearance:none; border:0; background:var(--surface); color:var(--muted); font-size:12px; font-weight:700; padding:6px 10px; letter-spacing:.04em}
+  .seg button.on{background:var(--ink); color:var(--bg)}
+  .btn-hint{appearance:none; border:1px solid var(--line2); background:var(--surface); border-radius:10px; padding:12px 18px; font-weight:600; color:var(--muted)}
+  .btn-hint:hover{background:var(--surface2)}
+  .hintbox{margin-top:14px; font-size:16px; color:var(--muted); background:var(--surface2); border-radius:8px; padding:10px 16px; max-width:560px}
+  .hintbox small{font-size:12px}
+
+  /* ---------- grammar ---------- */
+  .glevel{margin-top:26px}
+  .glevel:first-child{margin-top:0}
+  .glevel h3.sec{margin-top:0}
+  details.gtopic{background:var(--surface); border:1px solid var(--line); border-radius:12px; margin-bottom:10px; overflow:hidden}
+  details.gtopic summary{padding:14px 16px; font-weight:700; cursor:pointer; display:flex; gap:10px; align-items:baseline; list-style:none}
+  details.gtopic summary::-webkit-details-marker{display:none}
+  details.gtopic summary::after{content:"+"; margin-left:auto; color:var(--muted); font-weight:400; font-size:18px}
+  details.gtopic[open] summary::after{content:"–"}
+  details.gtopic summary .chip{flex-shrink:0}
+  .gbody{padding:0 16px 16px; display:flex; flex-direction:column; gap:12px; font-size:15px}
+  .gbody p{margin:0}
+  .gex{border-left:3px solid var(--line2); padding:2px 0 2px 12px; display:flex; flex-direction:column; gap:2px}
+  .gex .de{font-style:italic; font-family:Georgia,serif; font-size:16px}
+  .gex .en{font-size:13px; color:var(--muted)}
+  .merke{background:var(--gold-soft); border-radius:8px; padding:10px 14px; font-size:14px}
+  .merke b{color:var(--gold-ink)}
+  .gtable{overflow-x:auto}
+  .gtable table{border-collapse:collapse; font-size:14px; font-variant-numeric:tabular-nums}
+  .gtable th,.gtable td{border:1px solid var(--line); padding:5px 12px; text-align:left; white-space:nowrap}
+  .gtable th{background:var(--surface2); font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted)}
+
+  /* ---------- browse ---------- */
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; align-items:center}
+  .toolbar input[type=search]{
+    flex:1; min-width:180px; border:1px solid var(--line2); background:var(--surface);
+    color:var(--ink); border-radius:8px; padding:9px 12px; font-size:15px;
+  }
+  .fchip{
+    appearance:none; border:1px solid var(--line2); background:var(--surface);
+    border-radius:999px; padding:5px 12px; font-size:13px; font-weight:600; color:var(--muted);
+  }
+  .fchip.on{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+  .wlist{display:flex; flex-direction:column; border:1px solid var(--line); border-radius:12px; background:var(--surface); overflow:hidden}
+  .wrow{display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid var(--line); align-items:baseline}
+  .wrow:last-child{border-bottom:0}
+  .wrow .de{font-weight:700; font-size:16px; min-width:0}
+  .wrow .de small{font-weight:400; color:var(--muted)}
+  .wrow .en{color:var(--muted); font-size:14px; margin-left:auto; text-align:right; flex-shrink:0; max-width:40%}
+  .wrow .st{flex-shrink:0; width:8px; height:8px; border-radius:50%; background:var(--line2); align-self:center}
+  .wrow .st.learn{background:var(--gold)}
+  .wrow .st.mature{background:var(--good)}
+  .listmeta{font-size:13px; color:var(--muted); margin:10px 2px}
+  details.addcard{margin-top:20px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:0}
+  details.addcard summary{padding:14px 16px; font-weight:700; cursor:pointer}
+  .addform{display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:0 16px 16px}
+  .addform label{display:flex; flex-direction:column; gap:4px; font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em}
+  .addform input, .addform select{
+    border:1px solid var(--line2); background:var(--bg); color:var(--ink);
+    border-radius:8px; padding:8px 10px; font-size:15px; font-family:inherit;
+  }
+  .addform .full{grid-column:1/-1}
+  .addform .btn-flip{grid-column:1/-1; justify-self:start; font-size:14px; padding:10px 22px}
+  @media (max-width:560px){ .addform{grid-template-columns:1fr} }
+
+  /* ---------- stats ---------- */
+  .statgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:24px}
+  .scard{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px}
+  .scard .v{font-size:30px; font-weight:700; font-family:Futura,"Century Gothic",sans-serif}
+  .scard .v em{font-style:normal; font-size:16px; color:var(--muted)}
+  .scard .k{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-top:2px}
+  h3.sec{font-family:Futura,"Century Gothic",sans-serif; font-size:15px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:28px 0 12px}
+  .lvlbars{display:flex; flex-direction:column; gap:10px}
+  .lvlbar{display:grid; grid-template-columns:44px 1fr 90px; gap:12px; align-items:center}
+  .lvlbar .tag{font-weight:700; font-size:14px}
+  .lvlbar .track{height:10px; background:var(--line); border-radius:5px; overflow:hidden}
+  .lvlbar .track i{display:block; height:100%; background:var(--gold)}
+  .lvlbar .n{font-size:13px; color:var(--muted); text-align:right}
+  .days{display:flex; gap:6px; align-items:flex-end; height:80px; margin-top:8px}
+  .day{flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%; justify-content:flex-end}
+  .day i{display:block; width:100%; max-width:34px; background:var(--gold); border-radius:3px 3px 0 0; min-height:2px}
+  .day i.zero{background:var(--line)}
+  .day span{font-size:10px; color:var(--muted)}
+  .io{display:flex; gap:10px; margin-top:10px; flex-wrap:wrap}
+
+  /* ---------- plan ---------- */
+  .plan-intro{max-width:640px; font-size:17px; line-height:1.6}
+  .phase{background:var(--surface); border:1px solid var(--line); border-radius:12px; margin-top:18px; overflow:hidden}
+  .phase-head{display:flex; align-items:baseline; gap:12px; padding:16px 18px; border-bottom:1px solid var(--line); flex-wrap:wrap}
+  .phase-head .stage-tag{
+    background:var(--ink); color:var(--bg); font-weight:700; font-size:12px;
+    letter-spacing:.1em; padding:3px 10px; border-radius:6px; white-space:nowrap;
+  }
+  .phase-head h4{margin:0; font-size:18px; font-family:Futura,"Century Gothic",sans-serif}
+  .phase-head .hours{margin-left:auto; font-size:12px; color:var(--muted); letter-spacing:.06em}
+  .phase-body{padding:14px 18px 18px; display:flex; flex-direction:column; gap:14px}
+  .phase-body p{margin:0; color:var(--ink)}
+  .phase-body .focus{font-size:14px; color:var(--muted)}
+  ul.checks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+  ul.checks li{display:flex; gap:10px; align-items:flex-start; font-size:15px}
+  ul.checks input{margin-top:3px; accent-color:var(--gold); width:16px; height:16px}
+  ul.checks li.done label{color:var(--muted); text-decoration:line-through}
+  .routine{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px}
+  .rt{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px}
+  .rt .t{font-weight:700; font-size:14px}
+  .rt .m{font-size:12px; color:var(--gold-ink); font-weight:700; letter-spacing:.06em}
+  .rt p{font-size:13px; color:var(--muted); margin:6px 0 0}
+  .principles li{margin-bottom:8px}
+  .plan-note{font-size:13px; color:var(--muted); background:var(--surface2); padding:10px 14px; border-radius:8px; margin-top:20px}
+  footer.app{border-top:1px solid var(--line); padding:20px 0 40px; color:var(--muted); font-size:12px; text-align:center}
+</style>
+
+<header class="app"><div class="wrap head-in">
+  <div class="mark">
+    <span class="logo"><b>W</b>ortschatz</span>
+    <small>Weg zu C1</small>
+  </div>
+  <div class="head-stats">
+    <div class="hstat"><div class="v gold num" id="h-streak">0</div><div class="k">Tage-Serie</div></div>
+    <div class="hstat"><div class="v num" id="h-due">0</div><div class="k">Fällig</div></div>
+    <div class="hstat"><div class="v num" id="h-known">0</div><div class="k">Gelernt</div></div>
+  </div>
+</div></header>
+
+<nav class="tabs"><div class="wrap tabs-in">
+  <button class="tab on" data-v="study">Lernen<span class="cnt" id="tab-due">0</span></button>
+  <button class="tab" data-v="browse">Wörterbuch</button>
+  <button class="tab" data-v="grammar">Grammatik</button>
+  <button class="tab" data-v="stats">Fortschritt</button>
+  <button class="tab" data-v="plan">Fahrplan C1</button>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ============ STUDY ============ -->
+<section class="view on" id="view-study">
+  <div class="sess-bar">
+    <span class="lbl num" id="sess-count">–</span>
+    <div class="prog"><i id="sess-prog"></i></div>
+    <div class="seg" id="dir-seg" role="group" aria-label="Abfragerichtung">
+      <button data-d="de-en" class="on">DE→EN</button><button data-d="en-de">EN→DE</button>
+    </div>
+    <label class="lbl">Neue/Tag
+      <select id="new-per-day">
+        <option>5</option><option>10</option><option selected>15</option><option>20</option><option>30</option>
+      </select>
+    </label>
+  </div>
+  <div id="stage-holder"></div>
+  <div class="genders-legend">
+    <span><i class="g-der">der</i> maskulin</span>
+    <span><i class="g-die">die</i> feminin</span>
+    <span><i class="g-das">das</i> neutrum</span>
+  </div>
+</section>
+
+<!-- ============ BROWSE ============ -->
+<section class="view" id="view-browse">
+  <div class="toolbar">
+    <input type="search" id="q" placeholder="Suchen … (deutsch oder englisch)">
+  </div>
+  <div class="toolbar" id="lvl-filters"></div>
+  <div class="toolbar" id="type-filters"></div>
+  <div class="listmeta" id="listmeta"></div>
+  <div class="wlist" id="wlist"></div>
+  <details class="addcard">
+    <summary>+ Eigene Karte hinzufügen</summary>
+    <div class="addform">
+      <label>Deutsch *<input id="a-de" placeholder="z. B. die Gelegenheit"></label>
+      <label>Englisch *<input id="a-en" placeholder="opportunity"></label>
+      <label>Typ
+        <select id="a-t">
+          <option value="n">Nomen</option><option value="v">Verb</option>
+          <option value="adj">Adjektiv</option><option value="konn">Konnektor</option>
+          <option value="wend">Wendung</option>
+        </select>
+      </label>
+      <label>Niveau
+        <select id="a-l"><option>A1</option><option>A2</option><option selected>B1</option><option>B2</option><option>C1</option></select>
+      </label>
+      <label>Artikel (Nomen)
+        <select id="a-art"><option value="">–</option><option>der</option><option>die</option><option>das</option></select>
+      </label>
+      <label>Plural / Formen<input id="a-f" placeholder="-en  ·  oder: gibt · gab · hat gegeben"></label>
+      <label class="full">Beispielsatz<input id="a-x" placeholder="Das ist eine gute Gelegenheit."></label>
+      <button class="btn-flip" id="a-save">Karte speichern</button>
+    </div>
+  </details>
+</section>
+
+<!-- ============ GRAMMAR ============ -->
+<section class="view" id="view-grammar">
+  <p class="plan-intro" style="margin-top:0">The grammar that carries you from A1 to C1, in the order courses teach it. Open a topic, read the rule, say the examples out loud. Each <em>Merke</em> box is the mistake most learners make — don't be most learners.</p>
+
+  <div class="glevel">
+  <h3 class="sec">A1 · Fundament</h3>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Artikel &amp; Genus — der, die, das</summary><div class="gbody">
+    <p>Every German noun has a gender, and it is not guessable from meaning — so <strong>never learn a noun without its article</strong>. Some endings are reliable signals:</p>
+    <div class="gtable"><table>
+      <tr><th>→ die</th><td>-ung, -heit, -keit, -schaft, -ion, -tät, -e (meist)</td></tr>
+      <tr><th>→ das</th><td>-chen, -lein, -um, -ment; nominalisierte Verben (das Lernen)</td></tr>
+      <tr><th>→ der</th><td>-er (Personen/Geräte), -ling, -ismus; Tage, Monate, Jahreszeiten</td></tr>
+    </table></div>
+    <div class="gex"><span class="de">die Wohnung, die Freiheit, das Mädchen, der Computer, der Montag</span></div>
+    <div class="merke"><b>Merke:</b> This app colors nouns <span class="g-der"><b>der</b></span>/<span class="g-die"><b>die</b></span>/<span class="g-das"><b>das</b></span>. Picture the word in its color — visual memory beats rote memory.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Präsens — Konjugation</summary><div class="gbody">
+    <div class="gtable"><table>
+      <tr><th>ich</th><td>lerne</td><th>wir</th><td>lernen</td></tr>
+      <tr><th>du</th><td>lernst</td><th>ihr</th><td>lernt</td></tr>
+      <tr><th>er/sie/es</th><td>lernt</td><th>sie/Sie</th><td>lernen</td></tr>
+    </table></div>
+    <p>Strong verbs change their vowel in <em>du</em> and <em>er/sie/es</em>: fahren → du f<strong>ä</strong>hrst, geben → er g<strong>i</strong>bt, sehen → sie s<strong>ie</strong>ht, nehmen → er n<strong>imm</strong>t.</p>
+    <div class="merke"><b>Merke:</b> The vowel change is exactly why every verb card here shows the 3rd-person form first.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Satzstellung — Verb an Position 2</summary><div class="gbody">
+    <p>In a German main clause the conjugated verb is ALWAYS the second element — no matter what comes first.</p>
+    <div class="gex"><span class="de">Ich lerne heute Deutsch. — Heute lerne ich Deutsch.</span><span class="en">I'm learning German today. — Today I'm learning German.</span></div>
+    <p>Yes/no questions start with the verb; W-questions with the question word: <em>Lernst du Deutsch? Was lernst du?</em></p>
+    <div class="merke"><b>Merke:</b> After „heute", „dann", „deshalb" the subject moves BEHIND the verb. „Heute ich lerne…" is the classic A1 mistake.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Nominativ &amp; Akkusativ</summary><div class="gbody">
+    <p>The subject is nominative; the direct object is accusative. Only masculine changes:</p>
+    <div class="gtable"><table>
+      <tr><th></th><th>mask.</th><th>fem.</th><th>neutr.</th><th>Plural</th></tr>
+      <tr><th>Nominativ</th><td>der / ein</td><td>die / eine</td><td>das / ein</td><td>die</td></tr>
+      <tr><th>Akkusativ</th><td><strong>den / einen</strong></td><td>die / eine</td><td>das / ein</td><td>die</td></tr>
+    </table></div>
+    <div class="gex"><span class="de">Der Mann sieht den Hund.</span><span class="en">The man sees the dog.</span></div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Trennbare Verben</summary><div class="gbody">
+    <p>Separable prefixes (an-, auf-, ein-, mit-, vor-, zurück-…) split off and go to the END of the sentence — the famous Satzklammer.</p>
+    <div class="gex"><span class="de">Ich rufe dich morgen an. — Ich habe dich gestern angerufen.</span><span class="en">I'll call you tomorrow. — I called you yesterday.</span></div>
+    <div class="merke"><b>Merke:</b> In a subordinate clause they rejoin: „…, weil ich dich morgen <strong>anrufe</strong>." Cards marked „trennbar" in this deck are exactly these verbs.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Modalverben</summary><div class="gbody">
+    <p>können, müssen, wollen, sollen, dürfen, mögen/möchten — the modal is conjugated at position 2, the main verb goes to the end as infinitive.</p>
+    <div class="gex"><span class="de">Ich kann heute leider nicht kommen.</span><span class="en">Unfortunately I can't come today.</span></div>
+    <div class="merke"><b>Merke:</b> „dürfen" = permission, „können" = ability. „Darf ich?" is what you ask; „Kann ich?" is what you can do.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A1</span>Perfekt — haben oder sein?</summary><div class="gbody">
+    <p>Spoken past = Perfekt: haben/sein + Partizip II. Use <strong>sein</strong> with movement (gehen, fahren, kommen) and change of state (aufstehen, einschlafen) — plus bleiben, sein, werden, passieren.</p>
+    <div class="gex"><span class="de">Ich habe gearbeitet. — Ich bin nach Hause gegangen.</span><span class="en">I worked. — I went home.</span></div>
+    <div class="merke"><b>Merke:</b> Verbs with be-, ver-, er-, ent- and -ieren take no ge-: „bezahlt", „verstanden", „passiert", „studiert".</div>
+  </div></details>
+  </div>
+
+  <div class="glevel">
+  <h3 class="sec">A2 · Aufbau</h3>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Dativ &amp; Dativverben</summary><div class="gbody">
+    <div class="gtable"><table>
+      <tr><th></th><th>mask.</th><th>fem.</th><th>neutr.</th><th>Plural</th></tr>
+      <tr><th>Dativ</th><td>dem / einem</td><td>der / einer</td><td>dem / einem</td><td>den …n</td></tr>
+    </table></div>
+    <p>Some verbs ALWAYS take dative: helfen, danken, gehören, gefallen, schmecken, antworten, gratulieren.</p>
+    <div class="gex"><span class="de">Ich helfe meinem Bruder. Das Buch gehört der Lehrerin.</span><span class="en">I help my brother. The book belongs to the teacher.</span></div>
+    <div class="merke"><b>Merke:</b> Plural dative adds -n to the noun: „mit den Kinder<strong>n</strong>".</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Wechselpräpositionen</summary><div class="gbody">
+    <p>in, an, auf, über, unter, vor, hinter, neben, zwischen — take <strong>Akkusativ for direction</strong> (Wohin?) and <strong>Dativ for location</strong> (Wo?).</p>
+    <div class="gex"><span class="de">Ich hänge das Bild an die Wand. → Das Bild hängt an der Wand.</span><span class="en">I hang the picture on the wall. → The picture hangs on the wall.</span></div>
+    <div class="merke"><b>Merke:</b> Movement-to = Akkusativ. Being-at = Dativ. Ask yourself „wohin?" or „wo?" before you speak.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Präpositionen mit festem Kasus</summary><div class="gbody">
+    <div class="gtable"><table>
+      <tr><th>immer + Dativ</th><td>mit, nach, aus, zu, von, bei, seit, gegenüber</td></tr>
+      <tr><th>immer + Akkusativ</th><td>für, ohne, gegen, um, durch, bis</td></tr>
+    </table></div>
+    <div class="gex"><span class="de">Ich fahre mit dem Bus zur Arbeit. Das Geschenk ist für dich.</span><span class="en">I take the bus to work. The present is for you.</span></div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Reflexive Verben</summary><div class="gbody">
+    <p>mich, dich, sich, uns, euch, sich. Many everyday verbs are reflexive: sich freuen, sich treffen, sich ausruhen, sich beeilen.</p>
+    <div class="gex"><span class="de">Ich freue mich. Wir treffen uns um acht.</span><span class="en">I'm glad. We're meeting at eight.</span></div>
+    <div class="merke"><b>Merke:</b> With a body part the pronoun goes dative: „Ich wasche <strong>mir</strong> die Hände" — not „mich".</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Komparativ &amp; Superlativ</summary><div class="gbody">
+    <p>-er / am …-sten, short vowels often take umlaut: alt → älter → am ältesten.</p>
+    <div class="gtable"><table>
+      <tr><th>gut</th><td>besser</td><td>am besten</td></tr>
+      <tr><th>gern</th><td>lieber</td><td>am liebsten</td></tr>
+      <tr><th>viel</th><td>mehr</td><td>am meisten</td></tr>
+    </table></div>
+    <div class="gex"><span class="de">Deutsch ist schwerer als Englisch, aber schöner.</span><span class="en">German is harder than English, but more beautiful.</span></div>
+    <div class="merke"><b>Merke:</b> „als" for comparison, „wie" for equality: größer <strong>als</strong>, genauso groß <strong>wie</strong>.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Nebensätze — weil, dass, wenn</summary><div class="gbody">
+    <p>Subordinating conjunctions kick the conjugated verb to the END of the clause.</p>
+    <div class="gex"><span class="de">Ich lerne Deutsch, weil ich in Berlin arbeiten will.</span><span class="en">I'm learning German because I want to work in Berlin.</span></div>
+    <div class="gex"><span class="de">Ich hoffe, dass du morgen Zeit hast.</span><span class="en">I hope that you have time tomorrow.</span></div>
+    <div class="merke"><b>Merke:</b> „weil" sends the verb to the end; „denn" doesn't. Both mean "because" — the word order is the difference.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Präteritum — haben, sein, Modalverben</summary><div class="gbody">
+    <p>In speech, the simple past is used mainly for these: war, hatte, konnte, musste, wollte, durfte, sollte. Everything else → Perfekt.</p>
+    <div class="gex"><span class="de">Ich war gestern krank und konnte nicht kommen.</span><span class="en">I was sick yesterday and couldn't come.</span></div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">A2</span>Imperativ</summary><div class="gbody">
+    <div class="gtable"><table>
+      <tr><th>du</th><td>Geh! Nimm! Sprich!</td></tr>
+      <tr><th>ihr</th><td>Geht! Nehmt! Sprecht!</td></tr>
+      <tr><th>Sie</th><td>Gehen Sie! Nehmen Sie!</td></tr>
+    </table></div>
+    <div class="merke"><b>Merke:</b> du-form = present du-form minus -st (du nimmst → Nimm!). The vowel change stays.</div>
+  </div></details>
+  </div>
+
+  <div class="glevel">
+  <h3 class="sec">B1 · Mittelstufe</h3>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Konjunktiv II — würde, hätte, wäre</summary><div class="gbody">
+    <p>For politeness, wishes and unreal conditions: würde + Infinitiv, plus the short forms hätte, wäre, könnte, müsste, wüsste.</p>
+    <div class="gex"><span class="de">Könnten Sie mir bitte helfen?</span><span class="en">Could you please help me?</span></div>
+    <div class="gex"><span class="de">Wenn ich mehr Zeit hätte, würde ich jeden Tag lesen.</span><span class="en">If I had more time, I would read every day.</span></div>
+    <div class="merke"><b>Merke:</b> Politeness in German runs on Konjunktiv II. „Ich will…" sounds like a toddler; „Ich hätte gern…" sounds like an adult.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Passiv</summary><div class="gbody">
+    <p>werden + Partizip II. The doer disappears or appears with „von".</p>
+    <div class="gex"><span class="de">Das Haus wird gebaut. — Das Haus wurde 1920 gebaut. — Das Haus ist gebaut worden.</span><span class="en">The house is being built. — was built in 1920. — has been built.</span></div>
+    <div class="merke"><b>Merke:</b> In Perfekt-Passiv, „geworden" loses its ge-: „ist gebaut <strong>worden</strong>".</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Relativsätze</summary><div class="gbody">
+    <p>Relative pronouns look like definite articles (plus denen, dessen, deren). The case comes from the pronoun's role INSIDE the relative clause.</p>
+    <div class="gex"><span class="de">Der Mann, der dort steht, ist mein Chef.</span><span class="en">The man who is standing there is my boss.</span></div>
+    <div class="gex"><span class="de">Die Kollegin, mit der ich arbeite, kommt aus Wien.</span><span class="en">The colleague I work with is from Vienna.</span></div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Genitiv</summary><div class="gbody">
+    <p>des Mannes / der Frau / des Kindes / der Leute. Prepositions wegen, trotz, während, (an)statt take genitive.</p>
+    <div class="gex"><span class="de">Trotz des Regens gehen wir spazieren. Das Auto meines Vaters ist alt.</span><span class="en">Despite the rain we're going for a walk. My father's car is old.</span></div>
+    <div class="merke"><b>Merke:</b> Spoken German often replaces Genitiv with „von + Dativ" — fine for speaking, but the written C1 exam wants real genitives.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Infinitiv mit zu</summary><div class="gbody">
+    <p>After many verbs, nouns and adjectives: versuchen, vergessen, anfangen, Lust haben, wichtig sein …</p>
+    <div class="gex"><span class="de">Es ist wichtig, jeden Tag zu üben. Ich habe vergessen, dich anzurufen.</span><span class="en">It's important to practice every day. I forgot to call you.</span></div>
+    <div class="merke"><b>Merke:</b> Separable verbs squeeze the „zu" inside: an<strong>zu</strong>rufen, auf<strong>zu</strong>stehen. Modal verbs never take „zu".</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Verben mit Präpositionen</summary><div class="gbody">
+    <p>warten auf + Akk, sich freuen auf/über + Akk, denken an + Akk, sich interessieren für + Akk … The preposition is part of the verb — learn them as one unit (every such card in this deck shows it).</p>
+    <div class="gex"><span class="de">Worauf wartest du? — Ich warte darauf, dass der Bus kommt.</span><span class="en">What are you waiting for? — I'm waiting for the bus to come.</span></div>
+    <div class="merke"><b>Merke:</b> For things use da(r)- and wo(r)-: darauf, darüber, womit, worauf. For people: auf wen, mit wem.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Adjektivdeklination</summary><div class="gbody">
+    <p>The adjective ending depends on the article before it. The core logic: someone has to show the case — if the article does it, the adjective relaxes to -e/-en; if not, the adjective takes the strong ending.</p>
+    <div class="gex"><span class="de">der gute Kaffee — ein guter Kaffee — guter Kaffee</span><span class="en">the good coffee — a good coffee — good coffee</span></div>
+    <div class="merke"><b>Merke:</b> After der/die/das only -e or -en. In Dativ and Genitiv (almost) always -en. That covers 80 % of cases.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>n-Deklination</summary><div class="gbody">
+    <p>A small group of masculine nouns adds -(e)n in every case except nominative: der Mensch, der Kunde, der Junge, der Kollege, der Student, der Name.</p>
+    <div class="gex"><span class="de">Ich frage den Kollegen. Kennst du diesen Studenten?</span><span class="en">I'll ask the colleague. Do you know this student?</span></div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>als oder wenn?</summary><div class="gbody">
+    <p>Both mean "when" — the difference is the classic B1 exam trap. <strong>als</strong> = a single event in the past. <strong>wenn</strong> = repeated events, present or future.</p>
+    <div class="gex"><span class="de">Als ich 18 war, machte ich den Führerschein.</span><span class="en">When I was 18, I got my driving license. (once)</span></div>
+    <div class="gex"><span class="de">Wenn ich müde bin, trinke ich Kaffee. — Immer wenn wir uns trafen, lachten wir viel.</span><span class="en">When I'm tired, I drink coffee. — Whenever we met, we laughed a lot.</span></div>
+    <div class="merke"><b>Merke:</b> Past + happened once → als. Everything else → wenn. „Immer als" does not exist — repeated is always „(immer) wenn".</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Zweiteilige Konnektoren</summary><div class="gbody">
+    <p>Two-part connectors structure contrasts and lists — your B1 course drilled all of these:</p>
+    <div class="gtable"><table>
+      <tr><th>sowohl … als auch</th><td>both … and</td></tr>
+      <tr><th>weder … noch</th><td>neither … nor</td></tr>
+      <tr><th>entweder … oder</th><td>either … or</td></tr>
+      <tr><th>nicht nur … sondern auch</th><td>not only … but also</td></tr>
+      <tr><th>zwar … aber</th><td>admittedly … but</td></tr>
+      <tr><th>einerseits … andererseits</th><td>on the one hand … on the other</td></tr>
+      <tr><th>je … desto</th><td>the … the</td></tr>
+    </table></div>
+    <div class="gex"><span class="de">Je mehr Konnektoren du beherrschst, desto besser werden deine Texte.</span><span class="en">The more connectors you master, the better your texts get.</span></div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B1</span>Modalpartikeln — doch, mal, ja, eigentlich</summary><div class="gbody">
+    <p>The little words that make German sound natural. They carry attitude, not literal meaning:</p>
+    <div class="gtable"><table>
+      <tr><th>doch</th><td>Komm doch mit!</td><td>encouragement ("come on")</td></tr>
+      <tr><th>mal</th><td>Zeig mal her!</td><td>softens a request</td></tr>
+      <tr><th>ja</th><td>Das ist ja toll!</td><td>surprise</td></tr>
+      <tr><th>eigentlich</th><td>Was machst du eigentlich beruflich?</td><td>casual "by the way"</td></tr>
+    </table></div>
+    <div class="merke"><b>Merke:</b> Also: „doch" as an answer contradicts a negative question — „Kommst du nicht mit?" — „Doch!" (Yes, I am!)</div>
+  </div></details>
+  </div>
+
+  <div class="glevel">
+  <h3 class="sec">B2 / C1 · Feinschliff</h3>
+
+  <details class="gtopic"><summary><span class="chip lvl">B2</span>Konjunktiv I — indirekte Rede</summary><div class="gbody">
+    <p>News and formal reports quote people with Konjunktiv I: er sei, er habe, er werde, er könne.</p>
+    <div class="gex"><span class="de">Der Minister sagte, die Lage sei stabil und man habe alles im Griff.</span><span class="en">The minister said the situation was stable and everything was under control.</span></div>
+    <div class="merke"><b>Merke:</b> You mostly need to RECOGNIZE it (reading Tagesschau, Zeitungen) — and produce it in the C1 written exam.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">B2</span>Nominalisierung — Nominalstil</summary><div class="gbody">
+    <p>Formal German turns verbs into nouns: entscheiden → die Entscheidung, lesen → das Lesen / die Lektüre.</p>
+    <div class="gex"><span class="de">Beim Lesen deutscher Texte lernt man viel. → Wenn man deutsche Texte liest, lernt man viel.</span><span class="en">One learns a lot by reading German texts.</span></div>
+    <div class="merke"><b>Merke:</b> C1 writing = switching fluidly between Nominalstil and Verbalstil. Practice converting sentences in both directions.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">C1</span>Partizipialattribute</summary><div class="gbody">
+    <p>Compressed relative clauses in front of the noun — the signature of academic German.</p>
+    <div class="gex"><span class="de">die steigenden Preise = die Preise, die steigen</span><span class="en">the rising prices</span></div>
+    <div class="gex"><span class="de">die vor kurzem getroffene Entscheidung = die Entscheidung, die vor kurzem getroffen wurde</span><span class="en">the recently made decision</span></div>
+    <div class="merke"><b>Merke:</b> Partizip I (steigend-) = active/simultaneous. Partizip II (getroffen-) = passive/completed.</div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">C1</span>Passiversatzformen</summary><div class="gbody">
+    <p>Elegant alternatives to the passive — C1 exams reward every one of these:</p>
+    <div class="gex"><span class="de">Das Problem lässt sich lösen. = ist lösbar. = ist zu lösen. = Man kann es lösen.</span><span class="en">The problem can be solved.</span></div>
+  </div></details>
+
+  <details class="gtopic"><summary><span class="chip lvl">C1</span>Modalverben — subjektive Bedeutung</summary><div class="gbody">
+    <p>At C1, modal verbs also express the speaker's assessment:</p>
+    <div class="gtable"><table>
+      <tr><th>muss</th><td>Er muss krank sein.</td><td>I'm sure he's sick.</td></tr>
+      <tr><th>dürfte</th><td>Sie dürfte 30 sein.</td><td>She's probably 30.</td></tr>
+      <tr><th>soll</th><td>Er soll reich sein.</td><td>People say he's rich.</td></tr>
+      <tr><th>will</th><td>Sie will nichts gewusst haben.</td><td>She claims she knew nothing.</td></tr>
+    </table></div>
+    <div class="merke"><b>Merke:</b> „soll" = hearsay, „will" = self-claim. Mixing these up flips the meaning of a sentence.</div>
+  </div></details>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="view" id="view-stats">
+  <div class="statgrid" id="statgrid"></div>
+  <h3 class="sec">Fortschritt nach Niveau</h3>
+  <div class="lvlbars" id="lvlbars"></div>
+  <h3 class="sec">Wiederholungen · letzte 14 Tage</h3>
+  <div class="days" id="days"></div>
+  <h3 class="sec">Daten</h3>
+  <div class="io">
+    <button class="btn-sec" id="btn-export">Fortschritt exportieren</button>
+    <button class="btn-sec" id="btn-import">Importieren</button>
+    <input type="file" id="import-file" accept=".json" style="display:none">
+  </div>
+  <p class="listmeta">Dein Fortschritt wird lokal in diesem Browser gespeichert. Nutze jeden Tag dasselbe Gerät — oder exportiere regelmäßig ein Backup.</p>
+</section>
+
+<!-- ============ PLAN ============ -->
+<section class="view" id="view-plan">
+  <p class="plan-intro"><strong>From where you are to C1/C2, the path is not a secret — it is a system.</strong>
+  Language level is built from four inputs: massive listening/reading, daily vocabulary with spaced repetition,
+  regular speaking with correction, and regular writing with correction. The plan below turns that into a routine.
+  Rough effort benchmarks (Goethe-Institut): B1 ≈ 350–650 h total, B2 ≈ 600–800 h, C1 ≈ 800–1.000 h.
+  At 60–90 focused minutes every day plus two speaking sessions a week, C1 from a beginner base is realistic in
+  <strong>18–24 months</strong> — faster if you already have A2/B1 or can immerse.</p>
+
+  <h3 class="sec">Die tägliche Routine · 60–90 Min</h3>
+  <div class="routine">
+    <div class="rt"><div class="m">15–20 MIN</div><div class="t">Karten (diese App)</div>
+      <p>All due reviews + 10–15 new cards. Never skip — the streak is the system.</p></div>
+    <div class="rt"><div class="m">25–30 MIN</div><div class="t">Hören</div>
+      <p>Podcasts/videos slightly above your level. Re-listen to hard parts; shadow 5 minutes (repeat aloud, imitating rhythm).</p></div>
+    <div class="rt"><div class="m">15 MIN</div><div class="t">Lesen</div>
+      <p>Read daily at your level; mine 3–5 unknown words into the app as custom cards.</p></div>
+    <div class="rt"><div class="m">10–15 MIN</div><div class="t">Schreiben / Sprechen</div>
+      <p>Write 5–10 sentences about your day using today's new words, or record yourself speaking for 3 minutes.</p></div>
+  </div>
+
+  <h3 class="sec">Die Phasen</h3>
+
+  <div class="phase">
+    <div class="phase-head"><span class="stage-tag">PHASE 1</span><h4>Fundament · A1 → A2</h4><span class="hours">≈ 3–4 Monate</span></div>
+    <div class="phase-body">
+      <p class="focus">Goal: survive everyday conversation, present + perfect tense, 1.500 words. Genders are learned <em>with every noun from day one</em> — that is why nouns in this app are color-coded.</p>
+      <ul class="checks" data-ph="p1">
+        <li><input type="checkbox" id="p1a"><label for="p1a">Finish all A1+A2 cards in this app (article + plural always included)</label></li>
+        <li><input type="checkbox" id="p1b"><label for="p1b">Master present, perfect (haben/sein!) and modal verbs — Nico's Weg (DW) A1–A2 course</label></li>
+        <li><input type="checkbox" id="p1c"><label for="p1c">Daily listening habit: Easy German (YouTube) with subtitles</label></li>
+        <li><input type="checkbox" id="p1d"><label for="p1d">First 10 speaking sessions (italki / Tandem app) — bad German out loud beats perfect German in your head</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="stage-tag">PHASE 2</span><h4>Mittelstufe · B1</h4><span class="hours">≈ 4–6 Monate</span></div>
+    <div class="phase-body">
+      <p class="focus">Goal: hold real conversations, tell stories in the past, argue simply. Grammar becomes systematic; input volume doubles.</p>
+      <ul class="checks" data-ph="p2">
+        <li><input type="checkbox" id="p2a"><label for="p2a">Grammar spine: Präteritum, Konjunktiv II (würde/hätte/wäre), relative clauses, passive — work through "Grammatik aktiv B1" or DW Deutschtrainer</label></li>
+        <li><input type="checkbox" id="p2b"><label for="p2b">Switch listening to natives: Easy German Podcast, "Langsam gesprochene Nachrichten" (DW) daily</label></li>
+        <li><input type="checkbox" id="p2c"><label for="p2c">2× speaking / week, 30 min — same tutor, ask for correction of your 5 most frequent errors</label></li>
+        <li><input type="checkbox" id="p2d"><label for="p2d">Write 3 short texts/week, get corrections (LangCorrect, journaly, or your tutor)</label></li>
+        <li><input type="checkbox" id="p2e"><label for="p2e">Learn every new verb WITH its preposition + case (warten auf + Akk) — the B1 cards here model this</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="stage-tag">PHASE 3</span><h4>Ausbau · B2</h4><span class="hours">≈ 5–7 Monate</span></div>
+    <div class="phase-body">
+      <p class="focus">Goal: discuss abstract topics, understand native media, write structured texts. This is where most learners plateau — the cure is volume + feedback, not more textbooks.</p>
+      <ul class="checks" data-ph="p3">
+        <li><input type="checkbox" id="p3a"><label for="p3a">Daily native input: Tagesschau in 100 Sekunden, then full Tagesschau; one German series with German subtitles (Dark, Babylon Berlin, How to Sell Drugs Online)</label></li>
+        <li><input type="checkbox" id="p3b"><label for="p3b">Grammar finish line: Konjunktiv I, Nominalisierung, Partizipialattribute — "B-Grammatik" (Buscha/Szita)</label></li>
+        <li><input type="checkbox" id="p3c"><label for="p3c">One essay (200–250 words) per week with correction — argue pro/contra like in the B2/C1 exams</label></li>
+        <li><input type="checkbox" id="p3d"><label for="p3d">Read your first full German book (start with translated fiction you already know)</label></li>
+        <li><input type="checkbox" id="p3e"><label for="p3e">Take a mock Goethe B2 exam under time pressure — pass = enter Phase 4</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="stage-tag">PHASE 4</span><h4>Feinschliff · C1</h4><span class="hours">≈ 6–8 Monate</span></div>
+    <div class="phase-body">
+      <p class="focus">Goal: nuance, register, precision. C1 is won with connectors, collocations and Nominalstil — exactly the C1 cards in this deck.</p>
+      <ul class="checks" data-ph="p4">
+        <li><input type="checkbox" id="p4a"><label for="p4a">Upgrade input: Die Zeit / FAZ articles, Deutschlandfunk, podcasts at native speed (Lage der Nation)</label></li>
+        <li><input type="checkbox" id="p4b"><label for="p4b">Master the C1 connector set (dennoch, gleichwohl, infolgedessen, es sei denn …) — all in this deck</label></li>
+        <li><input type="checkbox" id="p4c"><label for="p4c">"C-Grammatik" (Buscha/Szita) + weekly formal essay AND one informal text (register switching)</label></li>
+        <li><input type="checkbox" id="p4d"><label for="p4d">Shadowing 10 min/day for pronunciation and rhythm; record and compare</label></li>
+        <li><input type="checkbox" id="p4e"><label for="p4e">Book the Goethe-Zertifikat C1 / telc C1 — a real exam date is the best motivator</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="stage-tag">PHASE 5</span><h4>Richtung C2 · near-native</h4><span class="hours">fortlaufend</span></div>
+    <div class="phase-body">
+      <p class="focus">C2 is not more grammar — it is cultural depth, idiom, humor and effortless register control. It comes from living partly in German.</p>
+      <ul class="checks" data-ph="p5">
+        <li><input type="checkbox" id="p5a"><label for="p5a">Move real life into German: phone in German, journal in German, one hobby community in German</label></li>
+        <li><input type="checkbox" id="p5b"><label for="p5b">Read literature (Kafka, Zweig, contemporary novels) and quality press weekly</label></li>
+        <li><input type="checkbox" id="p5c"><label for="p5c">Debate/present in German regularly; get feedback on style, not just correctness</label></li>
+        <li><input type="checkbox" id="p5d"><label for="p5d">Collect idioms &amp; regionalisms actively as custom cards (die Wendungen here are your seed)</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sec">Prinzipien, die alles tragen</h3>
+  <ul class="principles">
+    <li><strong>Comprehensible input beats everything.</strong> 80 % of your hours should be listening/reading material you understand ~90 % of.</li>
+    <li><strong>Never learn a noun without der/die/das + plural.</strong> Retro-fixing genders at B2 is 10× harder.</li>
+    <li><strong>Learn chunks, not words.</strong> "eine Entscheidung treffen", not "Entscheidung". The Wendungen deck exists for this.</li>
+    <li><strong>Output with correction is the only cure for fossilized errors.</strong> Tutor or exchange partner — twice a week, non-negotiable.</li>
+    <li><strong>The streak is sacred.</strong> 20 minutes daily beats 3 hours on Sunday. Miss a day? Do reviews only — never zero.</li>
+  </ul>
+  <p class="plan-note">Tick the boxes as you go — they are saved on this device. When a phase is fully ticked, you have earned the next one.</p>
+</section>
+</main>
+
+<footer class="app">Wortschatz · Spaced-Repetition-Trainer · Fortschritt bleibt lokal in deinem Browser</footer>
+
+<script>
+/* =================== DECK =================== */
+/* t: v=Verb n=Nomen adj=Adjektiv konn=Konnektor wend=Wendung adv=Adverb
+   f: Verbformen "3.Sg · Präteritum · Perfekt"  |  pl: Plural  |  p: Präposition/Kasus */
+const DECK=[
+/* ---------- A1 Verben ---------- */
+{g:"sein",e:"to be",t:"v",l:"A1",f:"ist · war · ist gewesen",x:"Ich bin müde.",xe:"I am tired."},
+{g:"haben",e:"to have",t:"v",l:"A1",f:"hat · hatte · hat gehabt",x:"Hast du Zeit?",xe:"Do you have time?"},
+{g:"werden",e:"to become; will",t:"v",l:"A1",f:"wird · wurde · ist geworden",x:"Es wird kalt.",xe:"It's getting cold."},
+{g:"können",e:"can, to be able to",t:"v",l:"A1",f:"kann · konnte · hat gekonnt",x:"Ich kann gut kochen.",xe:"I can cook well."},
+{g:"müssen",e:"must, to have to",t:"v",l:"A1",f:"muss · musste · hat gemusst",x:"Ich muss jetzt gehen.",xe:"I have to go now."},
+{g:"wollen",e:"to want",t:"v",l:"A1",f:"will · wollte · hat gewollt",x:"Was willst du essen?",xe:"What do you want to eat?"},
+{g:"sollen",e:"should, to be supposed to",t:"v",l:"A1",f:"soll · sollte · hat gesollt",x:"Du sollst mehr schlafen.",xe:"You should sleep more."},
+{g:"dürfen",e:"may, to be allowed to",t:"v",l:"A1",f:"darf · durfte · hat gedurft",x:"Darf ich hier parken?",xe:"May I park here?"},
+{g:"mögen",e:"to like",t:"v",l:"A1",f:"mag · mochte · hat gemocht",x:"Ich mag Kaffee.",xe:"I like coffee."},
+{g:"gehen",e:"to go, to walk",t:"v",l:"A1",f:"geht · ging · ist gegangen",x:"Wir gehen nach Hause.",xe:"We're going home."},
+{g:"kommen",e:"to come",t:"v",l:"A1",f:"kommt · kam · ist gekommen",x:"Woher kommst du?",xe:"Where are you from?"},
+{g:"machen",e:"to do, to make",t:"v",l:"A1",f:"macht · machte · hat gemacht",x:"Was machst du heute?",xe:"What are you doing today?"},
+{g:"sagen",e:"to say",t:"v",l:"A1",f:"sagt · sagte · hat gesagt",x:"Was hast du gesagt?",xe:"What did you say?"},
+{g:"geben",e:"to give",t:"v",l:"A1",f:"gibt · gab · hat gegeben",x:"Gibst du mir das Buch?",xe:"Will you give me the book?"},
+{g:"nehmen",e:"to take",t:"v",l:"A1",f:"nimmt · nahm · hat genommen",x:"Ich nehme den Bus.",xe:"I'll take the bus."},
+{g:"sehen",e:"to see",t:"v",l:"A1",f:"sieht · sah · hat gesehen",x:"Siehst du das Haus?",xe:"Do you see the house?"},
+{g:"wissen",e:"to know (a fact)",t:"v",l:"A1",f:"weiß · wusste · hat gewusst",x:"Ich weiß es nicht.",xe:"I don't know."},
+{g:"finden",e:"to find; to think (opinion)",t:"v",l:"A1",f:"findet · fand · hat gefunden",x:"Ich finde die Stadt schön.",xe:"I think the city is beautiful."},
+{g:"bleiben",e:"to stay",t:"v",l:"A1",f:"bleibt · blieb · ist geblieben",x:"Heute bleibe ich zu Hause.",xe:"Today I'm staying home."},
+{g:"heißen",e:"to be called",t:"v",l:"A1",f:"heißt · hieß · hat geheißen",x:"Wie heißt du?",xe:"What's your name?"},
+{g:"arbeiten",e:"to work",t:"v",l:"A1",f:"arbeitet · arbeitete · hat gearbeitet",x:"Sie arbeitet in Berlin.",xe:"She works in Berlin."},
+{g:"sprechen",e:"to speak",t:"v",l:"A1",f:"spricht · sprach · hat gesprochen",x:"Sprichst du Deutsch?",xe:"Do you speak German?"},
+{g:"essen",e:"to eat",t:"v",l:"A1",f:"isst · aß · hat gegessen",x:"Wir essen um acht.",xe:"We eat at eight."},
+{g:"trinken",e:"to drink",t:"v",l:"A1",f:"trinkt · trank · hat getrunken",x:"Er trinkt Wasser.",xe:"He drinks water."},
+{g:"fahren",e:"to drive, to go (by vehicle)",t:"v",l:"A1",f:"fährt · fuhr · ist gefahren",x:"Wir fahren morgen nach München.",xe:"We're going to Munich tomorrow."},
+{g:"laufen",e:"to run, to walk",t:"v",l:"A1",f:"läuft · lief · ist gelaufen",x:"Ich laufe jeden Morgen.",xe:"I run every morning."},
+{g:"schlafen",e:"to sleep",t:"v",l:"A1",f:"schläft · schlief · hat geschlafen",x:"Das Kind schläft schon.",xe:"The child is already asleep."},
+{g:"kaufen",e:"to buy",t:"v",l:"A1",f:"kauft · kaufte · hat gekauft",x:"Ich kaufe Brot und Käse.",xe:"I'm buying bread and cheese."},
+{g:"lernen",e:"to learn",t:"v",l:"A1",f:"lernt · lernte · hat gelernt",x:"Ich lerne jeden Tag Deutsch.",xe:"I learn German every day."},
+{g:"wohnen",e:"to live, to reside",t:"v",l:"A1",f:"wohnt · wohnte · hat gewohnt",x:"Wo wohnst du?",xe:"Where do you live?"},
+{g:"helfen",e:"to help",t:"v",l:"A1",f:"hilft · half · hat geholfen",p:"+ Dativ",x:"Kannst du mir helfen?",xe:"Can you help me?"},
+{g:"verstehen",e:"to understand",t:"v",l:"A1",f:"versteht · verstand · hat verstanden",x:"Ich verstehe die Frage nicht.",xe:"I don't understand the question."},
+{g:"brauchen",e:"to need",t:"v",l:"A1",f:"braucht · brauchte · hat gebraucht",x:"Wir brauchen mehr Zeit.",xe:"We need more time."},
+/* ---------- A2 Verben ---------- */
+{g:"anfangen",e:"to begin, to start",t:"v",l:"A2",f:"fängt an · fing an · hat angefangen",p:"mit + Dat",x:"Der Kurs fängt um neun an.",xe:"The course starts at nine.",n:"trennbar"},
+{g:"aufhören",e:"to stop, to quit",t:"v",l:"A2",f:"hört auf · hörte auf · hat aufgehört",p:"mit + Dat",x:"Er hat mit dem Rauchen aufgehört.",xe:"He quit smoking.",n:"trennbar"},
+{g:"einladen",e:"to invite",t:"v",l:"A2",f:"lädt ein · lud ein · hat eingeladen",x:"Sie hat mich zur Party eingeladen.",xe:"She invited me to the party.",n:"trennbar"},
+{g:"erklären",e:"to explain",t:"v",l:"A2",f:"erklärt · erklärte · hat erklärt",x:"Kannst du mir das erklären?",xe:"Can you explain that to me?"},
+{g:"erzählen",e:"to tell (a story)",t:"v",l:"A2",f:"erzählt · erzählte · hat erzählt",p:"von + Dat",x:"Erzähl mir von deiner Reise!",xe:"Tell me about your trip!"},
+{g:"vergessen",e:"to forget",t:"v",l:"A2",f:"vergisst · vergaß · hat vergessen",x:"Ich habe seinen Namen vergessen.",xe:"I forgot his name."},
+{g:"verlieren",e:"to lose",t:"v",l:"A2",f:"verliert · verlor · hat verloren",x:"Ich habe meinen Schlüssel verloren.",xe:"I lost my key."},
+{g:"gewinnen",e:"to win",t:"v",l:"A2",f:"gewinnt · gewann · hat gewonnen",x:"Unser Team hat gewonnen.",xe:"Our team won."},
+{g:"versuchen",e:"to try",t:"v",l:"A2",f:"versucht · versuchte · hat versucht",x:"Ich versuche es noch einmal.",xe:"I'll try again."},
+{g:"bekommen",e:"to get, to receive",t:"v",l:"A2",f:"bekommt · bekam · hat bekommen",x:"Ich habe eine E-Mail bekommen.",xe:"I received an email."},
+{g:"gehören",e:"to belong to",t:"v",l:"A2",f:"gehört · gehörte · hat gehört",p:"+ Dativ",x:"Das Auto gehört meinem Bruder.",xe:"The car belongs to my brother."},
+{g:"gefallen",e:"to please, to be liked",t:"v",l:"A2",f:"gefällt · gefiel · hat gefallen",p:"+ Dativ",x:"Der Film hat mir gut gefallen.",xe:"I really liked the movie."},
+{g:"schicken",e:"to send",t:"v",l:"A2",f:"schickt · schickte · hat geschickt",x:"Ich schicke dir die Fotos.",xe:"I'll send you the photos."},
+{g:"empfehlen",e:"to recommend",t:"v",l:"A2",f:"empfiehlt · empfahl · hat empfohlen",x:"Welches Restaurant empfiehlst du?",xe:"Which restaurant do you recommend?"},
+{g:"treffen",e:"to meet",t:"v",l:"A2",f:"trifft · traf · hat getroffen",x:"Wir treffen uns um sieben.",xe:"We're meeting at seven."},
+{g:"tragen",e:"to wear; to carry",t:"v",l:"A2",f:"trägt · trug · hat getragen",x:"Sie trägt eine rote Jacke.",xe:"She's wearing a red jacket."},
+{g:"anrufen",e:"to call (phone)",t:"v",l:"A2",f:"ruft an · rief an · hat angerufen",x:"Ruf mich morgen an!",xe:"Call me tomorrow!",n:"trennbar"},
+{g:"abholen",e:"to pick up",t:"v",l:"A2",f:"holt ab · holte ab · hat abgeholt",x:"Ich hole dich vom Bahnhof ab.",xe:"I'll pick you up from the station.",n:"trennbar"},
+{g:"mitbringen",e:"to bring along",t:"v",l:"A2",f:"bringt mit · brachte mit · hat mitgebracht",x:"Was soll ich mitbringen?",xe:"What should I bring?",n:"trennbar"},
+{g:"vorbereiten",e:"to prepare",t:"v",l:"A2",f:"bereitet vor · bereitete vor · hat vorbereitet",p:"sich ~ auf + Akk",x:"Ich bereite mich auf die Prüfung vor.",xe:"I'm preparing for the exam.",n:"trennbar"},
+{g:"bezahlen",e:"to pay",t:"v",l:"A2",f:"bezahlt · bezahlte · hat bezahlt",x:"Ich bezahle mit Karte.",xe:"I'll pay by card."},
+{g:"passieren",e:"to happen",t:"v",l:"A2",f:"passiert · passierte · ist passiert",x:"Was ist passiert?",xe:"What happened?"},
+{g:"umziehen",e:"to move (house)",t:"v",l:"A2",f:"zieht um · zog um · ist umgezogen",x:"Wir sind letztes Jahr umgezogen.",xe:"We moved last year.",n:"trennbar"},
+{g:"warten",e:"to wait",t:"v",l:"A2",f:"wartet · wartete · hat gewartet",p:"auf + Akk",x:"Ich warte auf den Bus.",xe:"I'm waiting for the bus."},
+{g:"denken",e:"to think",t:"v",l:"A2",f:"denkt · dachte · hat gedacht",p:"an + Akk",x:"Ich denke oft an dich.",xe:"I often think of you."},
+{g:"sich interessieren",e:"to be interested",t:"v",l:"A2",f:"interessiert sich · interessierte sich · hat sich interessiert",p:"für + Akk",x:"Er interessiert sich für Geschichte.",xe:"He's interested in history."},
+{g:"sich freuen",e:"to be glad; to look forward",t:"v",l:"A2",f:"freut sich · freute sich · hat sich gefreut",p:"auf/über + Akk",x:"Ich freue mich auf das Wochenende.",xe:"I'm looking forward to the weekend.",n:"auf = Zukunft, über = jetzt"},
+/* ---------- B1 Verben ---------- */
+{g:"erreichen",e:"to reach, to achieve",t:"v",l:"B1",f:"erreicht · erreichte · hat erreicht",x:"Sie hat ihr Ziel erreicht.",xe:"She achieved her goal."},
+{g:"erfahren",e:"to find out, to learn (news)",t:"v",l:"B1",f:"erfährt · erfuhr · hat erfahren",x:"Ich habe es erst gestern erfahren.",xe:"I only found out yesterday."},
+{g:"behaupten",e:"to claim",t:"v",l:"B1",f:"behauptet · behauptete · hat behauptet",x:"Er behauptet, alles zu wissen.",xe:"He claims to know everything."},
+{g:"beweisen",e:"to prove",t:"v",l:"B1",f:"beweist · bewies · hat bewiesen",x:"Kannst du das beweisen?",xe:"Can you prove that?"},
+{g:"vermeiden",e:"to avoid",t:"v",l:"B1",f:"vermeidet · vermied · hat vermieden",x:"Ich vermeide lange Diskussionen.",xe:"I avoid long discussions."},
+{g:"verbessern",e:"to improve",t:"v",l:"B1",f:"verbessert · verbesserte · hat verbessert",x:"Ich möchte mein Deutsch verbessern.",xe:"I want to improve my German."},
+{g:"vergleichen",e:"to compare",t:"v",l:"B1",f:"vergleicht · verglich · hat verglichen",p:"mit + Dat",x:"Vergleich die Preise, bevor du kaufst.",xe:"Compare prices before you buy."},
+{g:"sich bewerben",e:"to apply (for a job)",t:"v",l:"B1",f:"bewirbt sich · bewarb sich · hat sich beworben",p:"um + Akk",x:"Sie bewirbt sich um die Stelle.",xe:"She's applying for the position."},
+{g:"sich beschweren",e:"to complain",t:"v",l:"B1",f:"beschwert sich · beschwerte sich · hat sich beschwert",p:"über + Akk",x:"Er beschwert sich über den Lärm.",xe:"He's complaining about the noise."},
+{g:"überzeugen",e:"to convince",t:"v",l:"B1",f:"überzeugt · überzeugte · hat überzeugt",p:"von + Dat",x:"Du hast mich überzeugt.",xe:"You've convinced me."},
+{g:"unterstützen",e:"to support",t:"v",l:"B1",f:"unterstützt · unterstützte · hat unterstützt",x:"Meine Familie unterstützt mich.",xe:"My family supports me."},
+{g:"entwickeln",e:"to develop",t:"v",l:"B1",f:"entwickelt · entwickelte · hat entwickelt",x:"Die Firma entwickelt neue Produkte.",xe:"The company develops new products."},
+{g:"erwarten",e:"to expect",t:"v",l:"B1",f:"erwartet · erwartete · hat erwartet",x:"Ich erwarte keine Antwort.",xe:"I'm not expecting an answer."},
+{g:"sich gewöhnen",e:"to get used to",t:"v",l:"B1",f:"gewöhnt sich · gewöhnte sich · hat sich gewöhnt",p:"an + Akk",x:"Ich habe mich an das Wetter gewöhnt.",xe:"I've gotten used to the weather."},
+{g:"verzichten",e:"to do without, to give up",t:"v",l:"B1",f:"verzichtet · verzichtete · hat verzichtet",p:"auf + Akk",x:"Er verzichtet auf Zucker.",xe:"He's giving up sugar."},
+{g:"sich verlassen",e:"to rely on",t:"v",l:"B1",f:"verlässt sich · verließ sich · hat sich verlassen",p:"auf + Akk",x:"Du kannst dich auf mich verlassen.",xe:"You can rely on me."},
+{g:"zunehmen",e:"to increase; to gain weight",t:"v",l:"B1",f:"nimmt zu · nahm zu · hat zugenommen",x:"Die Preise nehmen weiter zu.",xe:"Prices keep increasing.",n:"trennbar · Gegenteil: abnehmen"},
+{g:"stattfinden",e:"to take place",t:"v",l:"B1",f:"findet statt · fand statt · hat stattgefunden",x:"Das Konzert findet morgen statt.",xe:"The concert takes place tomorrow.",n:"trennbar"},
+{g:"teilnehmen",e:"to participate",t:"v",l:"B1",f:"nimmt teil · nahm teil · hat teilgenommen",p:"an + Dat",x:"Ich nehme an dem Kurs teil.",xe:"I'm participating in the course.",n:"trennbar"},
+{g:"sich kümmern",e:"to take care of",t:"v",l:"B1",f:"kümmert sich · kümmerte sich · hat sich gekümmert",p:"um + Akk",x:"Sie kümmert sich um ihre Eltern.",xe:"She takes care of her parents."},
+{g:"betreffen",e:"to concern, to affect",t:"v",l:"B1",f:"betrifft · betraf · hat betroffen",x:"Das Problem betrifft uns alle.",xe:"The problem affects us all."},
+{g:"erlauben",e:"to allow",t:"v",l:"B1",f:"erlaubt · erlaubte · hat erlaubt",x:"Meine Eltern erlauben es nicht.",xe:"My parents don't allow it."},
+{g:"verbieten",e:"to forbid",t:"v",l:"B1",f:"verbietet · verbot · hat verboten",x:"Rauchen ist hier verboten.",xe:"Smoking is forbidden here."},
+{g:"unterbrechen",e:"to interrupt",t:"v",l:"B1",f:"unterbricht · unterbrach · hat unterbrochen",x:"Bitte unterbrich mich nicht.",xe:"Please don't interrupt me."},
+{g:"feststellen",e:"to notice, to determine",t:"v",l:"B1",f:"stellt fest · stellte fest · hat festgestellt",x:"Ich habe einen Fehler festgestellt.",xe:"I noticed an error.",n:"trennbar"},
+{g:"sich entscheiden",e:"to decide",t:"v",l:"B1",f:"entscheidet sich · entschied sich · hat sich entschieden",p:"für + Akk",x:"Ich habe mich für den blauen Pulli entschieden.",xe:"I decided on the blue sweater."},
+{g:"ausgeben",e:"to spend (money)",t:"v",l:"B1",f:"gibt aus · gab aus · hat ausgegeben",x:"Er gibt viel Geld für Bücher aus.",xe:"He spends a lot of money on books.",n:"trennbar"},
+/* ---------- B2 Verben ---------- */
+{g:"beeinflussen",e:"to influence",t:"v",l:"B2",f:"beeinflusst · beeinflusste · hat beeinflusst",x:"Werbung beeinflusst unser Verhalten.",xe:"Advertising influences our behavior."},
+{g:"berücksichtigen",e:"to take into account",t:"v",l:"B2",f:"berücksichtigt · berücksichtigte · hat berücksichtigt",x:"Wir müssen alle Faktoren berücksichtigen.",xe:"We must take all factors into account."},
+{g:"sich auswirken",e:"to have an effect on",t:"v",l:"B2",f:"wirkt sich aus · wirkte sich aus · hat sich ausgewirkt",p:"auf + Akk",x:"Stress wirkt sich negativ auf die Gesundheit aus.",xe:"Stress has a negative effect on health.",n:"trennbar"},
+{g:"voraussetzen",e:"to presuppose, to require",t:"v",l:"B2",f:"setzt voraus · setzte voraus · hat vorausgesetzt",x:"Der Job setzt gute Deutschkenntnisse voraus.",xe:"The job requires good German skills.",n:"trennbar"},
+{g:"ermöglichen",e:"to make possible, to enable",t:"v",l:"B2",f:"ermöglicht · ermöglichte · hat ermöglicht",x:"Das Stipendium ermöglicht ihr das Studium.",xe:"The scholarship enables her to study."},
+{g:"verursachen",e:"to cause",t:"v",l:"B2",f:"verursacht · verursachte · hat verursacht",x:"Der Sturm hat große Schäden verursacht.",xe:"The storm caused major damage."},
+{g:"nachvollziehen",e:"to comprehend, to relate to",t:"v",l:"B2",f:"vollzieht nach · vollzog nach · hat nachvollzogen",x:"Ich kann deine Entscheidung gut nachvollziehen.",xe:"I can well understand your decision.",n:"trennbar"},
+{g:"hervorheben",e:"to emphasize, to highlight",t:"v",l:"B2",f:"hebt hervor · hob hervor · hat hervorgehoben",x:"Der Autor hebt diesen Punkt besonders hervor.",xe:"The author particularly emphasizes this point.",n:"trennbar"},
+{g:"betonen",e:"to stress, to emphasize",t:"v",l:"B2",f:"betont · betonte · hat betont",x:"Sie betonte die Wichtigkeit des Projekts.",xe:"She stressed the importance of the project."},
+{g:"sich beziehen",e:"to refer to",t:"v",l:"B2",f:"bezieht sich · bezog sich · hat sich bezogen",p:"auf + Akk",x:"Ich beziehe mich auf Ihre E-Mail vom Montag.",xe:"I refer to your email from Monday."},
+{g:"einschätzen",e:"to assess, to estimate",t:"v",l:"B2",f:"schätzt ein · schätzte ein · hat eingeschätzt",x:"Wie schätzt du die Lage ein?",xe:"How do you assess the situation?",n:"trennbar"},
+{g:"umsetzen",e:"to implement",t:"v",l:"B2",f:"setzt um · setzte um · hat umgesetzt",x:"Wir setzen den Plan nächste Woche um.",xe:"We're implementing the plan next week.",n:"trennbar"},
+{g:"ergänzen",e:"to complete, to add",t:"v",l:"B2",f:"ergänzt · ergänzte · hat ergänzt",x:"Möchten Sie etwas ergänzen?",xe:"Would you like to add anything?"},
+{g:"erläutern",e:"to explain in detail",t:"v",l:"B2",f:"erläutert · erläuterte · hat erläutert",x:"Könnten Sie das genauer erläutern?",xe:"Could you explain that in more detail?"},
+{g:"sich auseinandersetzen",e:"to engage with, to grapple with",t:"v",l:"B2",f:"setzt sich auseinander · setzte sich auseinander · hat sich auseinandergesetzt",p:"mit + Dat",x:"Er setzt sich intensiv mit dem Thema auseinander.",xe:"He engages intensively with the topic.",n:"trennbar"},
+{g:"bewältigen",e:"to cope with, to manage",t:"v",l:"B2",f:"bewältigt · bewältigte · hat bewältigt",x:"Sie hat die Krise gut bewältigt.",xe:"She coped well with the crisis."},
+{g:"anstreben",e:"to strive for",t:"v",l:"B2",f:"strebt an · strebte an · hat angestrebt",x:"Wir streben eine schnelle Lösung an.",xe:"We're striving for a quick solution.",n:"trennbar"},
+{g:"aufweisen",e:"to show, to exhibit",t:"v",l:"B2",f:"weist auf · wies auf · hat aufgewiesen",x:"Die Studie weist einige Schwächen auf.",xe:"The study exhibits some weaknesses.",n:"trennbar"},
+{g:"sich herausstellen",e:"to turn out",t:"v",l:"B2",f:"stellt sich heraus · stellte sich heraus · hat sich herausgestellt",x:"Es stellte sich heraus, dass er recht hatte.",xe:"It turned out that he was right.",n:"trennbar"},
+{g:"zurückführen",e:"to attribute to",t:"v",l:"B2",f:"führt zurück · führte zurück · hat zurückgeführt",p:"auf + Akk",x:"Der Erfolg ist auf harte Arbeit zurückzuführen.",xe:"The success can be attributed to hard work.",n:"trennbar"},
+{g:"beitragen",e:"to contribute to",t:"v",l:"B2",f:"trägt bei · trug bei · hat beigetragen",p:"zu + Dat",x:"Jeder kann zum Umweltschutz beitragen.",xe:"Everyone can contribute to environmental protection.",n:"trennbar"},
+{g:"verfügen",e:"to have at one's disposal",t:"v",l:"B2",f:"verfügt · verfügte · hat verfügt",p:"über + Akk",x:"Sie verfügt über viel Erfahrung.",xe:"She has a lot of experience."},
+{g:"ausschließen",e:"to rule out, to exclude",t:"v",l:"B2",f:"schließt aus · schloss aus · hat ausgeschlossen",x:"Diese Möglichkeit können wir ausschließen.",xe:"We can rule out this possibility.",n:"trennbar"},
+{g:"abwägen",e:"to weigh (options)",t:"v",l:"B2",f:"wägt ab · wog ab · hat abgewogen",x:"Man muss Vor- und Nachteile abwägen.",xe:"One must weigh pros and cons.",n:"trennbar"},
+{g:"hinterfragen",e:"to question critically",t:"v",l:"B2",f:"hinterfragt · hinterfragte · hat hinterfragt",x:"Man sollte solche Aussagen hinterfragen.",xe:"One should critically question such statements."},
+/* ---------- C1 Verben ---------- */
+{g:"gewährleisten",e:"to guarantee, to ensure",t:"v",l:"C1",f:"gewährleistet · gewährleistete · hat gewährleistet",x:"Die Sicherheit der Daten muss gewährleistet sein.",xe:"Data security must be ensured."},
+{g:"beeinträchtigen",e:"to impair, to affect negatively",t:"v",l:"C1",f:"beeinträchtigt · beeinträchtigte · hat beeinträchtigt",x:"Lärm beeinträchtigt die Konzentration.",xe:"Noise impairs concentration."},
+{g:"sich abzeichnen",e:"to emerge, to become apparent",t:"v",l:"C1",f:"zeichnet sich ab · zeichnete sich ab · hat sich abgezeichnet",x:"Eine Lösung zeichnet sich langsam ab.",xe:"A solution is slowly emerging.",n:"trennbar"},
+{g:"hervorgehen",e:"to emerge from, to be evident from",t:"v",l:"C1",f:"geht hervor · ging hervor · ist hervorgegangen",p:"aus + Dat",x:"Aus dem Bericht geht hervor, dass die Zahlen steigen.",xe:"The report shows that the numbers are rising.",n:"trennbar"},
+{g:"bemängeln",e:"to criticize, to find fault with",t:"v",l:"C1",f:"bemängelt · bemängelte · hat bemängelt",x:"Die Prüfer bemängelten die fehlende Struktur.",xe:"The examiners criticized the lack of structure."},
+{g:"plädieren",e:"to plead, to argue for",t:"v",l:"C1",f:"plädiert · plädierte · hat plädiert",p:"für + Akk",x:"Ich plädiere für eine offene Diskussion.",xe:"I argue for an open discussion."},
+{g:"untermauern",e:"to substantiate, to back up",t:"v",l:"C1",f:"untermauert · untermauerte · hat untermauert",x:"Er untermauert seine These mit Statistiken.",xe:"He backs up his thesis with statistics."},
+{g:"relativieren",e:"to put into perspective",t:"v",l:"C1",f:"relativiert · relativierte · hat relativiert",x:"Diese Zahlen muss man relativieren.",xe:"These figures must be put into perspective."},
+{g:"erörtern",e:"to discuss thoroughly",t:"v",l:"C1",f:"erörtert · erörterte · hat erörtert",x:"In dem Aufsatz wird die Frage ausführlich erörtert.",xe:"The essay discusses the question in detail."},
+{g:"veranschaulichen",e:"to illustrate",t:"v",l:"C1",f:"veranschaulicht · veranschaulichte · hat veranschaulicht",x:"Ein Beispiel soll das Problem veranschaulichen.",xe:"An example is meant to illustrate the problem."},
+{g:"differenzieren",e:"to differentiate",t:"v",l:"C1",f:"differenziert · differenzierte · hat differenziert",p:"zwischen + Dat",x:"Hier muss man genau differenzieren.",xe:"One must differentiate carefully here."},
+{g:"sich etablieren",e:"to establish oneself",t:"v",l:"C1",f:"etabliert sich · etablierte sich · hat sich etabliert",x:"Die Firma hat sich auf dem Markt etabliert.",xe:"The company has established itself in the market."},
+{g:"münden",e:"to lead into, to culminate in",t:"v",l:"C1",f:"mündet · mündete · ist gemündet",p:"in + Akk",x:"Die Proteste mündeten in Verhandlungen.",xe:"The protests culminated in negotiations."},
+{g:"konstatieren",e:"to state, to note",t:"v",l:"C1",f:"konstatiert · konstatierte · hat konstatiert",x:"Die Studie konstatiert einen deutlichen Anstieg.",xe:"The study notes a significant increase."},
+{g:"implizieren",e:"to imply",t:"v",l:"C1",f:"impliziert · implizierte · hat impliziert",x:"Deine Frage impliziert bereits die Antwort.",xe:"Your question already implies the answer."},
+{g:"sich vergegenwärtigen",e:"to visualize, to bring to mind",t:"v",l:"C1",f:"vergegenwärtigt sich · vergegenwärtigte sich · hat sich vergegenwärtigt",x:"Man muss sich die Folgen vergegenwärtigen.",xe:"One must bring to mind the consequences."},
+{g:"gerecht werden",e:"to do justice to, to meet (expectations)",t:"v",l:"C1",f:"wird gerecht · wurde gerecht · ist gerecht geworden",p:"+ Dativ",x:"Der Film wird dem Buch nicht gerecht.",xe:"The movie doesn't do justice to the book."},
+{g:"anfechten",e:"to contest, to challenge",t:"v",l:"C1",f:"ficht an · focht an · hat angefochten",x:"Das Urteil wurde angefochten.",xe:"The verdict was contested.",n:"trennbar"},
+{g:"forcieren",e:"to push forward, to accelerate",t:"v",l:"C1",f:"forciert · forcierte · hat forciert",x:"Die Regierung forciert den Ausbau der Bahn.",xe:"The government is pushing the expansion of the railway."},
+/* ---------- Nomen A1/A2 ---------- */
+{g:"Zeit",art:"die",pl:"-en",e:"time",t:"n",l:"A1",x:"Ich habe heute keine Zeit.",xe:"I don't have time today."},
+{g:"Jahr",art:"das",pl:"-e",e:"year",t:"n",l:"A1",x:"Nächstes Jahr fahre ich nach Deutschland.",xe:"Next year I'm going to Germany."},
+{g:"Tag",art:"der",pl:"-e",e:"day",t:"n",l:"A1",x:"Der Tag war lang.",xe:"The day was long."},
+{g:"Woche",art:"die",pl:"-n",e:"week",t:"n",l:"A1",x:"Bis nächste Woche!",xe:"See you next week!"},
+{g:"Arbeit",art:"die",pl:"-en",e:"work, job",t:"n",l:"A1",x:"Die Arbeit macht mir Spaß.",xe:"I enjoy the work."},
+{g:"Stadt",art:"die",pl:"Städte",e:"city",t:"n",l:"A1",x:"Berlin ist eine große Stadt.",xe:"Berlin is a big city."},
+{g:"Land",art:"das",pl:"Länder",e:"country",t:"n",l:"A1",x:"Deutschland ist ein schönes Land.",xe:"Germany is a beautiful country."},
+{g:"Frage",art:"die",pl:"-n",e:"question",t:"n",l:"A1",x:"Ich habe eine Frage.",xe:"I have a question."},
+{g:"Antwort",art:"die",pl:"-en",e:"answer",t:"n",l:"A1",x:"Die Antwort ist richtig.",xe:"The answer is correct."},
+{g:"Geld",art:"das",pl:"(Sg.)",e:"money",t:"n",l:"A1",x:"Ich habe kein Geld dabei.",xe:"I don't have money on me."},
+{g:"Mensch",art:"der",pl:"-en",e:"human, person",t:"n",l:"A1",x:"Viele Menschen lernen Deutsch.",xe:"Many people learn German.",n:"n-Deklination: den Menschen"},
+{g:"Leben",art:"das",pl:"–",e:"life",t:"n",l:"A1",x:"Das Leben ist schön.",xe:"Life is beautiful."},
+{g:"Wohnung",art:"die",pl:"-en",e:"apartment",t:"n",l:"A1",x:"Die Wohnung hat drei Zimmer.",xe:"The apartment has three rooms."},
+{g:"Bahnhof",art:"der",pl:"Bahnhöfe",e:"train station",t:"n",l:"A1",x:"Der Bahnhof ist in der Nähe.",xe:"The station is nearby."},
+{g:"Gespräch",art:"das",pl:"-e",e:"conversation",t:"n",l:"A2",x:"Wir hatten ein langes Gespräch.",xe:"We had a long conversation."},
+{g:"Termin",art:"der",pl:"-e",e:"appointment",t:"n",l:"A2",x:"Ich habe morgen einen Termin beim Arzt.",xe:"I have a doctor's appointment tomorrow."},
+{g:"Rechnung",art:"die",pl:"-en",e:"bill, invoice",t:"n",l:"A2",x:"Die Rechnung, bitte!",xe:"The bill, please!"},
+{g:"Gebäude",art:"das",pl:"–",e:"building",t:"n",l:"A2",x:"Das Gebäude ist sehr alt.",xe:"The building is very old."},
+{g:"Schlüssel",art:"der",pl:"–",e:"key",t:"n",l:"A2",x:"Wo ist mein Schlüssel?",xe:"Where is my key?"},
+{g:"Reise",art:"die",pl:"-n",e:"trip, journey",t:"n",l:"A2",x:"Die Reise war anstrengend.",xe:"The trip was exhausting."},
+{g:"Urlaub",art:"der",pl:"-e",e:"vacation",t:"n",l:"A2",x:"Im Urlaub fahren wir ans Meer.",xe:"On vacation we go to the sea."},
+{g:"Gesundheit",art:"die",pl:"(Sg.)",e:"health",t:"n",l:"A2",x:"Gesundheit ist das Wichtigste.",xe:"Health is the most important thing."},
+{g:"Beruf",art:"der",pl:"-e",e:"profession",t:"n",l:"A2",x:"Was bist du von Beruf?",xe:"What's your profession?"},
+{g:"Ausbildung",art:"die",pl:"-en",e:"training, education",t:"n",l:"A2",x:"Er macht eine Ausbildung als Koch.",xe:"He's training to be a cook."},
+{g:"Angebot",art:"das",pl:"-e",e:"offer",t:"n",l:"A2",x:"Das Angebot ist sehr günstig.",xe:"The offer is very cheap."},
+{g:"Nachricht",art:"die",pl:"-en",e:"message; news",t:"n",l:"A2",x:"Ich habe deine Nachricht gelesen.",xe:"I read your message."},
+{g:"Kunde",art:"der",pl:"-n",e:"customer",t:"n",l:"A2",x:"Der Kunde hat immer recht.",xe:"The customer is always right.",n:"n-Deklination: den Kunden"},
+{g:"Erfahrung",art:"die",pl:"-en",e:"experience",t:"n",l:"A2",x:"Sie hat viel Erfahrung in diesem Bereich.",xe:"She has a lot of experience in this field."},
+/* ---------- Nomen B1/B2 ---------- */
+{g:"Gesellschaft",art:"die",pl:"-en",e:"society",t:"n",l:"B1",x:"Die Gesellschaft verändert sich schnell.",xe:"Society is changing fast."},
+{g:"Wirtschaft",art:"die",pl:"(Sg.)",e:"economy",t:"n",l:"B1",x:"Die Wirtschaft wächst wieder.",xe:"The economy is growing again."},
+{g:"Umwelt",art:"die",pl:"(Sg.)",e:"environment",t:"n",l:"B1",x:"Wir müssen die Umwelt schützen.",xe:"We must protect the environment."},
+{g:"Wissenschaft",art:"die",pl:"-en",e:"science",t:"n",l:"B1",x:"Die Wissenschaft hat keine einfache Antwort.",xe:"Science has no simple answer."},
+{g:"Zusammenhang",art:"der",pl:"Zusammenhänge",e:"connection, context",t:"n",l:"B2",x:"Es gibt einen Zusammenhang zwischen den beiden Ereignissen.",xe:"There's a connection between the two events.",n:"im Zusammenhang mit = in connection with"},
+{g:"Entwicklung",art:"die",pl:"-en",e:"development",t:"n",l:"B1",x:"Die Entwicklung der Stadt ist beeindruckend.",xe:"The city's development is impressive."},
+{g:"Voraussetzung",art:"die",pl:"-en",e:"prerequisite, condition",t:"n",l:"B2",x:"Gute Noten sind die Voraussetzung für das Stipendium.",xe:"Good grades are the prerequisite for the scholarship."},
+{g:"Einfluss",art:"der",pl:"Einflüsse",e:"influence",t:"n",l:"B1",x:"Musik hat einen großen Einfluss auf mich.",xe:"Music has a big influence on me.",n:"Einfluss auf + Akk"},
+{g:"Herausforderung",art:"die",pl:"-en",e:"challenge",t:"n",l:"B1",x:"Der neue Job ist eine große Herausforderung.",xe:"The new job is a big challenge."},
+{g:"Maßnahme",art:"die",pl:"-n",e:"measure, action",t:"n",l:"B2",x:"Die Regierung ergreift neue Maßnahmen.",xe:"The government is taking new measures.",n:"Maßnahmen ergreifen = to take measures"},
+{g:"Umstand",art:"der",pl:"Umstände",e:"circumstance",t:"n",l:"B2",x:"Unter diesen Umständen bleibe ich zu Hause.",xe:"Under these circumstances I'll stay home."},
+{g:"Verhältnis",art:"das",pl:"-se",e:"relationship; ratio",t:"n",l:"B2",x:"Sie hat ein gutes Verhältnis zu ihren Kollegen.",xe:"She has a good relationship with her colleagues."},
+{g:"Einstellung",art:"die",pl:"-en",e:"attitude",t:"n",l:"B2",x:"Seine Einstellung zur Arbeit hat sich geändert.",xe:"His attitude toward work has changed."},
+{g:"Verhalten",art:"das",pl:"(Sg.)",e:"behavior",t:"n",l:"B1",x:"Sein Verhalten war unhöflich.",xe:"His behavior was impolite."},
+{g:"Vorteil",art:"der",pl:"-e",e:"advantage",t:"n",l:"B1",x:"Der große Vorteil ist die Flexibilität.",xe:"The big advantage is flexibility."},
+{g:"Nachteil",art:"der",pl:"-e",e:"disadvantage",t:"n",l:"B1",x:"Jede Lösung hat auch Nachteile.",xe:"Every solution also has disadvantages."},
+{g:"Ursache",art:"die",pl:"-n",e:"cause",t:"n",l:"B1",x:"Die Ursache des Problems ist unklar.",xe:"The cause of the problem is unclear."},
+{g:"Folge",art:"die",pl:"-n",e:"consequence",t:"n",l:"B1",x:"Der Unfall hatte schwere Folgen.",xe:"The accident had serious consequences."},
+{g:"Bereich",art:"der",pl:"-e",e:"area, field",t:"n",l:"B1",x:"Sie arbeitet im Bereich Marketing.",xe:"She works in the field of marketing."},
+{g:"Ziel",art:"das",pl:"-e",e:"goal, destination",t:"n",l:"B1",x:"Mein Ziel ist das C1-Zertifikat.",xe:"My goal is the C1 certificate."},
+{g:"Lösung",art:"die",pl:"-en",e:"solution",t:"n",l:"B1",x:"Wir suchen eine gemeinsame Lösung.",xe:"We're looking for a joint solution."},
+{g:"Unterschied",art:"der",pl:"-e",e:"difference",t:"n",l:"B1",x:"Der Unterschied ist deutlich.",xe:"The difference is clear."},
+{g:"Bedeutung",art:"die",pl:"-en",e:"meaning, significance",t:"n",l:"B1",x:"Was ist die Bedeutung dieses Wortes?",xe:"What's the meaning of this word?"},
+{g:"Erkenntnis",art:"die",pl:"-se",e:"insight, finding",t:"n",l:"B2",x:"Die Studie liefert neue Erkenntnisse.",xe:"The study provides new insights."},
+{g:"Anspruch",art:"der",pl:"Ansprüche",e:"claim, demand",t:"n",l:"B2",x:"Sie hat hohe Ansprüche an sich selbst.",xe:"She has high demands of herself.",n:"Anspruch auf + Akk"},
+{g:"Bedingung",art:"die",pl:"-en",e:"condition",t:"n",l:"B1",x:"Ich akzeptiere unter einer Bedingung.",xe:"I accept under one condition."},
+{g:"Ergebnis",art:"das",pl:"-se",e:"result",t:"n",l:"B1",x:"Das Ergebnis hat uns überrascht.",xe:"The result surprised us."},
+{g:"Aufwand",art:"der",pl:"(Sg.)",e:"effort, expense",t:"n",l:"B2",x:"Der Aufwand hat sich gelohnt.",xe:"The effort was worth it."},
+{g:"Ausnahme",art:"die",pl:"-n",e:"exception",t:"n",l:"B1",x:"Heute machen wir eine Ausnahme.",xe:"Today we'll make an exception."},
+{g:"Eindruck",art:"der",pl:"Eindrücke",e:"impression",t:"n",l:"B1",x:"Er hat einen guten Eindruck gemacht.",xe:"He made a good impression."},
+{g:"Vertrauen",art:"das",pl:"(Sg.)",e:"trust",t:"n",l:"B1",x:"Vertrauen muss man sich verdienen.",xe:"Trust must be earned.",n:"Vertrauen in + Akk"},
+{g:"Verantwortung",art:"die",pl:"(Sg.)",e:"responsibility",t:"n",l:"B1",x:"Er übernimmt die Verantwortung.",xe:"He takes responsibility.",n:"Verantwortung übernehmen"},
+{g:"Meinung",art:"die",pl:"-en",e:"opinion",t:"n",l:"B1",x:"Meiner Meinung nach ist das falsch.",xe:"In my opinion, that's wrong."},
+{g:"Gefühl",art:"das",pl:"-e",e:"feeling",t:"n",l:"B1",x:"Ich habe ein gutes Gefühl.",xe:"I have a good feeling."},
+{g:"Möglichkeit",art:"die",pl:"-en",e:"possibility",t:"n",l:"B1",x:"Es gibt mehrere Möglichkeiten.",xe:"There are several possibilities."},
+{g:"Vorschlag",art:"der",pl:"Vorschläge",e:"suggestion",t:"n",l:"B1",x:"Das ist ein guter Vorschlag.",xe:"That's a good suggestion."},
+{g:"Entscheidung",art:"die",pl:"-en",e:"decision",t:"n",l:"B1",x:"Die Entscheidung fällt mir schwer.",xe:"The decision is hard for me.",n:"eine Entscheidung treffen"},
+/* ---------- Nomen C1 ---------- */
+{g:"Nachhaltigkeit",art:"die",pl:"(Sg.)",e:"sustainability",t:"n",l:"C1",x:"Nachhaltigkeit spielt eine immer größere Rolle.",xe:"Sustainability plays an ever greater role."},
+{g:"Auseinandersetzung",art:"die",pl:"-en",e:"confrontation; engagement (with a topic)",t:"n",l:"C1",x:"Die Auseinandersetzung mit der Geschichte ist wichtig.",xe:"Engaging with history is important."},
+{g:"Bewusstsein",art:"das",pl:"(Sg.)",e:"awareness, consciousness",t:"n",l:"C1",x:"Das Bewusstsein für Umweltfragen wächst.",xe:"Awareness of environmental issues is growing."},
+{g:"Wahrnehmung",art:"die",pl:"-en",e:"perception",t:"n",l:"C1",x:"Medien prägen unsere Wahrnehmung.",xe:"Media shape our perception."},
+{g:"Sachverhalt",art:"der",pl:"-e",e:"facts of the matter",t:"n",l:"C1",x:"Bitte schildern Sie den Sachverhalt.",xe:"Please describe the facts of the matter."},
+{g:"Gegebenheit",art:"die",pl:"-en",e:"given circumstance",t:"n",l:"C1",x:"Man muss sich den örtlichen Gegebenheiten anpassen.",xe:"One must adapt to local circumstances."},
+{g:"Anliegen",art:"das",pl:"–",e:"concern, request",t:"n",l:"C1",x:"Was ist Ihr Anliegen?",xe:"What is your concern/request?"},
+{g:"Stellenwert",art:"der",pl:"-e",e:"importance, status",t:"n",l:"C1",x:"Bildung hat einen hohen Stellenwert.",xe:"Education is highly valued."},
+{g:"Rahmenbedingungen",art:"die",pl:"(Pl.)",e:"framework conditions",t:"n",l:"C1",x:"Die politischen Rahmenbedingungen haben sich geändert.",xe:"The political framework conditions have changed."},
+{g:"Spannungsfeld",art:"das",pl:"-er",e:"area of tension",t:"n",l:"C1",x:"Wir bewegen uns im Spannungsfeld zwischen Freiheit und Sicherheit.",xe:"We operate in the tension between freedom and security."},
+{g:"Vorbehalt",art:"der",pl:"-e",e:"reservation, caveat",t:"n",l:"C1",x:"Ich stimme zu, allerdings mit Vorbehalt.",xe:"I agree, though with reservations."},
+{g:"Tragweite",art:"die",pl:"(Sg.)",e:"scope, implications",t:"n",l:"C1",x:"Die Tragweite der Entscheidung war nicht absehbar.",xe:"The implications of the decision were not foreseeable."},
+{g:"Erhebung",art:"die",pl:"-en",e:"survey, data collection",t:"n",l:"C1",x:"Laut einer aktuellen Erhebung steigt die Zahl.",xe:"According to a recent survey, the number is rising."},
+{g:"Gefüge",art:"das",pl:"–",e:"structure, fabric",t:"n",l:"C1",x:"Das soziale Gefüge der Stadt verändert sich.",xe:"The social fabric of the city is changing."},
+{g:"Diskurs",art:"der",pl:"-e",e:"discourse",t:"n",l:"C1",x:"Das Thema bestimmt den öffentlichen Diskurs.",xe:"The topic dominates public discourse."},
+{g:"Ambivalenz",art:"die",pl:"-en",e:"ambivalence",t:"n",l:"C1",x:"Seine Haltung ist von Ambivalenz geprägt.",xe:"His attitude is marked by ambivalence."},
+{g:"Verflechtung",art:"die",pl:"-en",e:"interconnection",t:"n",l:"C1",x:"Die wirtschaftlichen Verflechtungen sind komplex.",xe:"The economic interconnections are complex."},
+{g:"Ermessen",art:"das",pl:"(Sg.)",e:"discretion, judgment",t:"n",l:"C1",x:"Das liegt in Ihrem Ermessen.",xe:"That is at your discretion."},
+/* ---------- Adjektive ---------- */
+{g:"wichtig",e:"important",t:"adj",l:"A1",x:"Das ist sehr wichtig für mich.",xe:"That's very important to me."},
+{g:"schwierig",e:"difficult",t:"adj",l:"A2",x:"Die Prüfung war schwierig.",xe:"The exam was difficult."},
+{g:"einfach",e:"simple, easy",t:"adj",l:"A1",x:"Die Aufgabe ist einfach.",xe:"The task is easy."},
+{g:"möglich",e:"possible",t:"adj",l:"A2",x:"Ist das möglich?",xe:"Is that possible?"},
+{g:"notwendig",e:"necessary",t:"adj",l:"B1",x:"Eine Reservierung ist notwendig.",xe:"A reservation is necessary."},
+{g:"erfolgreich",e:"successful",t:"adj",l:"B1",x:"Das Projekt war sehr erfolgreich.",xe:"The project was very successful."},
+{g:"zufrieden",e:"satisfied",t:"adj",l:"A2",p:"mit + Dat",x:"Ich bin zufrieden mit dem Ergebnis.",xe:"I'm satisfied with the result."},
+{g:"ähnlich",e:"similar",t:"adj",l:"B1",p:"+ Dativ",x:"Deine Idee ist meiner sehr ähnlich.",xe:"Your idea is very similar to mine."},
+{g:"unterschiedlich",e:"different, varying",t:"adj",l:"B1",x:"Wir haben unterschiedliche Meinungen.",xe:"We have different opinions."},
+{g:"tatsächlich",e:"actual(ly), real(ly)",t:"adj",l:"B1",x:"Das ist tatsächlich passiert.",xe:"That actually happened."},
+{g:"ausführlich",e:"detailed, thorough",t:"adj",l:"B2",x:"Er gab eine ausführliche Antwort.",xe:"He gave a detailed answer."},
+{g:"umfangreich",e:"extensive",t:"adj",l:"B2",x:"Die Studie ist sehr umfangreich.",xe:"The study is very extensive."},
+{g:"erheblich",e:"considerable, significant",t:"adj",l:"B2",x:"Die Kosten sind erheblich gestiegen.",xe:"Costs have risen considerably."},
+{g:"wesentlich",e:"essential, substantial",t:"adj",l:"B2",x:"Das ist ein wesentlicher Unterschied.",xe:"That's an essential difference."},
+{g:"entscheidend",e:"decisive, crucial",t:"adj",l:"B2",x:"Der entscheidende Punkt ist die Zeit.",xe:"The crucial point is time."},
+{g:"angemessen",e:"appropriate",t:"adj",l:"B2",x:"Eine angemessene Reaktion war nötig.",xe:"An appropriate reaction was needed."},
+{g:"nachhaltig",e:"sustainable, lasting",t:"adj",l:"B2",x:"Wir brauchen nachhaltige Lösungen.",xe:"We need sustainable solutions."},
+{g:"vielfältig",e:"diverse, varied",t:"adj",l:"B2",x:"Die Gründe sind vielfältig.",xe:"The reasons are varied."},
+{g:"umstritten",e:"controversial",t:"adj",l:"C1",x:"Die Entscheidung ist politisch umstritten.",xe:"The decision is politically controversial."},
+{g:"überzeugend",e:"convincing",t:"adj",l:"B2",x:"Sein Argument war überzeugend.",xe:"His argument was convincing."},
+{g:"anspruchsvoll",e:"demanding, sophisticated",t:"adj",l:"B2",x:"Der Text ist sprachlich anspruchsvoll.",xe:"The text is linguistically demanding."},
+{g:"aufschlussreich",e:"revealing, informative",t:"adj",l:"C1",x:"Das Interview war sehr aufschlussreich.",xe:"The interview was very revealing."},
+{g:"unabdingbar",e:"indispensable",t:"adj",l:"C1",x:"Geduld ist beim Sprachenlernen unabdingbar.",xe:"Patience is indispensable when learning languages."},
+{g:"maßgeblich",e:"decisive, significant",t:"adj",l:"C1",x:"Sie war maßgeblich am Erfolg beteiligt.",xe:"She contributed decisively to the success."},
+{g:"gravierend",e:"serious, grave",t:"adj",l:"C1",x:"Der Fehler hatte gravierende Folgen.",xe:"The mistake had serious consequences."},
+{g:"unerlässlich",e:"essential, imperative",t:"adj",l:"C1",x:"Tägliches Üben ist unerlässlich.",xe:"Daily practice is essential."},
+{g:"stichhaltig",e:"sound, valid (argument)",t:"adj",l:"C1",x:"Das ist kein stichhaltiges Argument.",xe:"That's not a sound argument."},
+{g:"schlüssig",e:"coherent, conclusive",t:"adj",l:"C1",x:"Ihre Argumentation ist schlüssig.",xe:"Her line of argument is coherent."},
+{g:"vermeintlich",e:"supposed, alleged",t:"adj",l:"C1",x:"Der vermeintliche Experte lag falsch.",xe:"The supposed expert was wrong."},
+{g:"gängig",e:"common, customary",t:"adj",l:"C1",x:"Das ist eine gängige Praxis.",xe:"That's common practice."},
+/* ---------- Konnektoren ---------- */
+{g:"weil",e:"because",t:"konn",l:"A1",x:"Ich lerne Deutsch, weil ich in Berlin arbeiten will.",xe:"I'm learning German because I want to work in Berlin.",n:"Nebensatz → Verb ans Ende"},
+{g:"denn",e:"because, for",t:"konn",l:"A2",x:"Ich bleibe zu Hause, denn ich bin krank.",xe:"I'm staying home, for I am sick.",n:"Hauptsatz → normale Wortstellung"},
+{g:"deshalb",e:"therefore, that's why",t:"konn",l:"A2",x:"Es regnet, deshalb nehme ich den Bus.",xe:"It's raining, that's why I'm taking the bus.",n:"Position 1 → dann Verb"},
+{g:"trotzdem",e:"nevertheless",t:"konn",l:"A2",x:"Es regnet, trotzdem gehe ich joggen.",xe:"It's raining, nevertheless I'm going jogging."},
+{g:"obwohl",e:"although",t:"konn",l:"B1",x:"Obwohl er müde war, arbeitete er weiter.",xe:"Although he was tired, he kept working.",n:"Nebensatz → Verb ans Ende"},
+{g:"während",e:"while; whereas",t:"konn",l:"B1",x:"Während ich koche, hört sie Musik.",xe:"While I cook, she listens to music.",n:"auch Kontrast: whereas"},
+{g:"damit",e:"so that",t:"konn",l:"B1",x:"Ich spreche langsam, damit du mich verstehst.",xe:"I speak slowly so that you understand me."},
+{g:"um … zu",e:"in order to",t:"konn",l:"B1",x:"Ich bin hier, um Deutsch zu lernen.",xe:"I'm here in order to learn German.",n:"gleiches Subjekt → um…zu statt damit"},
+{g:"jedoch",e:"however",t:"konn",l:"B1",x:"Der Plan war gut, jedoch fehlte das Geld.",xe:"The plan was good; however, the money was lacking."},
+{g:"allerdings",e:"however, admittedly",t:"konn",l:"B2",x:"Das stimmt, allerdings gibt es Ausnahmen.",xe:"That's true; however, there are exceptions."},
+{g:"dennoch",e:"nevertheless, still",t:"konn",l:"B2",x:"Die Aufgabe war schwer, dennoch hat sie es geschafft.",xe:"The task was hard; nevertheless, she managed it."},
+{g:"außerdem",e:"besides, moreover",t:"konn",l:"A2",x:"Das Hotel ist schön, außerdem liegt es zentral.",xe:"The hotel is nice; moreover, it's central."},
+{g:"darüber hinaus",e:"furthermore, beyond that",t:"konn",l:"B2",x:"Darüber hinaus bietet die Firma flexible Arbeitszeiten.",xe:"Furthermore, the company offers flexible hours."},
+{g:"folglich",e:"consequently",t:"konn",l:"B2",x:"Er hat nicht geübt, folglich fiel er durch.",xe:"He didn't practice; consequently, he failed."},
+{g:"infolgedessen",e:"as a result",t:"konn",l:"C1",x:"Der Zug fiel aus, infolgedessen kam sie zu spät.",xe:"The train was cancelled; as a result, she was late."},
+{g:"hingegen",e:"on the other hand, by contrast",t:"konn",l:"B2",x:"Er mag die Stadt, sie hingegen liebt das Land.",xe:"He likes the city; she, by contrast, loves the countryside."},
+{g:"einerseits … andererseits",e:"on the one hand … on the other",t:"konn",l:"B2",x:"Einerseits ist es teuer, andererseits spart es Zeit.",xe:"On the one hand it's expensive; on the other, it saves time."},
+{g:"es sei denn",e:"unless",t:"konn",l:"C1",x:"Wir kommen pünktlich, es sei denn, es gibt Stau.",xe:"We'll be on time — unless there's a traffic jam."},
+{g:"sofern",e:"provided that",t:"konn",l:"C1",x:"Sofern das Wetter mitspielt, grillen wir.",xe:"Provided the weather cooperates, we'll barbecue."},
+{g:"nichtsdestotrotz",e:"nonetheless",t:"konn",l:"C1",x:"Der Weg ist lang, nichtsdestotrotz lohnt er sich.",xe:"The road is long; nonetheless, it's worth it."},
+{g:"gleichwohl",e:"nevertheless (formal)",t:"konn",l:"C1",x:"Die Kritik war hart, gleichwohl berechtigt.",xe:"The criticism was harsh, yet justified."},
+{g:"zumal",e:"especially since",t:"konn",l:"C1",x:"Ich helfe gern, zumal ich Zeit habe.",xe:"I'm happy to help, especially since I have time."},
+{g:"indem",e:"by (doing something)",t:"konn",l:"B2",x:"Man lernt eine Sprache, indem man sie täglich benutzt.",xe:"You learn a language by using it daily."},
+{g:"wohingegen",e:"whereas",t:"konn",l:"C1",x:"Er plant alles, wohingegen sie spontan ist.",xe:"He plans everything, whereas she is spontaneous."},
+{g:"geschweige denn",e:"let alone",t:"konn",l:"C1",x:"Er kann kein Wort Deutsch, geschweige denn einen Satz.",xe:"He can't say a word of German, let alone a sentence."},
+{g:"sowohl … als auch",e:"both … and",t:"konn",l:"B1",x:"Sie spricht sowohl Deutsch als auch Französisch.",xe:"She speaks both German and French."},
+{g:"weder … noch",e:"neither … nor",t:"konn",l:"B1",x:"Er hat weder Zeit noch Geld.",xe:"He has neither time nor money."},
+{g:"je … desto",e:"the … the",t:"konn",l:"B2",x:"Je mehr du übst, desto besser wirst du.",xe:"The more you practice, the better you get."},
+{g:"demnach",e:"accordingly, according to that",t:"konn",l:"C1",x:"Demnach müssen wir den Plan ändern.",xe:"Accordingly, we must change the plan."},
+{g:"somit",e:"thus, thereby",t:"konn",l:"B2",x:"Der Vertrag ist unterschrieben, somit ist alles geregelt.",xe:"The contract is signed; thus everything is settled."},
+/* ---------- Wendungen ---------- */
+{g:"eine Rolle spielen",e:"to play a role, to matter",t:"wend",l:"B1",x:"Geld spielt dabei keine Rolle.",xe:"Money doesn't matter here."},
+{g:"eine Entscheidung treffen",e:"to make a decision",t:"wend",l:"B1",x:"Wir müssen heute eine Entscheidung treffen.",xe:"We have to make a decision today."},
+{g:"in Betracht ziehen",e:"to take into consideration",t:"wend",l:"C1",x:"Wir sollten auch andere Optionen in Betracht ziehen.",xe:"We should also consider other options."},
+{g:"zur Verfügung stehen",e:"to be available",t:"wend",l:"B2",x:"Ich stehe Ihnen gern zur Verfügung.",xe:"I am gladly at your disposal."},
+{g:"in Anspruch nehmen",e:"to make use of; to take up (time)",t:"wend",l:"C1",x:"Das Projekt nimmt viel Zeit in Anspruch.",xe:"The project takes up a lot of time."},
+{g:"auf dem Laufenden bleiben",e:"to stay up to date",t:"wend",l:"B2",x:"Ich lese Nachrichten, um auf dem Laufenden zu bleiben.",xe:"I read the news to stay up to date."},
+{g:"ins Gewicht fallen",e:"to carry weight, to matter",t:"wend",l:"C1",x:"Kleine Fehler fallen hier nicht ins Gewicht.",xe:"Small mistakes don't matter here."},
+{g:"im Vordergrund stehen",e:"to be the focus",t:"wend",l:"B2",x:"Die Qualität steht im Vordergrund.",xe:"Quality is the focus."},
+{g:"Rücksicht nehmen",e:"to be considerate of",t:"wend",l:"B1",p:"auf + Akk",x:"Bitte nimm Rücksicht auf die Nachbarn.",xe:"Please be considerate of the neighbors."},
+{g:"einen Beitrag leisten",e:"to make a contribution",t:"wend",l:"B2",p:"zu + Dat",x:"Jeder kann einen Beitrag zum Klimaschutz leisten.",xe:"Everyone can contribute to climate protection."},
+{g:"zum Ausdruck bringen",e:"to express",t:"wend",l:"C1",x:"Er brachte seine Dankbarkeit zum Ausdruck.",xe:"He expressed his gratitude."},
+{g:"unter Beweis stellen",e:"to demonstrate, to prove",t:"wend",l:"C1",x:"Sie konnte ihr Können unter Beweis stellen.",xe:"She was able to demonstrate her skills."},
+{g:"auf den Punkt bringen",e:"to get to the point",t:"wend",l:"C1",x:"Du hast das Problem auf den Punkt gebracht.",xe:"You summed up the problem perfectly."},
+{g:"den Rahmen sprengen",e:"to go beyond the scope",t:"wend",l:"C1",x:"Details würden hier den Rahmen sprengen.",xe:"Details would go beyond the scope here."},
+{g:"in Kauf nehmen",e:"to accept (a downside)",t:"wend",l:"C1",x:"Er nimmt lange Arbeitswege in Kauf.",xe:"He accepts long commutes as a trade-off."},
+{g:"auf Anhieb",e:"right away, on the first try",t:"wend",l:"B2",x:"Es hat auf Anhieb funktioniert.",xe:"It worked on the first try."},
+{g:"nach wie vor",e:"still, as before",t:"wend",l:"B2",x:"Das Problem besteht nach wie vor.",xe:"The problem still exists."},
+{g:"im Großen und Ganzen",e:"by and large",t:"wend",l:"B2",x:"Im Großen und Ganzen bin ich zufrieden.",xe:"By and large, I'm satisfied."}
+];
+/* =================== DECK 2 — aus deinen Kursnotizen (A1/A2/B1) =================== */
+const DECK2=[
+/* ---------- B1 Verben (Kurs Kap. 7–12) ---------- */
+{g:"sich verstehen",e:"to get along with",t:"v",l:"B1",f:"versteht sich · verstand sich · hat sich verstanden",p:"mit + Dat",x:"Ich verstehe mich gut mit meinen Kollegen.",xe:"I get along well with my colleagues."},
+{g:"akzeptieren",e:"to accept",t:"v",l:"B1",f:"akzeptiert · akzeptierte · hat akzeptiert",x:"Sie akzeptiert keine Ausreden.",xe:"She accepts no excuses."},
+{g:"sich einigen",e:"to come to an agreement",t:"v",l:"B1",f:"einigt sich · einigte sich · hat sich geeinigt",p:"auf + Akk",x:"Wir haben uns auf einen Termin geeinigt.",xe:"We agreed on a date."},
+{g:"klären",e:"to clarify, to resolve",t:"v",l:"B1",f:"klärt · klärte · hat geklärt",x:"Wir müssen das Missverständnis klären.",xe:"We need to clear up the misunderstanding."},
+{g:"erleichtern",e:"to make easier, to relieve",t:"v",l:"B1",f:"erleichtert · erleichterte · hat erleichtert",x:"Die App erleichtert mir das Lernen.",xe:"The app makes learning easier for me."},
+{g:"sich aufregen",e:"to get upset about",t:"v",l:"B1",f:"regt sich auf · regte sich auf · hat sich aufgeregt",p:"über + Akk",x:"Reg dich nicht über Kleinigkeiten auf!",xe:"Don't get upset about little things!",n:"trennbar"},
+{g:"hassen",e:"to hate",t:"v",l:"A2",f:"hasst · hasste · hat gehasst",x:"Er hasst es, früh aufzustehen.",xe:"He hates getting up early."},
+{g:"lügen",e:"to lie (tell untruths)",t:"v",l:"B1",f:"lügt · log · hat gelogen",x:"Warum hast du gelogen?",xe:"Why did you lie?"},
+{g:"schweigen",e:"to be silent",t:"v",l:"B1",f:"schweigt · schwieg · hat geschwiegen",x:"Er schwieg während des ganzen Gesprächs.",xe:"He stayed silent during the whole conversation."},
+{g:"stehlen",e:"to steal",t:"v",l:"B1",f:"stiehlt · stahl · hat gestohlen",x:"Jemand hat mein Fahrrad gestohlen.",xe:"Someone stole my bike."},
+{g:"übertreiben",e:"to exaggerate",t:"v",l:"B1",f:"übertreibt · übertrieb · hat übertrieben",x:"Du übertreibst — so schlimm war es nicht.",xe:"You're exaggerating — it wasn't that bad."},
+{g:"verhindern",e:"to prevent",t:"v",l:"B1",f:"verhindert · verhinderte · hat verhindert",x:"Der Unfall war nicht zu verhindern.",xe:"The accident could not be prevented."},
+{g:"sich verspäten",e:"to be late",t:"v",l:"B1",f:"verspätet sich · verspätete sich · hat sich verspätet",x:"Der Zug hat sich um zehn Minuten verspätet.",xe:"The train was ten minutes late."},
+{g:"zwingen",e:"to force",t:"v",l:"B1",f:"zwingt · zwang · hat gezwungen",x:"Niemand zwingt dich dazu.",xe:"Nobody is forcing you to do it."},
+{g:"loben",e:"to praise",t:"v",l:"B1",f:"lobt · lobte · hat gelobt",x:"Die Chefin lobte das ganze Team.",xe:"The boss praised the whole team."},
+{g:"beschließen",e:"to decide, to resolve",t:"v",l:"B1",f:"beschließt · beschloss · hat beschlossen",x:"Wir haben beschlossen, nach Wien zu ziehen.",xe:"We decided to move to Vienna."},
+{g:"fürchten",e:"to fear",t:"v",l:"B1",f:"fürchtet · fürchtete · hat gefürchtet",x:"Viele fürchten, den Job zu verlieren.",xe:"Many fear losing their job."},
+{g:"sich anstrengen",e:"to make an effort",t:"v",l:"B1",f:"strengt sich an · strengte sich an · hat sich angestrengt",x:"Wenn du C1 willst, musst du dich anstrengen.",xe:"If you want C1, you have to make an effort.",n:"trennbar"},
+{g:"raten",e:"to advise",t:"v",l:"B1",f:"rät · riet · hat geraten",p:"+ Dat, zu + Dat",x:"Ich rate dir zu mehr Geduld.",xe:"I advise you to have more patience."},
+{g:"leiden",e:"to suffer from",t:"v",l:"B1",f:"leidet · litt · hat gelitten",p:"an + Dat",x:"Er leidet an einer Allergie.",xe:"He suffers from an allergy."},
+{g:"einnehmen",e:"to take (medication)",t:"v",l:"B1",f:"nimmt ein · nahm ein · hat eingenommen",x:"Nimm die Tablette nach dem Essen ein.",xe:"Take the pill after eating.",n:"trennbar"},
+{g:"verschreiben",e:"to prescribe",t:"v",l:"B1",f:"verschreibt · verschrieb · hat verschrieben",x:"Die Ärztin hat mir Antibiotika verschrieben.",xe:"The doctor prescribed me antibiotics."},
+{g:"krankschreiben",e:"to sign off sick",t:"v",l:"B1",f:"schreibt krank · schrieb krank · hat krankgeschrieben",x:"Der Arzt hat mich eine Woche krankgeschrieben.",xe:"The doctor signed me off sick for a week.",n:"trennbar"},
+{g:"warnen",e:"to warn of",t:"v",l:"B1",f:"warnt · warnte · hat gewarnt",p:"vor + Dat",x:"Der Wetterdienst warnt vor Sturm.",xe:"The weather service warns of a storm."},
+{g:"empfinden",e:"to feel, to perceive",t:"v",l:"B1",f:"empfindet · empfand · hat empfunden",x:"Ich empfinde große Dankbarkeit.",xe:"I feel great gratitude."},
+{g:"spüren",e:"to feel, to sense",t:"v",l:"B1",f:"spürt · spürte · hat gespürt",x:"Man spürt, dass der Winter kommt.",xe:"You can feel that winter is coming."},
+{g:"sich wundern",e:"to be surprised about",t:"v",l:"B1",f:"wundert sich · wunderte sich · hat sich gewundert",p:"über + Akk",x:"Ich wundere mich über seine Reaktion.",xe:"I'm surprised at his reaction."},
+{g:"betragen",e:"to amount to",t:"v",l:"B1",f:"beträgt · betrug · hat betragen",x:"Die Miete beträgt 900 Euro.",xe:"The rent amounts to 900 euros."},
+{g:"sinken",e:"to sink, to decrease",t:"v",l:"B1",f:"sinkt · sank · ist gesunken",x:"Die Temperaturen sinken in der Nacht.",xe:"Temperatures drop at night."},
+{g:"überprüfen",e:"to check, to verify",t:"v",l:"B1",f:"überprüft · überprüfte · hat überprüft",x:"Bitte überprüfen Sie Ihre Angaben.",xe:"Please check your details."},
+{g:"ansprechen",e:"to address; to appeal to",t:"v",l:"B1",f:"spricht an · sprach an · hat angesprochen",x:"Er hat das Problem direkt angesprochen.",xe:"He addressed the problem directly.",n:"trennbar"},
+{g:"sich handeln",e:"to be a matter of",t:"v",l:"B1",f:"handelt sich · handelte sich · hat sich gehandelt",p:"um + Akk",x:"Es handelt sich um ein Missverständnis.",xe:"It's a matter of a misunderstanding.",n:"nur unpersönlich: es handelt sich um"},
+{g:"beschädigen",e:"to damage",t:"v",l:"B1",f:"beschädigt · beschädigte · hat beschädigt",x:"Der Sturm hat das Dach beschädigt.",xe:"The storm damaged the roof."},
+{g:"erfinden",e:"to invent, to make up",t:"v",l:"B1",f:"erfindet · erfand · hat erfunden",x:"Diese Geschichte hat er erfunden.",xe:"He made up this story."},
+{g:"anwenden",e:"to apply, to use",t:"v",l:"B1",f:"wendet an · wandte an · hat angewandt",x:"Die Regel kann man überall anwenden.",xe:"The rule can be applied everywhere.",n:"trennbar · auch: wendete an / hat angewendet"},
+{g:"rennen",e:"to run",t:"v",l:"A2",f:"rennt · rannte · ist gerannt",x:"Wir sind zum Bahnhof gerannt.",xe:"We ran to the station."},
+{g:"schreien",e:"to scream, to shout",t:"v",l:"B1",f:"schreit · schrie · hat geschrien",x:"Das Baby schreit die ganze Nacht.",xe:"The baby screams all night."},
+{g:"auftreten",e:"to perform, to appear",t:"v",l:"B1",f:"tritt auf · trat auf · ist aufgetreten",x:"Die Band tritt heute Abend auf.",xe:"The band performs tonight.",n:"trennbar"},
+{g:"veranstalten",e:"to organize (an event)",t:"v",l:"B1",f:"veranstaltet · veranstaltete · hat veranstaltet",x:"Die Schule veranstaltet ein Sommerfest.",xe:"The school is organizing a summer party."},
+{g:"behandeln",e:"to treat",t:"v",l:"B1",f:"behandelt · behandelte · hat behandelt",x:"Der Arzt behandelt die Wunde.",xe:"The doctor treats the wound."},
+{g:"besprechen",e:"to discuss",t:"v",l:"B1",f:"bespricht · besprach · hat besprochen",x:"Lass uns das morgen in Ruhe besprechen.",xe:"Let's discuss that calmly tomorrow."},
+{g:"bestehen",e:"to consist of; to pass (an exam)",t:"v",l:"B1",f:"besteht · bestand · hat bestanden",p:"aus + Dat",x:"Das Team besteht aus fünf Personen.",xe:"The team consists of five people.",n:"auch: eine Prüfung bestehen = to pass an exam"},
+{g:"ersetzen",e:"to replace",t:"v",l:"B1",f:"ersetzt · ersetzte · hat ersetzt",x:"Nichts ersetzt das tägliche Üben.",xe:"Nothing replaces daily practice."},
+{g:"regeln",e:"to regulate, to settle",t:"v",l:"B1",f:"regelt · regelte · hat geregelt",x:"Das Gesetz regelt die Arbeitszeiten.",xe:"The law regulates working hours."},
+{g:"spenden",e:"to donate",t:"v",l:"B1",f:"spendet · spendete · hat gespendet",x:"Viele Menschen spenden für Geflüchtete.",xe:"Many people donate for refugees."},
+{g:"zulassen",e:"to allow, to permit",t:"v",l:"B1",f:"lässt zu · ließ zu · hat zugelassen",x:"Meine Eltern lassen das nicht zu.",xe:"My parents don't allow that.",n:"trennbar"},
+{g:"finanzieren",e:"to finance",t:"v",l:"B1",f:"finanziert · finanzierte · hat finanziert",x:"Wie finanzierst du dein Studium?",xe:"How do you finance your studies?"},
+{g:"abstimmen",e:"to vote",t:"v",l:"B1",f:"stimmt ab · stimmte ab · hat abgestimmt",p:"über + Akk",x:"Morgen stimmen wir über den Vorschlag ab.",xe:"Tomorrow we vote on the proposal.",n:"trennbar"},
+{g:"verlassen",e:"to leave",t:"v",l:"B1",f:"verlässt · verließ · hat verlassen",x:"Sie hat das Haus um acht verlassen.",xe:"She left the house at eight."},
+{g:"herausfinden",e:"to find out",t:"v",l:"B1",f:"findet heraus · fand heraus · hat herausgefunden",x:"Ich will herausfinden, was passiert ist.",xe:"I want to find out what happened.",n:"trennbar"},
+{g:"entsorgen",e:"to dispose of",t:"v",l:"B1",f:"entsorgt · entsorgte · hat entsorgt",x:"Batterien muss man getrennt entsorgen.",xe:"Batteries must be disposed of separately."},
+{g:"erscheinen",e:"to appear, to be published",t:"v",l:"B1",f:"erscheint · erschien · ist erschienen",x:"Das Buch erscheint im Herbst.",xe:"The book comes out in autumn."},
+{g:"abbiegen",e:"to turn (off)",t:"v",l:"A2",f:"biegt ab · bog ab · ist abgebogen",x:"An der Ampel biegst du links ab.",xe:"At the traffic light you turn left.",n:"trennbar"},
+{g:"abhängen",e:"to depend on",t:"v",l:"B1",f:"hängt ab · hing ab · hat abgehangen",p:"von + Dat",x:"Das hängt vom Wetter ab.",xe:"That depends on the weather.",n:"trennbar"},
+{g:"festlegen",e:"to fix, to stipulate",t:"v",l:"B1",f:"legt fest · legte fest · hat festgelegt",x:"Wir haben den Termin festgelegt.",xe:"We fixed the date.",n:"trennbar"},
+{g:"eingehen",e:"to respond to, to address",t:"v",l:"B1",f:"geht ein · ging ein · ist eingegangen",p:"auf + Akk",x:"Sie ging auf alle Fragen ein.",xe:"She addressed all the questions.",n:"trennbar"},
+{g:"vermitteln",e:"to convey; to mediate",t:"v",l:"B1",f:"vermittelt · vermittelte · hat vermittelt",x:"Der Kurs vermittelt praktisches Wissen.",xe:"The course conveys practical knowledge."},
+{g:"fortsetzen",e:"to continue",t:"v",l:"B1",f:"setzt fort · setzte fort · hat fortgesetzt",x:"Wir setzen das Gespräch morgen fort.",xe:"We'll continue the conversation tomorrow.",n:"trennbar"},
+{g:"steigen",e:"to rise, to climb",t:"v",l:"B1",f:"steigt · stieg · ist gestiegen",x:"Die Preise steigen weiter.",xe:"Prices keep rising."},
+{g:"hindern",e:"to prevent from",t:"v",l:"B1",f:"hindert · hinderte · hat gehindert",p:"an + Dat",x:"Der Lärm hindert mich am Schlafen.",xe:"The noise keeps me from sleeping."},
+{g:"versäumen",e:"to miss (a deadline)",t:"v",l:"B1",f:"versäumt · versäumte · hat versäumt",x:"Versäume nicht die Anmeldefrist!",xe:"Don't miss the registration deadline!"},
+{g:"aufnehmen",e:"to take out (a loan); to record",t:"v",l:"B1",f:"nimmt auf · nahm auf · hat aufgenommen",x:"Sie hat einen Kredit aufgenommen.",xe:"She took out a loan.",n:"trennbar"},
+{g:"angeben",e:"to state, to give (details)",t:"v",l:"B1",f:"gibt an · gab an · hat angegeben",x:"Geben Sie bitte Ihre Adresse an.",xe:"Please state your address.",n:"trennbar"},
+{g:"einzahlen",e:"to deposit, to pay in",t:"v",l:"B1",f:"zahlt ein · zahlte ein · hat eingezahlt",x:"Er zahlt jeden Monat 100 Euro ein.",xe:"He deposits 100 euros every month.",n:"trennbar"},
+{g:"überziehen",e:"to overdraw (an account)",t:"v",l:"B1",f:"überzieht · überzog · hat überzogen",x:"Ich habe mein Konto überzogen.",xe:"I overdrew my account."},
+{g:"profitieren",e:"to profit from",t:"v",l:"B1",f:"profitiert · profitierte · hat profitiert",p:"von + Dat",x:"Alle profitieren von der neuen Regelung.",xe:"Everyone profits from the new rule."},
+{g:"befürworten",e:"to support, to advocate",t:"v",l:"B1",f:"befürwortet · befürwortete · hat befürwortet",x:"Die Mehrheit befürwortet den Plan.",xe:"The majority supports the plan."},
+{g:"bedenken",e:"to consider, to bear in mind",t:"v",l:"B1",f:"bedenkt · bedachte · hat bedacht",x:"Du musst auch die Kosten bedenken.",xe:"You must also consider the costs."},
+{g:"betrügen",e:"to cheat, to deceive",t:"v",l:"B1",f:"betrügt · betrog · hat betrogen",x:"Er hat seine Kunden betrogen.",xe:"He cheated his customers."},
+{g:"geraten",e:"to get (into a situation)",t:"v",l:"B1",f:"gerät · geriet · ist geraten",p:"in + Akk",x:"Die Firma ist in Schwierigkeiten geraten.",xe:"The company got into difficulties."},
+{g:"stammen",e:"to originate from",t:"v",l:"B1",f:"stammt · stammte · hat gestammt",p:"aus + Dat",x:"Das Wort stammt aus dem Lateinischen.",xe:"The word comes from Latin."},
+{g:"überleben",e:"to survive",t:"v",l:"B1",f:"überlebt · überlebte · hat überlebt",x:"Alle Passagiere haben überlebt.",xe:"All passengers survived."},
+{g:"atmen",e:"to breathe",t:"v",l:"A2",f:"atmet · atmete · hat geatmet",x:"Atme tief durch!",xe:"Take a deep breath!"},
+{g:"merken",e:"to notice",t:"v",l:"A2",f:"merkt · merkte · hat gemerkt",x:"Ich habe den Fehler sofort gemerkt.",xe:"I noticed the mistake immediately.",n:"sich (Dat) etwas merken = to memorize"},
+/* ---------- A1/A2 Verben aus dem Kurs ---------- */
+{g:"aufstehen",e:"to get up",t:"v",l:"A1",f:"steht auf · stand auf · ist aufgestanden",x:"Ich stehe jeden Tag um sieben auf.",xe:"I get up at seven every day.",n:"trennbar"},
+{g:"sich anziehen",e:"to put on (clothes), to get dressed",t:"v",l:"A1",f:"zieht an · zog an · hat angezogen",x:"Zieh dir eine warme Jacke an!",xe:"Put on a warm jacket!",n:"trennbar"},
+{g:"aussehen",e:"to look, to appear",t:"v",l:"A1",f:"sieht aus · sah aus · hat ausgesehen",x:"Du siehst heute müde aus.",xe:"You look tired today.",n:"trennbar"},
+{g:"aufpassen",e:"to pay attention, to watch out",t:"v",l:"A2",f:"passt auf · passte auf · hat aufgepasst",p:"auf + Akk",x:"Pass auf der Straße gut auf!",xe:"Be careful on the street!",n:"trennbar"},
+{g:"aufräumen",e:"to tidy up",t:"v",l:"A2",f:"räumt auf · räumte auf · hat aufgeräumt",x:"Am Samstag räume ich die Wohnung auf.",xe:"On Saturday I tidy up the apartment.",n:"trennbar"},
+{g:"einkaufen",e:"to shop, to buy groceries",t:"v",l:"A1",f:"kauft ein · kaufte ein · hat eingekauft",x:"Wir kaufen samstags im Supermarkt ein.",xe:"We shop at the supermarket on Saturdays.",n:"trennbar"},
+{g:"einschlafen",e:"to fall asleep",t:"v",l:"A2",f:"schläft ein · schlief ein · ist eingeschlafen",x:"Ich bin gestern sofort eingeschlafen.",xe:"Yesterday I fell asleep immediately.",n:"trennbar"},
+{g:"ausschlafen",e:"to sleep in",t:"v",l:"A2",f:"schläft aus · schlief aus · hat ausgeschlafen",x:"Am Sonntag schlafe ich endlich aus.",xe:"On Sunday I finally sleep in.",n:"trennbar"},
+{g:"fernsehen",e:"to watch TV",t:"v",l:"A1",f:"sieht fern · sah fern · hat ferngesehen",x:"Abends sehen wir eine Stunde fern.",xe:"In the evening we watch TV for an hour.",n:"trennbar"},
+{g:"kennenlernen",e:"to get to know, to meet",t:"v",l:"A2",f:"lernt kennen · lernte kennen · hat kennengelernt",x:"Wo habt ihr euch kennengelernt?",xe:"Where did you two meet?",n:"trennbar"},
+{g:"mitnehmen",e:"to take along",t:"v",l:"A1",f:"nimmt mit · nahm mit · hat mitgenommen",x:"Nimm einen Regenschirm mit!",xe:"Take an umbrella with you!",n:"trennbar"},
+{g:"umsteigen",e:"to change (trains/buses)",t:"v",l:"A2",f:"steigt um · stieg um · ist umgestiegen",x:"In Köln musst du umsteigen.",xe:"You have to change trains in Cologne.",n:"trennbar"},
+{g:"umtauschen",e:"to exchange (goods)",t:"v",l:"A2",f:"tauscht um · tauschte um · hat umgetauscht",x:"Kann ich die Hose umtauschen?",xe:"Can I exchange the pants?",n:"trennbar"},
+{g:"vorschlagen",e:"to suggest",t:"v",l:"A2",f:"schlägt vor · schlug vor · hat vorgeschlagen",x:"Ich schlage vor, dass wir früher anfangen.",xe:"I suggest we start earlier.",n:"trennbar"},
+{g:"vorhaben",e:"to plan, to intend",t:"v",l:"A2",f:"hat vor · hatte vor · hat vorgehabt",x:"Was hast du am Wochenende vor?",xe:"What are your plans for the weekend?",n:"trennbar"},
+{g:"wehtun",e:"to hurt",t:"v",l:"A1",f:"tut weh · tat weh · hat wehgetan",p:"+ Dativ",x:"Mein Kopf tut mir weh.",xe:"My head hurts.",n:"trennbar"},
+{g:"zuhören",e:"to listen to",t:"v",l:"A1",f:"hört zu · hörte zu · hat zugehört",p:"+ Dativ",x:"Hör mir bitte genau zu!",xe:"Please listen to me carefully!",n:"trennbar"},
+{g:"zustimmen",e:"to agree",t:"v",l:"A2",f:"stimmt zu · stimmte zu · hat zugestimmt",p:"+ Dativ",x:"Ich stimme dir völlig zu.",xe:"I completely agree with you.",n:"trennbar"},
+{g:"zurückrufen",e:"to call back",t:"v",l:"A2",f:"ruft zurück · rief zurück · hat zurückgerufen",x:"Ich rufe Sie morgen zurück.",xe:"I'll call you back tomorrow.",n:"trennbar"},
+{g:"sich auskennen",e:"to know one's way around",t:"v",l:"A2",f:"kennt sich aus · kannte sich aus · hat sich ausgekannt",x:"Kennst du dich hier aus?",xe:"Do you know your way around here?",n:"trennbar"},
+{g:"sich ausruhen",e:"to rest",t:"v",l:"A2",f:"ruht sich aus · ruhte sich aus · hat sich ausgeruht",x:"Nach der Arbeit ruhe ich mich kurz aus.",xe:"After work I rest for a bit.",n:"trennbar"},
+{g:"ausrichten",e:"to pass on (a message)",t:"v",l:"A2",f:"richtet aus · richtete aus · hat ausgerichtet",x:"Soll ich ihr etwas ausrichten?",xe:"Should I pass on a message to her?",n:"trennbar"},
+{g:"abheben",e:"to withdraw (money)",t:"v",l:"A2",f:"hebt ab · hob ab · hat abgehoben",x:"Ich hebe 50 Euro am Automaten ab.",xe:"I withdraw 50 euros at the ATM.",n:"trennbar"},
+{g:"absagen",e:"to cancel",t:"v",l:"A2",f:"sagt ab · sagte ab · hat abgesagt",x:"Leider muss ich den Termin absagen.",xe:"Unfortunately I have to cancel the appointment.",n:"trennbar"},
+{g:"abschließen",e:"to complete; to lock",t:"v",l:"A2",f:"schließt ab · schloss ab · hat abgeschlossen",x:"Sie hat ihre Ausbildung abgeschlossen.",xe:"She completed her training.",n:"trennbar"},
+{g:"anbieten",e:"to offer",t:"v",l:"A2",f:"bietet an · bot an · hat angeboten",x:"Die Firma bietet flexible Arbeitszeiten an.",xe:"The company offers flexible working hours.",n:"trennbar"},
+{g:"sich anmelden",e:"to register, to sign up",t:"v",l:"A2",f:"meldet sich an · meldete sich an · hat sich angemeldet",p:"für + Akk",x:"Ich habe mich für einen Deutschkurs angemeldet.",xe:"I signed up for a German course.",n:"trennbar"},
+{g:"ausfallen",e:"to be cancelled",t:"v",l:"A2",f:"fällt aus · fiel aus · ist ausgefallen",x:"Der Unterricht fällt heute aus.",xe:"Class is cancelled today.",n:"trennbar"},
+{g:"einfallen",e:"to occur to, to come to mind",t:"v",l:"A2",f:"fällt ein · fiel ein · ist eingefallen",p:"+ Dativ",x:"Mir fällt sein Name nicht ein.",xe:"His name doesn't come to my mind.",n:"trennbar"},
+{g:"erledigen",e:"to take care of, to get done",t:"v",l:"A2",f:"erledigt · erledigte · hat erledigt",x:"Ich muss noch ein paar Dinge erledigen.",xe:"I still have to take care of a few things."},
+{g:"sich erinnern",e:"to remember",t:"v",l:"A2",f:"erinnert sich · erinnerte sich · hat sich erinnert",p:"an + Akk",x:"Erinnerst du dich an unseren ersten Tag?",xe:"Do you remember our first day?"},
+{g:"erkennen",e:"to recognize",t:"v",l:"A2",f:"erkennt · erkannte · hat erkannt",x:"Ich habe dich auf dem Foto kaum erkannt.",xe:"I hardly recognized you in the photo."},
+{g:"erleben",e:"to experience",t:"v",l:"A2",f:"erlebt · erlebte · hat erlebt",x:"Im Urlaub haben wir viel erlebt.",xe:"We experienced a lot on vacation."},
+{g:"kündigen",e:"to quit, to give notice",t:"v",l:"B1",f:"kündigt · kündigte · hat gekündigt",x:"Er hat seinen Job gekündigt.",xe:"He quit his job."},
+{g:"sich beeilen",e:"to hurry",t:"v",l:"A2",f:"beeilt sich · beeilte sich · hat sich beeilt",x:"Beeil dich, der Zug fährt gleich!",xe:"Hurry up, the train is about to leave!"},
+{g:"sich bedanken",e:"to say thank you",t:"v",l:"A2",f:"bedankt sich · bedankte sich · hat sich bedankt",p:"bei + Dat, für + Akk",x:"Ich möchte mich bei dir für die Hilfe bedanken.",xe:"I'd like to thank you for the help."},
+{g:"behalten",e:"to keep",t:"v",l:"A2",f:"behält · behielt · hat behalten",x:"Du kannst das Buch behalten.",xe:"You can keep the book."},
+{g:"beraten",e:"to advise",t:"v",l:"B1",f:"berät · beriet · hat beraten",x:"Die Bank berät ihre Kunden kostenlos.",xe:"The bank advises its customers for free."},
+{g:"besitzen",e:"to own",t:"v",l:"B1",f:"besitzt · besaß · hat besessen",x:"Sie besitzt ein kleines Haus am See.",xe:"She owns a small house by the lake."},
+{g:"bitten",e:"to ask, to request",t:"v",l:"A2",f:"bittet · bat · hat gebeten",p:"um + Akk",x:"Darf ich dich um einen Gefallen bitten?",xe:"May I ask you a favor?"},
+{g:"brechen",e:"to break",t:"v",l:"A2",f:"bricht · brach · hat gebrochen",x:"Er hat sich das Bein gebrochen.",xe:"He broke his leg."},
+{g:"sich unterhalten",e:"to converse, to chat",t:"v",l:"A2",f:"unterhält sich · unterhielt sich · hat sich unterhalten",p:"mit + Dat, über + Akk",x:"Wir haben uns lange über Musik unterhalten.",xe:"We talked about music for a long time."},
+{g:"unternehmen",e:"to do, to undertake (an activity)",t:"v",l:"A2",f:"unternimmt · unternahm · hat unternommen",x:"Am Wochenende unternehmen wir etwas zusammen.",xe:"On the weekend we'll do something together."},
+{g:"sich verabreden",e:"to arrange to meet",t:"v",l:"A2",f:"verabredet sich · verabredete sich · hat sich verabredet",p:"mit + Dat",x:"Ich habe mich mit Anna zum Kaffee verabredet.",xe:"I arranged to meet Anna for coffee."},
+{g:"sich verabschieden",e:"to say goodbye",t:"v",l:"A2",f:"verabschiedet sich · verabschiedete sich · hat sich verabschiedet",p:"von + Dat",x:"Er verabschiedete sich von allen Kollegen.",xe:"He said goodbye to all his colleagues."},
+{g:"verbringen",e:"to spend (time)",t:"v",l:"A2",f:"verbringt · verbrachte · hat verbracht",x:"Wir verbringen den Sommer am Meer.",xe:"We're spending the summer at the sea."},
+{g:"verdienen",e:"to earn",t:"v",l:"A2",f:"verdient · verdiente · hat verdient",x:"In diesem Job verdient man gut.",xe:"You earn well in this job."},
+{g:"vermissen",e:"to miss (a person)",t:"v",l:"A2",f:"vermisst · vermisste · hat vermisst",x:"Ich vermisse meine Familie sehr.",xe:"I miss my family a lot."},
+{g:"verpassen",e:"to miss (a train, a chance)",t:"v",l:"A2",f:"verpasst · verpasste · hat verpasst",x:"Beeil dich, sonst verpassen wir den Bus!",xe:"Hurry, or we'll miss the bus!"},
+{g:"verschieben",e:"to postpone",t:"v",l:"B1",f:"verschiebt · verschob · hat verschoben",x:"Wir müssen das Treffen auf Freitag verschieben.",xe:"We have to postpone the meeting to Friday."},
+{g:"verschlafen",e:"to oversleep",t:"v",l:"A2",f:"verschläft · verschlief · hat verschlafen",x:"Entschuldigung, ich habe verschlafen!",xe:"Sorry, I overslept!"},
+{g:"versprechen",e:"to promise",t:"v",l:"A2",f:"verspricht · versprach · hat versprochen",x:"Ich verspreche dir, pünktlich zu sein.",xe:"I promise you I'll be on time."},
+{g:"leihen",e:"to lend; to borrow",t:"v",l:"A2",f:"leiht · lieh · hat geliehen",x:"Kannst du mir dein Fahrrad leihen?",xe:"Can you lend me your bike?",n:"sich (Dat) etwas leihen = to borrow"},
+{g:"lösen",e:"to solve",t:"v",l:"A2",f:"löst · löste · hat gelöst",x:"Gemeinsam lösen wir das Problem.",xe:"Together we'll solve the problem."},
+{g:"löschen",e:"to delete",t:"v",l:"A2",f:"löscht · löschte · hat gelöscht",x:"Ich habe die E-Mail aus Versehen gelöscht.",xe:"I deleted the email by accident."},
+{g:"sparen",e:"to save (money)",t:"v",l:"A2",f:"spart · sparte · hat gespart",x:"Wir sparen für eine große Reise.",xe:"We're saving for a big trip."},
+{g:"sterben",e:"to die",t:"v",l:"A2",f:"stirbt · starb · ist gestorben",x:"Sein Opa ist letztes Jahr gestorben.",xe:"His grandpa died last year."},
+{g:"stören",e:"to disturb",t:"v",l:"A2",f:"stört · störte · hat gestört",x:"Störe ich dich gerade?",xe:"Am I disturbing you right now?"},
+{g:"sich streiten",e:"to argue",t:"v",l:"A2",f:"streitet sich · stritt sich · hat sich gestritten",p:"mit + Dat, über + Akk",x:"Die Kinder streiten sich um das Spielzeug.",xe:"The kids are fighting over the toy."},
+{g:"überlegen",e:"to think about, to consider",t:"v",l:"A2",f:"überlegt · überlegte · hat überlegt",x:"Ich überlege noch, ob ich mitkomme.",xe:"I'm still thinking about whether to come along."},
+{g:"übernachten",e:"to stay overnight",t:"v",l:"A2",f:"übernachtet · übernachtete · hat übernachtet",x:"Wir übernachten bei Freunden.",xe:"We're staying overnight with friends."},
+{g:"überraschen",e:"to surprise",t:"v",l:"A2",f:"überrascht · überraschte · hat überrascht",x:"Das Ergebnis hat mich überrascht.",xe:"The result surprised me."},
+{g:"übersetzen",e:"to translate",t:"v",l:"A2",f:"übersetzt · übersetzte · hat übersetzt",x:"Kannst du den Satz ins Deutsche übersetzen?",xe:"Can you translate the sentence into German?"},
+{g:"überweisen",e:"to transfer (money)",t:"v",l:"A2",f:"überweist · überwies · hat überwiesen",x:"Ich überweise dir das Geld heute.",xe:"I'll transfer you the money today."},
+{g:"unterschreiben",e:"to sign",t:"v",l:"A2",f:"unterschreibt · unterschrieb · hat unterschrieben",x:"Bitte unterschreiben Sie hier.",xe:"Please sign here."},
+{g:"untersuchen",e:"to examine",t:"v",l:"A2",f:"untersucht · untersuchte · hat untersucht",x:"Die Ärztin untersucht den Patienten.",xe:"The doctor examines the patient."},
+{g:"vereinbaren",e:"to arrange, to agree on",t:"v",l:"B1",f:"vereinbart · vereinbarte · hat vereinbart",x:"Ich habe einen Termin vereinbart.",xe:"I arranged an appointment.",n:"einen Termin vereinbaren"},
+{g:"vermuten",e:"to suppose, to suspect",t:"v",l:"B1",f:"vermutet · vermutete · hat vermutet",x:"Ich vermute, er ist noch im Büro.",xe:"I suppose he's still at the office."},
+{g:"wiederholen",e:"to repeat, to review",t:"v",l:"A1",f:"wiederholt · wiederholte · hat wiederholt",x:"Können Sie das bitte wiederholen?",xe:"Can you please repeat that?"},
+{g:"heiraten",e:"to marry",t:"v",l:"A2",f:"heiratet · heiratete · hat geheiratet",x:"Sie haben letzten Sommer geheiratet.",xe:"They got married last summer."},
+{g:"hoffen",e:"to hope",t:"v",l:"A2",f:"hofft · hoffte · hat gehofft",p:"auf + Akk",x:"Ich hoffe, es geht dir gut.",xe:"I hope you're doing well."},
+{g:"klappen",e:"to work out",t:"v",l:"A2",f:"klappt · klappte · hat geklappt",x:"Hat mit dem Umzug alles geklappt?",xe:"Did everything work out with the move?",n:"umgangssprachlich"},
+{g:"putzen",e:"to clean",t:"v",l:"A1",f:"putzt · putzte · hat geputzt",x:"Ich putze jeden Freitag das Bad.",xe:"I clean the bathroom every Friday."},
+{g:"üben",e:"to practice",t:"v",l:"A1",f:"übt · übte · hat geübt",x:"Übe jeden Tag zwanzig Minuten Deutsch!",xe:"Practice German for twenty minutes every day!"},
+{g:"träumen",e:"to dream",t:"v",l:"A2",f:"träumt · träumte · hat geträumt",p:"von + Dat",x:"Sie träumt von einem Jahr in Berlin.",xe:"She dreams of a year in Berlin."},
+{g:"sorgen",e:"to take care of, to ensure",t:"v",l:"B1",f:"sorgt · sorgte · hat gesorgt",p:"für + Akk",x:"Er sorgt für seine kranke Mutter.",xe:"He takes care of his sick mother."},
+{g:"zurechtkommen",e:"to cope, to manage",t:"v",l:"B1",f:"kommt zurecht · kam zurecht · ist zurechtgekommen",p:"mit + Dat",x:"Kommst du mit der neuen Software zurecht?",xe:"Are you managing with the new software?",n:"trennbar"},
+{g:"genießen",e:"to enjoy",t:"v",l:"A2",f:"genießt · genoss · hat genossen",x:"Wir genießen die Sonne im Park.",xe:"We're enjoying the sun in the park."},
+{g:"gratulieren",e:"to congratulate",t:"v",l:"A2",f:"gratuliert · gratulierte · hat gratuliert",p:"+ Dat, zu + Dat",x:"Ich gratuliere dir zum Geburtstag!",xe:"I congratulate you on your birthday!"},
+{g:"schenken",e:"to give (as a present)",t:"v",l:"A1",f:"schenkt · schenkte · hat geschenkt",x:"Was schenkst du ihm zum Geburtstag?",xe:"What are you giving him for his birthday?"},
+{g:"schmecken",e:"to taste (good)",t:"v",l:"A1",f:"schmeckt · schmeckte · hat geschmeckt",p:"+ Dativ",x:"Die Suppe schmeckt mir sehr gut.",xe:"The soup tastes very good to me."},
+{g:"zeigen",e:"to show",t:"v",l:"A1",f:"zeigt · zeigte · hat gezeigt",x:"Zeigst du mir die Stadt?",xe:"Will you show me the city?"},
+{g:"wünschen",e:"to wish",t:"v",l:"A1",f:"wünscht · wünschte · hat gewünscht",x:"Ich wünsche dir viel Erfolg!",xe:"I wish you much success!"},
+{g:"glauben",e:"to believe",t:"v",l:"A1",f:"glaubt · glaubte · hat geglaubt",p:"an + Akk",x:"Ich glaube, du hast recht.",xe:"I believe you're right."},
+{g:"sich fühlen",e:"to feel",t:"v",l:"A2",f:"fühlt sich · fühlte sich · hat sich gefühlt",x:"Ich fühle mich hier sehr wohl.",xe:"I feel very comfortable here."},
+{g:"fliegen",e:"to fly",t:"v",l:"A1",f:"fliegt · flog · ist geflogen",x:"Wir fliegen im März nach Deutschland.",xe:"We're flying to Germany in March."},
+{g:"buchen",e:"to book",t:"v",l:"A2",f:"bucht · buchte · hat gebucht",x:"Ich habe das Hotel schon gebucht.",xe:"I've already booked the hotel."},
+{g:"herunterladen",e:"to download",t:"v",l:"A2",f:"lädt herunter · lud herunter · hat heruntergeladen",x:"Lade dir die App herunter!",xe:"Download the app!",n:"trennbar"},
+{g:"reisen",e:"to travel",t:"v",l:"A1",f:"reist · reiste · ist gereist",x:"Sie reist gern allein.",xe:"She likes traveling alone."},
+{g:"regnen",e:"to rain",t:"v",l:"A1",f:"regnet · regnete · hat geregnet",x:"Es regnet schon den ganzen Tag.",xe:"It's been raining all day.",n:"unpersönlich: es regnet"},
+/* ---------- Nomen aus dem Kurs ---------- */
+{g:"Streit",art:"der",pl:"-e",e:"argument, quarrel",t:"n",l:"B1",x:"Nach dem Streit haben sie sich entschuldigt.",xe:"After the argument they apologized."},
+{g:"Kritik",art:"die",pl:"-en",e:"criticism",t:"n",l:"B1",x:"Er kann mit Kritik nicht gut umgehen.",xe:"He can't handle criticism well.",n:"Kritik an + Dat"},
+{g:"Scheidung",art:"die",pl:"-en",e:"divorce",t:"n",l:"B1",x:"Nach der Scheidung zog sie nach Hamburg.",xe:"After the divorce she moved to Hamburg."},
+{g:"Erwartung",art:"die",pl:"-en",e:"expectation",t:"n",l:"B1",x:"Der Film hat meine Erwartungen erfüllt.",xe:"The movie met my expectations."},
+{g:"Mehrheit",art:"die",pl:"-en",e:"majority",t:"n",l:"B1",x:"Die Mehrheit stimmte für den Vorschlag.",xe:"The majority voted for the proposal."},
+{g:"Rede",art:"die",pl:"-n",e:"speech",t:"n",l:"B1",x:"Sie hielt eine kurze Rede.",xe:"She gave a short speech.",n:"eine Rede halten"},
+{g:"Schlagzeile",art:"die",pl:"-n",e:"headline",t:"n",l:"B1",x:"Die Schlagzeilen waren heute dramatisch.",xe:"Today's headlines were dramatic."},
+{g:"Einzelheit",art:"die",pl:"-en",e:"detail",t:"n",l:"B1",x:"Erzähl mir alle Einzelheiten!",xe:"Tell me all the details!"},
+{g:"Gelegenheit",art:"die",pl:"-en",e:"opportunity",t:"n",l:"B1",x:"Das ist eine gute Gelegenheit, Deutsch zu sprechen.",xe:"That's a good opportunity to speak German."},
+{g:"Pflicht",art:"die",pl:"-en",e:"duty, obligation",t:"n",l:"B1",x:"Pünktlichkeit ist hier Pflicht.",xe:"Punctuality is obligatory here."},
+{g:"Gehirn",art:"das",pl:"-e",e:"brain",t:"n",l:"B1",x:"Schlaf ist wichtig für das Gehirn.",xe:"Sleep is important for the brain."},
+{g:"Schulter",art:"die",pl:"-n",e:"shoulder",t:"n",l:"A2",x:"Mir tut die Schulter weh.",xe:"My shoulder hurts."},
+{g:"Schmerzmittel",art:"das",pl:"–",e:"painkiller",t:"n",l:"B1",x:"Sie nimmt nur selten Schmerzmittel.",xe:"She rarely takes painkillers."},
+{g:"Krankenwagen",art:"der",pl:"–",e:"ambulance",t:"n",l:"A2",x:"Der Krankenwagen kam nach fünf Minuten.",xe:"The ambulance arrived after five minutes."},
+{g:"Notaufnahme",art:"die",pl:"-n",e:"emergency room",t:"n",l:"B1",x:"Wir mussten in die Notaufnahme.",xe:"We had to go to the emergency room."},
+{g:"Krankenkasse",art:"die",pl:"-n",e:"health insurance",t:"n",l:"B1",x:"Die Krankenkasse übernimmt die Kosten.",xe:"The health insurance covers the costs."},
+{g:"Wirkung",art:"die",pl:"-en",e:"effect",t:"n",l:"B1",x:"Musik hat eine beruhigende Wirkung.",xe:"Music has a calming effect."},
+{g:"Gedanke",art:"der",pl:"-n",e:"thought",t:"n",l:"B1",x:"Der Gedanke gefällt mir.",xe:"I like the thought.",n:"n-Deklination: den Gedanken"},
+{g:"Missverständnis",art:"das",pl:"-se",e:"misunderstanding",t:"n",l:"B1",x:"Das war nur ein Missverständnis.",xe:"That was just a misunderstanding."},
+{g:"Nachbarschaft",art:"die",pl:"(Sg.)",e:"neighborhood",t:"n",l:"B1",x:"In unserer Nachbarschaft helfen sich alle.",xe:"In our neighborhood everyone helps each other."},
+{g:"Referat",art:"das",pl:"-e",e:"presentation, paper",t:"n",l:"B1",x:"Morgen halte ich ein Referat über Berlin.",xe:"Tomorrow I'm giving a presentation about Berlin.",n:"ein Referat halten"},
+{g:"Gemeinschaft",art:"die",pl:"-en",e:"community",t:"n",l:"B1",x:"Sport stärkt die Gemeinschaft.",xe:"Sport strengthens the community."},
+{g:"Wert",art:"der",pl:"-e",e:"value",t:"n",l:"B1",x:"Welche Werte sind dir wichtig?",xe:"Which values are important to you?",n:"Wert legen auf + Akk"},
+{g:"Respekt",art:"der",pl:"(Sg.)",e:"respect",t:"n",l:"B1",x:"Respekt ist die Basis jeder Beziehung.",xe:"Respect is the basis of every relationship.",n:"Respekt vor + Dat"},
+{g:"Meinungsfreiheit",art:"die",pl:"(Sg.)",e:"freedom of speech",t:"n",l:"B1",x:"Meinungsfreiheit ist ein Grundrecht.",xe:"Freedom of speech is a basic right."},
+{g:"Gleichberechtigung",art:"die",pl:"(Sg.)",e:"equal rights",t:"n",l:"B1",x:"Sie kämpft für Gleichberechtigung.",xe:"She fights for equal rights."},
+{g:"Würde",art:"die",pl:"(Sg.)",e:"dignity",t:"n",l:"C1",x:"Die Würde des Menschen ist unantastbar.",xe:"Human dignity is inviolable.",n:"Art. 1 Grundgesetz"},
+{g:"Gerechtigkeit",art:"die",pl:"(Sg.)",e:"justice",t:"n",l:"B1",x:"Es geht hier um Gerechtigkeit.",xe:"This is about justice."},
+{g:"Vorurteil",art:"das",pl:"-e",e:"prejudice",t:"n",l:"B1",x:"Er hat keine Vorurteile gegenüber Fremden.",xe:"He has no prejudices against strangers.",n:"Vorurteile gegenüber + Dat"},
+{g:"Minderheit",art:"die",pl:"-en",e:"minority",t:"n",l:"B1",x:"Die Rechte von Minderheiten müssen geschützt werden.",xe:"The rights of minorities must be protected."},
+{g:"Toleranz",art:"die",pl:"(Sg.)",e:"tolerance",t:"n",l:"B1",x:"Toleranz muss man lernen.",xe:"Tolerance has to be learned."},
+{g:"Mühe",art:"die",pl:"-n",e:"effort, trouble",t:"n",l:"B1",x:"Die Mühe hat sich gelohnt.",xe:"The effort was worth it.",n:"sich (Dat) Mühe geben"},
+{g:"Amt",art:"das",pl:"Ämter",e:"public office, authority",t:"n",l:"B1",x:"Ich muss morgen aufs Amt.",xe:"I have to go to the public office tomorrow."},
+{g:"Vorschrift",art:"die",pl:"-en",e:"regulation, rule",t:"n",l:"B1",x:"Hier gelten strenge Vorschriften.",xe:"Strict regulations apply here."},
+{g:"Dienstleistung",art:"die",pl:"-en",e:"service",t:"n",l:"B1",x:"Die Firma bietet viele Dienstleistungen an.",xe:"The company offers many services."},
+{g:"Demokratie",art:"die",pl:"-n",e:"democracy",t:"n",l:"B1",x:"Wahlen sind das Herz der Demokratie.",xe:"Elections are the heart of democracy."},
+{g:"Regierung",art:"die",pl:"-en",e:"government",t:"n",l:"B1",x:"Die Regierung plant neue Reformen.",xe:"The government is planning new reforms."},
+{g:"Krieg",art:"der",pl:"-e",e:"war",t:"n",l:"B1",x:"Viele Menschen fliehen vor dem Krieg.",xe:"Many people flee from the war."},
+{g:"Frieden",art:"der",pl:"(Sg.)",e:"peace",t:"n",l:"B1",x:"Alle wünschen sich Frieden.",xe:"Everyone wishes for peace."},
+{g:"Flucht",art:"die",pl:"(Sg.)",e:"flight, escape",t:"n",l:"B1",x:"Die Flucht dauerte drei Monate.",xe:"The escape took three months."},
+{g:"Flüchtling",art:"der",pl:"-e",e:"refugee",t:"n",l:"B1",x:"Die Stadt hilft Flüchtlingen bei der Integration.",xe:"The city helps refugees with integration."},
+{g:"Schulden",art:"die",pl:"(Pl.)",e:"debts",t:"n",l:"B1",x:"Er hat endlich seine Schulden bezahlt.",xe:"He finally paid his debts.",n:"nur Plural · Schulden machen"},
+{g:"Bargeld",art:"das",pl:"(Sg.)",e:"cash",t:"n",l:"B1",x:"Ich habe kein Bargeld dabei.",xe:"I don't have cash on me."},
+{g:"Kontoauszug",art:"der",pl:"Kontoauszüge",e:"bank statement",t:"n",l:"B1",x:"Prüf regelmäßig deine Kontoauszüge.",xe:"Check your bank statements regularly."},
+{g:"Dauerauftrag",art:"der",pl:"Daueraufträge",e:"standing order",t:"n",l:"B1",x:"Die Miete zahle ich per Dauerauftrag.",xe:"I pay the rent by standing order."},
+{g:"Kredit",art:"der",pl:"-e",e:"loan, credit",t:"n",l:"B1",x:"Die Bank hat ihm einen Kredit gegeben.",xe:"The bank gave him a loan."},
+{g:"Zinsen",art:"die",pl:"(Pl.)",e:"interest (money)",t:"n",l:"B1",x:"Die Zinsen sind wieder gestiegen.",xe:"Interest rates have risen again.",n:"meist Plural"},
+{g:"Verlust",art:"der",pl:"-e",e:"loss",t:"n",l:"B1",x:"Die Firma machte hohe Verluste.",xe:"The company made big losses."},
+{g:"Globalisierung",art:"die",pl:"(Sg.)",e:"globalization",t:"n",l:"B1",x:"Die Globalisierung verbindet die Märkte.",xe:"Globalization connects the markets."},
+{g:"Verbraucher",art:"der",pl:"–",e:"consumer",t:"n",l:"B1",x:"Verbraucher achten immer mehr auf Qualität.",xe:"Consumers pay more and more attention to quality."},
+{g:"Wohlstand",art:"der",pl:"(Sg.)",e:"prosperity",t:"n",l:"B1",x:"Bildung führt zu Wohlstand.",xe:"Education leads to prosperity."},
+{g:"Forschung",art:"die",pl:"-en",e:"research",t:"n",l:"B1",x:"Die Forschung braucht mehr Geld.",xe:"Research needs more money."},
+{g:"Gewissen",art:"das",pl:"(Sg.)",e:"conscience",t:"n",l:"B1",x:"Er hat ein schlechtes Gewissen.",xe:"He has a guilty conscience."},
+{g:"Vorwurf",art:"der",pl:"Vorwürfe",e:"reproach, accusation",t:"n",l:"B1",x:"Ich mache dir keine Vorwürfe.",xe:"I'm not blaming you.",n:"jdm. Vorwürfe machen"},
+{g:"Versprechen",art:"das",pl:"–",e:"promise",t:"n",l:"B1",x:"Sie hat ihr Versprechen gehalten.",xe:"She kept her promise.",n:"ein Versprechen halten/brechen"},
+{g:"Zustand",art:"der",pl:"Zustände",e:"condition, state",t:"n",l:"B1",x:"Das Haus ist in gutem Zustand.",xe:"The house is in good condition."},
+{g:"Vortrag",art:"der",pl:"Vorträge",e:"talk, lecture",t:"n",l:"B1",x:"Der Vortrag war sehr interessant.",xe:"The lecture was very interesting.",n:"einen Vortrag halten"},
+{g:"Auswahl",art:"die",pl:"(Sg.)",e:"selection, choice",t:"n",l:"B1",x:"Das Geschäft hat eine große Auswahl.",xe:"The shop has a big selection."},
+{g:"Fußgänger",art:"der",pl:"–",e:"pedestrian",t:"n",l:"A2",x:"Diese Zone ist nur für Fußgänger.",xe:"This zone is for pedestrians only."},
+{g:"Wahrzeichen",art:"das",pl:"–",e:"landmark",t:"n",l:"B1",x:"Der Kölner Dom ist das Wahrzeichen der Stadt.",xe:"Cologne Cathedral is the city's landmark."},
+{g:"Denkmal",art:"das",pl:"Denkmäler",e:"monument",t:"n",l:"B1",x:"Das Denkmal erinnert an den Krieg.",xe:"The monument commemorates the war."},
+{g:"Dialekt",art:"der",pl:"-e",e:"dialect",t:"n",l:"B1",x:"In Bayern spricht man einen starken Dialekt.",xe:"In Bavaria people speak a strong dialect."},
+/* ---------- A1/A2 Nomen: Alltag & Reisen ---------- */
+{g:"Hose",art:"die",pl:"-n",e:"trousers, pants",t:"n",l:"A1",x:"Die Hose ist mir zu eng.",xe:"The pants are too tight for me."},
+{g:"Hemd",art:"das",pl:"-en",e:"shirt",t:"n",l:"A1",x:"Er trägt ein weißes Hemd.",xe:"He's wearing a white shirt."},
+{g:"Kleid",art:"das",pl:"-er",e:"dress",t:"n",l:"A1",x:"Das Kleid steht dir gut.",xe:"The dress suits you."},
+{g:"Mantel",art:"der",pl:"Mäntel",e:"coat",t:"n",l:"A1",x:"Im Winter brauche ich einen warmen Mantel.",xe:"In winter I need a warm coat."},
+{g:"Jacke",art:"die",pl:"-n",e:"jacket",t:"n",l:"A1",x:"Nimm eine Jacke mit, es ist kalt.",xe:"Take a jacket, it's cold."},
+{g:"Schuh",art:"der",pl:"-e",e:"shoe",t:"n",l:"A1",x:"Diese Schuhe sind sehr bequem.",xe:"These shoes are very comfortable."},
+{g:"Rock",art:"der",pl:"Röcke",e:"skirt",t:"n",l:"A1",x:"Der Rock passt zur Bluse.",xe:"The skirt matches the blouse."},
+{g:"Mütze",art:"die",pl:"-n",e:"cap, beanie",t:"n",l:"A1",x:"Ohne Mütze frierst du.",xe:"Without a beanie you'll freeze."},
+{g:"Gepäck",art:"das",pl:"(Sg.)",e:"luggage",t:"n",l:"A2",x:"Mein Gepäck ist noch am Flughafen.",xe:"My luggage is still at the airport."},
+{g:"Ausweis",art:"der",pl:"-e",e:"ID card",t:"n",l:"A2",x:"Haben Sie Ihren Ausweis dabei?",xe:"Do you have your ID with you?"},
+{g:"Flughafen",art:"der",pl:"Flughäfen",e:"airport",t:"n",l:"A1",x:"Wir müssen um sechs am Flughafen sein.",xe:"We have to be at the airport at six."},
+{g:"Gleis",art:"das",pl:"-e",e:"track, platform",t:"n",l:"A2",x:"Der Zug fährt von Gleis neun ab.",xe:"The train departs from track nine."},
+{g:"Haltestelle",art:"die",pl:"-n",e:"(bus/tram) stop",t:"n",l:"A1",x:"Die Haltestelle ist gleich um die Ecke.",xe:"The stop is just around the corner."},
+{g:"Abfahrt",art:"die",pl:"-en",e:"departure",t:"n",l:"A2",x:"Die Abfahrt ist um 8:15 Uhr.",xe:"Departure is at 8:15."},
+{g:"Ankunft",art:"die",pl:"Ankünfte",e:"arrival",t:"n",l:"A2",x:"Ruf mich nach der Ankunft an!",xe:"Call me after arrival!"},
+{g:"Sehenswürdigkeit",art:"die",pl:"-en",e:"sight, attraction",t:"n",l:"A2",x:"Berlin hat viele Sehenswürdigkeiten.",xe:"Berlin has many sights."},
+{g:"Strand",art:"der",pl:"Strände",e:"beach",t:"n",l:"A1",x:"Wir waren den ganzen Tag am Strand.",xe:"We were at the beach all day."},
+{g:"Insel",art:"die",pl:"-n",e:"island",t:"n",l:"A2",x:"Rügen ist die größte deutsche Insel.",xe:"Rügen is the largest German island."},
+{g:"Berg",art:"der",pl:"-e",e:"mountain",t:"n",l:"A1",x:"Vom Berg hat man eine tolle Aussicht.",xe:"From the mountain you have a great view."},
+{g:"Dorf",art:"das",pl:"Dörfer",e:"village",t:"n",l:"A2",x:"Meine Oma wohnt in einem kleinen Dorf.",xe:"My grandma lives in a small village."},
+{g:"Wolke",art:"die",pl:"-n",e:"cloud",t:"n",l:"A2",x:"Am Himmel sind dunkle Wolken.",xe:"There are dark clouds in the sky."},
+{g:"Regen",art:"der",pl:"(Sg.)",e:"rain",t:"n",l:"A1",x:"Bei Regen bleiben wir zu Hause.",xe:"When it rains we stay home."},
+{g:"Schnee",art:"der",pl:"(Sg.)",e:"snow",t:"n",l:"A1",x:"In den Bergen liegt schon Schnee.",xe:"There's already snow in the mountains."},
+{g:"Regenschirm",art:"der",pl:"-e",e:"umbrella",t:"n",l:"A1",x:"Vergiss den Regenschirm nicht!",xe:"Don't forget the umbrella!"},
+{g:"Zelt",art:"das",pl:"-e",e:"tent",t:"n",l:"A2",x:"Wir schlafen im Zelt am See.",xe:"We're sleeping in a tent by the lake."},
+{g:"Jugendherberge",art:"die",pl:"-n",e:"youth hostel",t:"n",l:"A2",x:"Die Jugendherberge war günstig und sauber.",xe:"The youth hostel was cheap and clean."},
+{g:"Ecke",art:"die",pl:"-n",e:"corner",t:"n",l:"A1",x:"Das Café ist an der Ecke.",xe:"The café is on the corner."},
+{g:"Kasse",art:"die",pl:"-n",e:"checkout, till",t:"n",l:"A1",x:"Bitte zahlen Sie an der Kasse.",xe:"Please pay at the checkout."},
+{g:"Führerschein",art:"der",pl:"-e",e:"driving license",t:"n",l:"A2",x:"Er macht gerade den Führerschein.",xe:"He's getting his driving license right now."},
+{g:"Gehalt",art:"das",pl:"Gehälter",e:"salary",t:"n",l:"B1",x:"Das Gehalt wird am Monatsende überwiesen.",xe:"The salary is transferred at the end of the month."},
+{g:"Bewerbung",art:"die",pl:"-en",e:"(job) application",t:"n",l:"A2",x:"Sie hat schon zehn Bewerbungen geschrieben.",xe:"She has already written ten applications."},
+{g:"Vorstellungsgespräch",art:"das",pl:"-e",e:"job interview",t:"n",l:"B1",x:"Morgen habe ich ein Vorstellungsgespräch.",xe:"Tomorrow I have a job interview."},
+{g:"Stellenanzeige",art:"die",pl:"-n",e:"job advertisement",t:"n",l:"B1",x:"Ich habe die Stellenanzeige online gefunden.",xe:"I found the job ad online."},
+{g:"Stau",art:"der",pl:"-s",e:"traffic jam",t:"n",l:"A2",x:"Wir standen eine Stunde im Stau.",xe:"We were stuck in a traffic jam for an hour."},
+{g:"Ampel",art:"die",pl:"-n",e:"traffic light",t:"n",l:"A2",x:"Bieg an der Ampel rechts ab!",xe:"Turn right at the traffic light!"},
+{g:"Kreuzung",art:"die",pl:"-en",e:"crossroads, intersection",t:"n",l:"A2",x:"An der Kreuzung geradeaus weiter.",xe:"Straight on at the intersection."},
+{g:"Versicherung",art:"die",pl:"-en",e:"insurance",t:"n",l:"B1",x:"Ohne Versicherung darfst du nicht fahren.",xe:"You're not allowed to drive without insurance."},
+{g:"Tankstelle",art:"die",pl:"-n",e:"petrol station",t:"n",l:"A2",x:"Wir halten kurz an der Tankstelle.",xe:"We'll stop briefly at the petrol station."},
+{g:"Gesetz",art:"das",pl:"-e",e:"law",t:"n",l:"B1",x:"Das neue Gesetz gilt ab Januar.",xe:"The new law applies from January."},
+{g:"Behörde",art:"die",pl:"-n",e:"public authority",t:"n",l:"B1",x:"Die Behörde bearbeitet den Antrag.",xe:"The authority is processing the application."},
+{g:"Antrag",art:"der",pl:"Anträge",e:"application (form)",t:"n",l:"B1",x:"Hast du den Antrag schon gestellt?",xe:"Have you submitted the application yet?",n:"einen Antrag stellen"},
+{g:"Visum",art:"das",pl:"Visa",e:"visa",t:"n",l:"A2",x:"Für die Reise brauche ich ein Visum.",xe:"I need a visa for the trip."},
+{g:"Grenze",art:"die",pl:"-n",e:"border",t:"n",l:"A2",x:"An der Grenze wurde kontrolliert.",xe:"There were checks at the border."},
+{g:"Überweisung",art:"die",pl:"-en",e:"bank transfer",t:"n",l:"A2",x:"Die Überweisung dauert einen Tag.",xe:"The transfer takes one day."},
+{g:"Gebühr",art:"die",pl:"-en",e:"fee",t:"n",l:"B1",x:"Für das Konto zahle ich keine Gebühren.",xe:"I don't pay any fees for the account."},
+{g:"Prüfung",art:"die",pl:"-en",e:"exam",t:"n",l:"A2",x:"Sie hat die Prüfung bestanden.",xe:"She passed the exam.",n:"eine Prüfung bestehen/ablegen"},
+{g:"Stipendium",art:"das",pl:"Stipendien",e:"scholarship",t:"n",l:"B1",x:"Er bekommt ein Stipendium für sein Studium.",xe:"He gets a scholarship for his studies."},
+{g:"Vorlesung",art:"die",pl:"-en",e:"lecture",t:"n",l:"A2",x:"Die Vorlesung beginnt um zehn.",xe:"The lecture starts at ten."},
+{g:"Studium",art:"das",pl:"Studien",e:"(university) studies",t:"n",l:"A2",x:"Nach dem Studium will sie ins Ausland.",xe:"After her studies she wants to go abroad."},
+{g:"Erinnerung",art:"die",pl:"-en",e:"memory",t:"n",l:"B1",x:"Ich habe schöne Erinnerungen an diese Zeit.",xe:"I have nice memories of that time.",n:"Erinnerung an + Akk"},
+{g:"Zukunft",art:"die",pl:"(Sg.)",e:"future",t:"n",l:"A2",x:"In Zukunft übe ich jeden Tag.",xe:"In the future I'll practice every day."},
+{g:"Vergangenheit",art:"die",pl:"(Sg.)",e:"past",t:"n",l:"B1",x:"Das gehört der Vergangenheit an.",xe:"That belongs to the past."},
+{g:"Sorge",art:"die",pl:"-n",e:"worry",t:"n",l:"A2",x:"Mach dir keine Sorgen!",xe:"Don't worry!",n:"sich Sorgen machen um + Akk"},
+{g:"Hoffnung",art:"die",pl:"-en",e:"hope",t:"n",l:"B1",x:"Ich gebe die Hoffnung nicht auf.",xe:"I'm not giving up hope."},
+{g:"Erfolg",art:"der",pl:"-e",e:"success",t:"n",l:"A2",x:"Viel Erfolg bei der Prüfung!",xe:"Good luck with the exam!"},
+{g:"Enttäuschung",art:"die",pl:"-en",e:"disappointment",t:"n",l:"B1",x:"Das Spiel war eine große Enttäuschung.",xe:"The game was a big disappointment."},
+{g:"Chance",art:"die",pl:"-n",e:"chance, opportunity",t:"n",l:"A2",x:"Gib mir noch eine Chance!",xe:"Give me one more chance!"},
+{g:"Risiko",art:"das",pl:"Risiken",e:"risk",t:"n",l:"B1",x:"Das Risiko ist mir zu hoch.",xe:"The risk is too high for me."},
+{g:"Lärm",art:"der",pl:"(Sg.)",e:"noise",t:"n",l:"A2",x:"Der Lärm von der Straße stört mich.",xe:"The noise from the street bothers me."},
+{g:"Laune",art:"die",pl:"-n",e:"mood",t:"n",l:"A2",x:"Sie ist heute guter Laune.",xe:"She's in a good mood today.",n:"gut/schlecht gelaunt sein"},
+{g:"Witz",art:"der",pl:"-e",e:"joke",t:"n",l:"A2",x:"Er erzählt gern schlechte Witze.",xe:"He likes telling bad jokes."},
+{g:"Mannschaft",art:"die",pl:"-en",e:"team",t:"n",l:"A2",x:"Unsere Mannschaft hat 2:0 gewonnen.",xe:"Our team won 2-0."},
+{g:"Wettbewerb",art:"der",pl:"-e",e:"competition",t:"n",l:"B1",x:"Sie nimmt an einem Wettbewerb teil.",xe:"She's taking part in a competition."},
+{g:"Verein",art:"der",pl:"-e",e:"club, association",t:"n",l:"A2",x:"Er spielt Fußball im Verein.",xe:"He plays football in a club."},
+{g:"Apotheke",art:"die",pl:"-n",e:"pharmacy",t:"n",l:"A1",x:"Die Apotheke ist bis 18 Uhr geöffnet.",xe:"The pharmacy is open until 6 p.m."},
+{g:"Rezept",art:"das",pl:"-e",e:"prescription; recipe",t:"n",l:"A2",x:"Dieses Medikament gibt es nur auf Rezept.",xe:"This medicine is only available on prescription."},
+{g:"Medikament",art:"das",pl:"-e",e:"medicine, medication",t:"n",l:"A2",x:"Nimm das Medikament dreimal täglich.",xe:"Take the medicine three times a day."},
+{g:"Schmerz",art:"der",pl:"-en",e:"pain",t:"n",l:"A2",x:"Ich habe seit gestern Kopfschmerzen.",xe:"I've had a headache since yesterday.",n:"meist Plural: Schmerzen"},
+{g:"Grippe",art:"die",pl:"(Sg.)",e:"flu",t:"n",l:"A2",x:"Sie liegt mit Grippe im Bett.",xe:"She's in bed with the flu."},
+/* ---------- Adjektive & Adverbien aus dem Kurs ---------- */
+{g:"anstrengend",e:"strenuous, exhausting",t:"adj",l:"A2",x:"Der Umzug war sehr anstrengend.",xe:"The move was very exhausting."},
+{g:"bequem",e:"comfortable",t:"adj",l:"A1",x:"Das Sofa ist wirklich bequem.",xe:"The sofa is really comfortable."},
+{g:"berühmt",e:"famous",t:"adj",l:"A2",x:"Das Brandenburger Tor ist weltberühmt.",xe:"The Brandenburg Gate is world-famous.",n:"berühmt für + Akk"},
+{g:"gefährlich",e:"dangerous",t:"adj",l:"A2",x:"Die Straße ist bei Eis gefährlich.",xe:"The road is dangerous when icy."},
+{g:"gemütlich",e:"cozy",t:"adj",l:"A2",x:"Das Café ist klein, aber gemütlich.",xe:"The café is small but cozy."},
+{g:"günstig",e:"inexpensive, good value",t:"adj",l:"A1",x:"Das Angebot ist wirklich günstig.",xe:"The offer is really good value."},
+{g:"hässlich",e:"ugly",t:"adj",l:"A1",x:"Das Gebäude finde ich hässlich.",xe:"I find the building ugly."},
+{g:"höflich",e:"polite",t:"adj",l:"A2",x:"Sei bitte höflich zu den Gästen.",xe:"Please be polite to the guests."},
+{g:"kaputt",e:"broken",t:"adj",l:"A1",x:"Mein Handy ist kaputt.",xe:"My phone is broken."},
+{g:"langweilig",e:"boring",t:"adj",l:"A1",x:"Der Film war ziemlich langweilig.",xe:"The movie was pretty boring."},
+{g:"lecker",e:"delicious",t:"adj",l:"A1",x:"Das Essen war richtig lecker.",xe:"The food was really delicious."},
+{g:"lustig",e:"funny",t:"adj",l:"A1",x:"Die Geschichte ist sehr lustig.",xe:"The story is very funny."},
+{g:"müde",e:"tired",t:"adj",l:"A1",x:"Nach der Arbeit bin ich oft müde.",xe:"After work I'm often tired."},
+{g:"pünktlich",e:"punctual, on time",t:"adj",l:"A1",x:"Der Zug war ausnahmsweise pünktlich.",xe:"For once, the train was on time."},
+{g:"fleißig",e:"hard-working, diligent",t:"adj",l:"A2",x:"Sie lernt sehr fleißig für die Prüfung.",xe:"She's studying very diligently for the exam."},
+{g:"faul",e:"lazy",t:"adj",l:"A1",x:"Am Sonntag bin ich gern faul.",xe:"On Sundays I like being lazy."},
+{g:"eng",e:"tight, narrow",t:"adj",l:"A2",x:"Die Gassen der Altstadt sind eng.",xe:"The old town's alleys are narrow."},
+{g:"spannend",e:"exciting, gripping",t:"adj",l:"A2",x:"Das Buch ist von Anfang an spannend.",xe:"The book is gripping from the start."},
+{g:"streng",e:"strict",t:"adj",l:"A2",x:"Unsere Lehrerin ist streng, aber fair.",xe:"Our teacher is strict but fair."},
+{g:"nützlich",e:"useful",t:"adj",l:"A2",x:"Diese App ist wirklich nützlich.",xe:"This app is really useful."},
+{g:"wütend",e:"furious, angry",t:"adj",l:"A2",x:"Warum bist du so wütend auf mich?",xe:"Why are you so angry at me?",n:"wütend auf + Akk"},
+{g:"ehrlich",e:"honest",t:"adj",l:"A2",x:"Sei ehrlich: Wie findest du den Text?",xe:"Be honest: what do you think of the text?"},
+{g:"peinlich",e:"embarrassing",t:"adj",l:"A2",x:"Das war mir wirklich peinlich.",xe:"That was really embarrassing for me.",n:"es ist mir peinlich"},
+{g:"stolz",e:"proud",t:"adj",l:"A2",x:"Ich bin stolz auf meinen Fortschritt.",xe:"I'm proud of my progress.",n:"stolz auf + Akk"},
+{g:"traurig",e:"sad",t:"adj",l:"A1",x:"Das Ende des Films war traurig.",xe:"The end of the movie was sad."},
+{g:"neugierig",e:"curious",t:"adj",l:"A2",x:"Ich bin neugierig auf deine Meinung.",xe:"I'm curious about your opinion.",n:"neugierig auf + Akk"},
+{g:"zuverlässig",e:"reliable",t:"adj",l:"B1",x:"Er ist ein zuverlässiger Kollege.",xe:"He's a reliable colleague."},
+{g:"hilfsbereit",e:"helpful",t:"adj",l:"A2",x:"Die Nachbarn sind sehr hilfsbereit.",xe:"The neighbors are very helpful."},
+{g:"dringend",e:"urgent",t:"adj",l:"B1",x:"Ich muss dringend mit dir sprechen.",xe:"I urgently need to talk to you."},
+{g:"gültig",e:"valid",t:"adj",l:"B1",x:"Das Ticket ist einen Monat gültig.",xe:"The ticket is valid for one month."},
+{g:"kostenlos",e:"free of charge",t:"adj",l:"A2",x:"Der Eintritt ist heute kostenlos.",xe:"Admission is free today."},
+{g:"sympathisch",e:"likeable",t:"adj",l:"A2",x:"Deine Freundin ist mir sehr sympathisch.",xe:"I find your friend very likeable."},
+{g:"verrückt",e:"crazy",t:"adj",l:"A2",x:"Das ist eine verrückte Idee — machen wir es!",xe:"That's a crazy idea — let's do it!"},
+{g:"einsam",e:"lonely",t:"adj",l:"B1",x:"In der neuen Stadt fühlte er sich einsam.",xe:"He felt lonely in the new city."},
+{g:"besorgt",e:"worried",t:"adj",l:"B1",x:"Sie ist besorgt um ihren Sohn.",xe:"She's worried about her son.",n:"besorgt um + Akk"},
+{g:"deutlich",e:"clear(ly)",t:"adj",l:"B1",x:"Sprechen Sie bitte langsam und deutlich.",xe:"Please speak slowly and clearly."},
+{g:"flexibel",e:"flexible",t:"adj",l:"B1",x:"Meine Arbeitszeiten sind flexibel.",xe:"My working hours are flexible."},
+{g:"umweltfreundlich",e:"environmentally friendly",t:"adj",l:"B1",x:"Das Rad ist das umweltfreundlichste Verkehrsmittel.",xe:"The bike is the most eco-friendly means of transport."},
+{g:"selbstständig",e:"self-employed; independent",t:"adj",l:"B1",x:"Sie hat sich selbstständig gemacht.",xe:"She became self-employed.",n:"sich selbstständig machen"},
+{g:"sinnvoll",e:"sensible, meaningful",t:"adj",l:"B1",x:"Es ist sinnvoll, täglich zu wiederholen.",xe:"It makes sense to review daily."},
+{id:"erfahren-adj",g:"erfahren",e:"experienced",t:"adj",l:"B1",x:"Sie ist eine erfahrene Ärztin.",xe:"She's an experienced doctor."},
+{g:"treu",e:"loyal, faithful",t:"adj",l:"B1",x:"Er ist ein treuer Freund.",xe:"He's a loyal friend."},
+{g:"vermutlich",e:"presumably, probably",t:"adj",l:"B1",x:"Er kommt vermutlich etwas später.",xe:"He'll presumably arrive a bit later.",n:"Adverb"},
+{g:"anscheinend",e:"apparently",t:"adj",l:"B1",x:"Anscheinend hat er die Mail nicht gelesen.",xe:"Apparently he didn't read the email.",n:"Adverb"},
+{g:"angeblich",e:"allegedly, supposedly",t:"adj",l:"B1",x:"Angeblich war er krank.",xe:"Supposedly he was sick.",n:"Adverb · Zweifel des Sprechers"},
+{g:"eindeutig",e:"clear, unambiguous",t:"adj",l:"B1",x:"Die Antwort ist eindeutig.",xe:"The answer is unambiguous."},
+{g:"gering",e:"small, low",t:"adj",l:"B1",x:"Die Kosten sind gering.",xe:"The costs are low."},
+{g:"abhängig",e:"dependent",t:"adj",l:"B1",p:"von + Dat",x:"Das ist vom Wetter abhängig.",xe:"That depends on the weather."},
+{g:"verantwortlich",e:"responsible",t:"adj",l:"B1",p:"für + Akk",x:"Wer ist für das Projekt verantwortlich?",xe:"Who is responsible for the project?"},
+{g:"zuständig",e:"in charge, responsible",t:"adj",l:"B1",p:"für + Akk",x:"Dafür ist ein anderes Amt zuständig.",xe:"A different office is in charge of that."},
+{g:"endgültig",e:"final, definitive",t:"adj",l:"B1",x:"Die Entscheidung ist endgültig.",xe:"The decision is final."},
+{g:"ehrenamtlich",e:"voluntary, honorary",t:"adj",l:"B1",x:"Sie arbeitet ehrenamtlich im Tierheim.",xe:"She volunteers at the animal shelter."},
+{g:"vergeblich",e:"in vain, futile",t:"adj",l:"B1",x:"Wir haben vergeblich auf ihn gewartet.",xe:"We waited for him in vain."},
+{g:"heimlich",e:"secret(ly)",t:"adj",l:"B1",x:"Sie haben die Party heimlich geplant.",xe:"They planned the party secretly."},
+{g:"begeistert",e:"enthusiastic, thrilled",t:"adj",l:"B1",x:"Alle waren von dem Konzert begeistert.",xe:"Everyone was thrilled by the concert.",n:"begeistert von + Dat"},
+{g:"dankbar",e:"grateful",t:"adj",l:"B1",p:"für + Akk",x:"Ich bin dir für deine Hilfe dankbar.",xe:"I'm grateful to you for your help."},
+{g:"plötzlich",e:"suddenly",t:"adj",l:"A2",x:"Plötzlich begann es zu regnen.",xe:"Suddenly it started to rain.",n:"Adverb"},
+{g:"unbedingt",e:"absolutely, definitely",t:"adj",l:"A2",x:"Du musst diesen Film unbedingt sehen!",xe:"You absolutely have to see this movie!",n:"Adverb"},
+{g:"ständig",e:"constantly",t:"adj",l:"B1",x:"Er schaut ständig auf sein Handy.",xe:"He constantly looks at his phone.",n:"Adverb"},
+{g:"damals",e:"back then",t:"adj",l:"A2",x:"Damals gab es noch kein Internet.",xe:"Back then there was no internet.",n:"Adverb"},
+/* ---------- Wendungen & Redemittel aus dem Kurs ---------- */
+{g:"Bescheid geben",e:"to let someone know",t:"wend",l:"A2",p:"+ Dativ",x:"Gib mir Bescheid, wenn du da bist!",xe:"Let me know when you're there!"},
+{g:"die Daumen drücken",e:"to keep one's fingers crossed",t:"wend",l:"A2",x:"Ich drücke dir für die Prüfung die Daumen!",xe:"I'll keep my fingers crossed for your exam!"},
+{g:"einen Termin vereinbaren",e:"to make an appointment",t:"wend",l:"A2",x:"Ich möchte einen Termin vereinbaren.",xe:"I'd like to make an appointment."},
+{g:"eine Nachricht hinterlassen",e:"to leave a message",t:"wend",l:"A2",x:"Möchten Sie eine Nachricht hinterlassen?",xe:"Would you like to leave a message?"},
+{g:"keine Ahnung haben",e:"to have no idea",t:"wend",l:"A2",x:"Ich habe keine Ahnung, wo er ist.",xe:"I have no idea where he is."},
+{g:"Angst haben",e:"to be afraid of",t:"wend",l:"A2",p:"vor + Dat",x:"Sie hat Angst vor Spinnen.",xe:"She's afraid of spiders."},
+{g:"meiner Meinung nach",e:"in my opinion",t:"wend",l:"B1",x:"Meiner Meinung nach ist das die beste Lösung.",xe:"In my opinion, that's the best solution."},
+{g:"an deiner Stelle",e:"if I were you",t:"wend",l:"B1",x:"An deiner Stelle würde ich früher anfangen.",xe:"If I were you, I'd start earlier.",n:"+ Konjunktiv II"},
+{g:"vor allem",e:"above all",t:"wend",l:"B1",x:"Vor allem musst du regelmäßig üben.",xe:"Above all, you have to practice regularly."},
+{g:"unter anderem",e:"among other things",t:"wend",l:"B1",x:"Sie spricht unter anderem Spanisch und Deutsch.",xe:"She speaks Spanish and German, among other languages.",n:"Abkürzung: u. a."},
+{g:"zum Teil",e:"partly",t:"wend",l:"B1",x:"Die Kritik ist zum Teil berechtigt.",xe:"The criticism is partly justified."},
+{g:"auf jeden Fall",e:"definitely, in any case",t:"wend",l:"A2",x:"Komm auf jeden Fall vorbei!",xe:"Definitely come by!"},
+{g:"auf keinen Fall",e:"under no circumstances",t:"wend",l:"A2",x:"Das darfst du auf keinen Fall vergessen.",xe:"You must not forget that under any circumstances."},
+{g:"gut gelaunt sein",e:"to be in a good mood",t:"wend",l:"B1",x:"Heute bist du aber gut gelaunt!",xe:"You're in a good mood today!"},
+{g:"in Kontakt bleiben",e:"to stay in contact",t:"wend",l:"A2",x:"Wir bleiben auf jeden Fall in Kontakt!",xe:"We'll definitely stay in touch!"},
+{g:"ein Konto eröffnen",e:"to open a bank account",t:"wend",l:"A2",x:"Ich habe online ein Konto eröffnet.",xe:"I opened an account online."},
+{g:"ein Formular ausfüllen",e:"to fill in a form",t:"wend",l:"A2",x:"Füllen Sie bitte dieses Formular aus.",xe:"Please fill in this form."},
+{g:"sich auf den Weg machen",e:"to set off",t:"wend",l:"B1",x:"Wir machen uns um acht auf den Weg.",xe:"We're setting off at eight."},
+{g:"aus den Augen verlieren",e:"to lose touch with",t:"wend",l:"B1",x:"Wir haben uns nach der Schule aus den Augen verloren.",xe:"We lost touch after school."},
+{g:"über den Weg laufen",e:"to run into (by chance)",t:"wend",l:"B1",p:"+ Dativ",x:"Gestern ist mir mein alter Lehrer über den Weg gelaufen.",xe:"Yesterday I ran into my old teacher."},
+{g:"ins Gespräch kommen",e:"to get into conversation",t:"wend",l:"B1",p:"mit + Dat",x:"Beim Sport kommt man leicht ins Gespräch.",xe:"You easily get talking while doing sports."},
+{g:"Verständnis haben",e:"to have understanding for",t:"wend",l:"B1",p:"für + Akk",x:"Dafür habe ich volles Verständnis.",xe:"I fully understand that."},
+{g:"recht geben",e:"to agree someone is right",t:"wend",l:"B1",p:"+ Dativ",x:"Da muss ich dir recht geben.",xe:"I have to admit you're right there."},
+{g:"außer Acht lassen",e:"to disregard",t:"wend",l:"C1",x:"Diesen Punkt dürfen wir nicht außer Acht lassen.",xe:"We must not disregard this point."},
+{g:"zu Wort kommen",e:"to get a chance to speak",t:"wend",l:"C1",x:"In der Diskussion kam jeder zu Wort.",xe:"Everyone got a chance to speak in the discussion."},
+{g:"Gute Besserung!",e:"Get well soon!",t:"wend",l:"A1",x:"Du bist krank? Gute Besserung!",xe:"You're sick? Get well soon!"},
+/* ---------- Konnektoren aus dem Kurs ---------- */
+{g:"als",e:"when (single event in the past)",t:"konn",l:"B1",x:"Als ich ein Kind war, wohnten wir in Pune.",xe:"When I was a child, we lived in Pune.",n:"einmalig in der Vergangenheit → als; wiederholt → wenn"},
+{g:"bevor",e:"before",t:"konn",l:"B1",x:"Bevor ich schlafen gehe, wiederhole ich die Vokabeln.",xe:"Before I go to sleep, I review the vocabulary.",n:"Nebensatz → Verb ans Ende"},
+{g:"nachdem",e:"after",t:"konn",l:"B1",x:"Nachdem er gegessen hatte, ging er spazieren.",xe:"After he had eaten, he went for a walk.",n:"oft mit Plusquamperfekt"},
+{g:"seitdem",e:"since (then)",t:"konn",l:"B1",x:"Seitdem sie in Berlin wohnt, spricht sie täglich Deutsch.",xe:"Since she's been living in Berlin, she speaks German daily."},
+{g:"entweder … oder",e:"either … or",t:"konn",l:"B1",x:"Entweder gehen wir ins Kino oder wir kochen zusammen.",xe:"Either we go to the movies or we cook together."},
+{g:"nicht nur … sondern auch",e:"not only … but also",t:"konn",l:"B1",x:"Sie spricht nicht nur Deutsch, sondern auch Französisch.",xe:"She speaks not only German but also French."},
+{g:"zwar … aber",e:"admittedly … but",t:"konn",l:"B1",x:"Das Hotel ist zwar teuer, aber sehr zentral.",xe:"The hotel is admittedly expensive, but very central."}
+/*END-DECK2*/];
+
+/* =================== STATE =================== */
+const LS_KEY="wortschatz-v1";
+const TYPES={v:"Verb",n:"Nomen",adj:"Adjektiv",konn:"Konnektor",wend:"Wendung"};
+const LEVELS=["A1","A2","B1","B2","C1"];
+let S; // {cards:{}, log:{}, custom:[], settings:{}, checks:{}}
+function load(){ try{S=JSON.parse(localStorage.getItem(LS_KEY))||{}}catch(e){S={}}
+  S.cards=S.cards||{}; S.log=S.log||{}; S.custom=S.custom||[]; S.checks=S.checks||{};
+  S.settings=Object.assign({newPerDay:15},S.settings||{});
+}
+function save(){ localStorage.setItem(LS_KEY,JSON.stringify(S)) }
+function allCards(){ return DECK.concat(DECK2,S.custom) }
+function cid(c){ return c.id || c.g }
+function todayStr(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0") }
+function endOfToday(){ const d=new Date(); d.setHours(23,59,59,999); return d.getTime() }
+function dayLog(){ const t=todayStr(); S.log[t]=S.log[t]||{rev:0,neu:0}; return S.log[t] }
+
+/* =================== SRS (SM-2 vereinfacht) =================== */
+function cardState(id){ return S.cards[id] }
+function nextInterval(st,grade){
+  // returns [intervalDays, easeDelta] — grade: 0 again 1 hard 2 good 3 easy
+  const iv=st?st.iv:0, ease=st?st.ease:2.5;
+  if(grade===0) return [0,-0.2];
+  if(grade===1) return [Math.max(1,Math.round(iv*1.2))||1,-0.15];
+  if(grade===2){ if(!st||iv===0) return [1,0]; if(iv===1) return [3,0]; return [Math.round(iv*ease),0] }
+  if(!st||iv===0) return [3,0.15]; return [Math.max(2,Math.round(iv*ease*1.3)),0.15];
+}
+function fmtIv(days){
+  if(days===0) return "<10 Min";
+  if(days<30) return days+" T";
+  if(days<365) return Math.round(days/30)+" Mo";
+  return (days/365).toFixed(1)+" J";
+}
+function grade(card,g){
+  const id=cid(card); let st=S.cards[id];
+  const wasNew=!st;
+  if(!st) st=S.cards[id]={iv:0,ease:2.5,reps:0,due:0,lapses:0};
+  const [iv,de]=nextInterval(st,g);
+  st.ease=Math.max(1.3,st.ease+de); st.reps++;
+  if(g===0){ st.lapses++; st.iv=0; st.due=Date.now()+10*60*1000; }
+  else{ st.iv=iv; const d=new Date(); d.setDate(d.getDate()+iv); d.setHours(4,0,0,0); st.due=d.getTime(); }
+  const lg=dayLog(); lg.rev++; if(wasNew) lg.neu++;
+  save();
+}
+
+/* =================== SESSION =================== */
+let queue=[], sessDone=0, sessTotal=0, current=null, revealed=false, hintShown=false;
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]} return a }
+function buildSession(){
+  const cards=allCards(), now=Date.now(), eod=endOfToday();
+  const due=cards.filter(c=>{const st=cardState(cid(c)); return st&&st.due<=eod});
+  const introduced=dayLog().neu;
+  const nNew=Math.max(0,S.settings.newPerDay-introduced);
+  const fresh=cards.filter(c=>!cardState(cid(c))).slice(0,nNew);
+  queue=shuffle(due);
+  // neue Karten einstreuen: jede 3. Position
+  let pos=2;
+  for(const c of fresh){ queue.splice(Math.min(pos,queue.length),0,c); pos+=3 }
+  sessDone=0; sessTotal=queue.length; current=null; revealed=false;
+  nextCard();
+}
+function nextCard(){
+  current=queue.shift()||null; revealed=false; hintShown=false;
+  renderStage(); renderHeader();
+}
+function requeue(card){ queue.splice(Math.min(3,queue.length),0,card); }
+
+/* =================== RENDER: STUDY =================== */
+const $=s=>document.querySelector(s);
+function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;") }
+function wordHtml(c,big){
+  const cls=c.art?(" g-"+c.art):"";
+  const art=c.art?c.art+" ":"";
+  return '<div class="bigword'+cls+'">'+esc(art+c.g)+'</div>';
+}
+function renderStage(){
+  const holder=$("#stage-holder");
+  const lg=dayLog();
+  if(!current){
+    holder.innerHTML='<div class="stage done-box"><h2>Fertig für heute! 🎉</h2>'+
+      '<p class="num">'+lg.rev+' Wiederholungen · '+lg.neu+' neue Wörter · Serie: '+streak()+' Tage</p>'+
+      '<p>Komm morgen wieder — die Wiederholung zur richtigen Zeit ist der ganze Trick.</p>'+
+      '<button class="btn-sec" id="btn-more">+5 extra neue Karten</button></div>';
+    const b=$("#btn-more");
+    if(b) b.onclick=()=>{
+      const fresh=allCards().filter(c=>!cardState(cid(c))).slice(0,5);
+      if(!fresh.length){ b.textContent="Alle Karten begonnen!"; b.disabled=true; return }
+      queue=shuffle(fresh); sessDone=0; sessTotal=queue.length; nextCard();
+    };
+    renderProg();
+    return;
+  }
+  const c=current, dir=S.settings.dir||"de-en";
+  const chips='<div class="chips"><span class="chip">'+TYPES[c.t]+'</span><span class="chip lvl">'+esc(c.l)+'</span></div>';
+  let front;
+  if(dir==="de-en"){
+    front=chips+wordHtml(c)+(c.p?'<div class="prepnote">'+esc(c.p)+'</div>':"");
+  } else {
+    front=chips+'<div class="bigword">'+esc(c.e)+'</div>';
+  }
+  let html='<div class="stage">'+front;
+  if(!revealed&&hintShown){
+    html+='<div class="hintbox">'+hintHtml(c,dir)+'</div>';
+  }
+  if(revealed){
+    let back='<div class="back">';
+    if(dir==="de-en"){
+      back+='<div class="meaning">'+esc(c.e)+'</div>';
+    } else {
+      const art=c.art?c.art+" ":"";
+      back+='<div class="meaning'+(c.art?" g-"+c.art:"")+'">'+esc(art+c.g)+'</div>'+
+        (c.p?'<div class="prepnote">'+esc(c.p)+'</div>':"");
+    }
+    back+=(c.f?'<div class="forms">'+esc(c.f)+'</div>':"")+
+      (c.pl?'<div class="plural">Plural: '+esc((c.art==="die"&&c.pl==="(Pl.)")?"nur Plural":c.pl)+'</div>':"")+
+      (c.x?'<div class="example serif">„'+esc(c.x)+'“</div>':"")+
+      (c.xe?'<div class="example-en">'+esc(c.xe)+'</div>':"")+
+      (c.n?'<div class="cardnote">'+esc(c.n)+'</div>':"")+
+      '</div>';
+    html+=back;
+    const st=cardState(cid(c));
+    const ivs=[0,1,2,3].map(g=>fmtIv(nextInterval(st,g)[0]));
+    html+='<div class="actions">'+
+      '<button class="grade again" data-g="0"><b>Nochmal</b><span class="num">'+ivs[0]+'</span><span class="key">1</span></button>'+
+      '<button class="grade hard" data-g="1"><b>Schwer</b><span class="num">'+ivs[1]+'</span><span class="key">2</span></button>'+
+      '<button class="grade good" data-g="2"><b>Gut</b><span class="num">'+ivs[2]+'</span><span class="key">3</span></button>'+
+      '<button class="grade easy" data-g="3"><b>Leicht</b><span class="num">'+ivs[3]+'</span><span class="key">4</span></button>'+
+      '</div>';
+  } else {
+    html+='<div class="actions">'+
+      (hintShown||!c.x?'':'<button class="btn-hint" id="btn-hint">Hinweis · H</button>')+
+      '<button class="btn-flip" id="btn-flip">Aufdecken · Leertaste</button></div>';
+  }
+  html+='</div>';
+  holder.innerHTML=html;
+  const bf=$("#btn-flip"); if(bf) bf.onclick=flip;
+  const bh=$("#btn-hint"); if(bh) bh.onclick=showHint;
+  document.querySelectorAll(".grade").forEach(b=>b.onclick=()=>doGrade(+b.dataset.g));
+  renderProg();
+}
+function renderProg(){
+  const done=sessDone, total=Math.max(1,sessTotal);
+  $("#sess-prog").style.width=Math.min(100,Math.round(done/total*100))+"%";
+  $("#sess-count").textContent=current?(done+" / "+sessTotal):"Sitzung beendet";
+}
+function flip(){ if(current&&!revealed){ revealed=true; renderStage(); } }
+function showHint(){ if(current&&!revealed&&!hintShown){ hintShown=true; renderStage(); } }
+function stemOf(c){
+  const w=c.g.replace(/^sich\s+/,"").replace(/^(der|die|das)\s+/i,"");
+  return w.split(" ").sort((a,b)=>b.length-a.length)[0]||w;
+}
+function hintHtml(c,dir){
+  if(dir==="de-en"){
+    // Kontext-Hinweis: Beispielsatz zeigt das Wort im Zusammenhang
+    return '<span class="serif">„'+esc(c.x)+'“</span>';
+  }
+  // EN→DE: Lückensatz — Zielwort ausblenden, sonst Buchstaben-Muster
+  const stem=stemOf(c);
+  if(c.x&&stem.length>=4){
+    const pre=stem.slice(0,4).toLowerCase();
+    let blanked=false;
+    const out=c.x.split(/(\s+)/).map(tok=>{
+      const w=tok.replace(/[.,!?;:„“"()]/g,"");
+      if(w.length>=4&&w.slice(0,4).toLowerCase()===pre){ blanked=true; return tok.replace(w,"___") }
+      return tok;
+    }).join("");
+    if(blanked) return '<span class="serif">„'+esc(out)+'“</span>';
+  }
+  return esc(stem[0])+"&thinsp;"+"·".repeat(Math.max(2,stem.length-1))+' <small>('+stem.length+' Buchstaben'+(c.art?", "+c.art:"")+')</small>';
+}
+function doGrade(g){
+  if(!current||!revealed) return;
+  const c=current;
+  grade(c,g);
+  if(g===0){ requeue(c); } else { sessDone++; }
+  nextCard();
+}
+document.addEventListener("keydown",e=>{
+  if(!$("#view-study").classList.contains("on")) return;
+  if(e.target.tagName==="INPUT"||e.target.tagName==="SELECT"||e.target.tagName==="TEXTAREA") return;
+  if(e.code==="Space"){ e.preventDefault(); flip(); }
+  if(e.key==="h"||e.key==="H") showHint();
+  if(revealed&&["1","2","3","4"].includes(e.key)) doGrade(+e.key-1);
+});
+
+/* =================== HEADER / STREAK =================== */
+function streak(){
+  let n=0; const d=new Date();
+  for(;;){ const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    const lg=S.log[k];
+    if(lg&&lg.rev>0){ n++; d.setDate(d.getDate()-1); }
+    else{ if(n===0&&k===todayStr()){ d.setDate(d.getDate()-1); continue } break }
+  }
+  return n;
+}
+function dueCount(){
+  const eod=endOfToday();
+  return allCards().filter(c=>{const st=cardState(cid(c)); return st&&st.due<=eod}).length;
+}
+function renderHeader(){
+  $("#h-streak").textContent=streak();
+  $("#h-due").textContent=dueCount();
+  $("#tab-due").textContent=String(queue.length+(current?1:0));
+  $("#h-known").textContent=Object.keys(S.cards).length;
+}
+
+/* =================== BROWSE =================== */
+let fLvl="alle", fTyp="alle";
+function renderFilters(){
+  const lf=$("#lvl-filters"), tf=$("#type-filters");
+  lf.innerHTML=["alle",...LEVELS].map(l=>'<button class="fchip'+(fLvl===l?" on":"")+'" data-l="'+l+'">'+l.toUpperCase()+'</button>').join("");
+  tf.innerHTML=[["alle","Alle"],["v","Verben"],["n","Nomen"],["adj","Adjektive"],["konn","Konnektoren"],["wend","Wendungen"]]
+    .map(([k,lab])=>'<button class="fchip'+(fTyp===k?" on":"")+'" data-t="'+k+'">'+lab+'</button>').join("");
+  lf.querySelectorAll(".fchip").forEach(b=>b.onclick=()=>{fLvl=b.dataset.l; renderFilters(); renderList()});
+  tf.querySelectorAll(".fchip").forEach(b=>b.onclick=()=>{fTyp=b.dataset.t; renderFilters(); renderList()});
+}
+function renderList(){
+  const q=($("#q").value||"").toLowerCase().trim();
+  const rows=allCards().filter(c=>
+    (fLvl==="alle"||c.l===fLvl)&&(fTyp==="alle"||c.t===fTyp)&&
+    (!q||c.g.toLowerCase().includes(q)||c.e.toLowerCase().includes(q))
+  );
+  $("#listmeta").textContent=rows.length+" Karten";
+  $("#wlist").innerHTML=rows.map(c=>{
+    const st=cardState(cid(c));
+    const dot=!st?"":(st.iv>=21?" mature":" learn");
+    const art=c.art?'<span class="g-'+c.art+'">'+c.art+'</span> ':"";
+    const extra=c.f?' <small>· '+esc(c.f)+'</small>':(c.pl?' <small>· Pl. '+esc(c.pl)+'</small>':"");
+    const prep=c.p?' <small>('+esc(c.p)+')</small>':"";
+    return '<div class="wrow"><span class="st'+dot+'" title="'+(!st?"neu":(st.iv>=21?"gefestigt":"lernen"))+'"></span>'+
+      '<div class="de">'+art+esc(c.g)+prep+extra+'</div>'+
+      '<div class="en">'+esc(c.e)+' <small>· '+esc(c.l)+'</small></div></div>';
+  }).join("")||'<div class="wrow"><div class="de">Keine Treffer.</div></div>';
+}
+$("#q") && ($("#q").oninput=()=>renderList());
+function saveCustom(){
+  const de=$("#a-de").value.trim(), en=$("#a-en").value.trim();
+  if(!de||!en){ alert("Deutsch und Englisch sind Pflichtfelder."); return }
+  const t=$("#a-t").value, art=$("#a-art").value||undefined;
+  const c={id:"c_"+Date.now(), g:de.replace(/^(der|die|das)\s+/i,""), e:en, t, l:$("#a-l").value};
+  if(art) c.art=art; else { const m=de.match(/^(der|die|das)\s+/i); if(m) c.art=m[1].toLowerCase() }
+  const f=$("#a-f").value.trim(); if(f){ if(t==="v") c.f=f; else c.pl=f }
+  const x=$("#a-x").value.trim(); if(x) c.x=x;
+  S.custom.push(c); save();
+  ["a-de","a-en","a-f","a-x"].forEach(id=>$("#"+id).value="");
+  renderList(); renderHeader();
+}
+
+/* =================== STATS =================== */
+function renderStats(){
+  const cards=allCards(), seen=Object.keys(S.cards).length;
+  const mature=Object.values(S.cards).filter(s=>s.iv>=21).length;
+  const totalRev=Object.values(S.log).reduce((a,l)=>a+l.rev,0);
+  $("#statgrid").innerHTML=
+    '<div class="scard"><div class="v num">'+streak()+'<em> Tage</em></div><div class="k">Serie</div></div>'+
+    '<div class="scard"><div class="v num">'+seen+'<em> / '+cards.length+'</em></div><div class="k">Karten begonnen</div></div>'+
+    '<div class="scard"><div class="v num">'+mature+'</div><div class="k">Gefestigt (≥ 3 Wo)</div></div>'+
+    '<div class="scard"><div class="v num">'+totalRev+'</div><div class="k">Wiederholungen gesamt</div></div>';
+  $("#lvlbars").innerHTML=LEVELS.map(l=>{
+    const of=cards.filter(c=>c.l===l), st=of.filter(c=>cardState(cid(c)));
+    const pct=of.length?Math.round(st.length/of.length*100):0;
+    return '<div class="lvlbar"><span class="tag">'+l+'</span><div class="track"><i style="width:'+pct+'%"></i></div><span class="n num">'+st.length+' / '+of.length+'</span></div>';
+  }).join("");
+  // 14-Tage-Balken
+  const days=[]; const d=new Date(); d.setDate(d.getDate()-13);
+  let max=1;
+  for(let i=0;i<14;i++){ const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    const v=(S.log[k]||{rev:0}).rev; max=Math.max(max,v);
+    days.push({k,v,lab:d.getDate()+"."}); d.setDate(d.getDate()+1); }
+  $("#days").innerHTML=days.map(o=>'<div class="day"><i class="'+(o.v?'':'zero')+'" style="height:'+(o.v?Math.max(6,Math.round(o.v/max*64)):2)+'px" title="'+o.v+'"></i><span>'+o.lab+'</span></div>').join("");
+}
+$("#btn-export").onclick=()=>{
+  const blob=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="wortschatz-backup-"+todayStr()+".json"; a.click(); URL.revokeObjectURL(a.href);
+};
+$("#btn-import").onclick=()=>$("#import-file").click();
+$("#import-file").onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ const d=JSON.parse(r.result);
+      if(!d.cards) throw 0;
+      S=d; S.cards=S.cards||{}; S.log=S.log||{}; S.custom=S.custom||[]; S.checks=S.checks||{};
+      S.settings=Object.assign({newPerDay:15},S.settings||{});
+      save(); location.reload();
+    }catch(err){ alert("Datei konnte nicht gelesen werden.") } };
+  r.readAsText(f);
+};
+
+/* =================== PLAN CHECKS =================== */
+function initChecks(){
+  document.querySelectorAll("ul.checks input").forEach(cb=>{
+    cb.checked=!!S.checks[cb.id];
+    cb.closest("li").classList.toggle("done",cb.checked);
+    cb.onchange=()=>{ S.checks[cb.id]=cb.checked; save(); cb.closest("li").classList.toggle("done",cb.checked); };
+  });
+}
+
+/* =================== TABS =================== */
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===t));
+  document.querySelectorAll("section.view").forEach(v=>v.classList.toggle("on",v.id==="view-"+t.dataset.v));
+  if(t.dataset.v==="stats") renderStats();
+  if(t.dataset.v==="browse") renderList();
+  if(t.dataset.v==="study"&&!current&&queue.length===0) buildSession();
+});
+
+/* =================== INIT =================== */
+load();
+$("#new-per-day").value=[5,10,15,20,30].includes(S.settings.newPerDay)?S.settings.newPerDay:15;
+$("#new-per-day").onchange=e=>{ S.settings.newPerDay=+e.target.value; save(); buildSession(); };
+document.querySelectorAll("#dir-seg button").forEach(b=>{
+  b.classList.toggle("on",(S.settings.dir||"de-en")===b.dataset.d);
+  b.onclick=()=>{
+    S.settings.dir=b.dataset.d; save();
+    document.querySelectorAll("#dir-seg button").forEach(x=>x.classList.toggle("on",x===b));
+    hintShown=false; renderStage();
+  };
+});
+$("#a-save").onclick=saveCustom;
+renderFilters(); renderList(); initChecks();
+buildSession(); renderHeader();
+</script>
+
+</body>
+</html>
