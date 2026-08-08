@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Free German trainer from A1 to C2 — 1,100+ verified flashcards with spaced repetition, everyday and academic German, 38 grammar topics, and a placement test. Installable, works offline.">
 <meta name="theme-color" content="#F2B705">
 <link rel="manifest" href="manifest.webmanifest">
@@ -104,6 +104,73 @@
   main{padding:28px 0 80px}
   section.view{display:none}
   section.view.on{display:block}
+
+  /* ---------- bottom nav (mobile) ---------- */
+  nav.bottomnav{display:none}
+  .moresheet{display:none}
+  @media (max-width:640px){
+    nav.tabs{display:none}
+    main{padding-bottom:120px}
+    nav.bottomnav{
+      display:flex; position:fixed; left:0; right:0; bottom:0; z-index:20;
+      background:var(--surface); border-top:1px solid var(--line);
+      padding:6px 4px calc(8px + env(safe-area-inset-bottom));
+    }
+    .bnav-item{
+      position:relative; flex:1; appearance:none; border:0; background:none; color:var(--muted);
+      display:flex; flex-direction:column; align-items:center; gap:2px;
+      font-size:10px; font-weight:700; letter-spacing:.02em; padding:2px 0; cursor:pointer;
+    }
+    .bnav-pill{display:flex; align-items:center; justify-content:center; width:52px; height:28px; border-radius:14px}
+    .bnav-item svg{width:22px; height:22px}
+    .bnav-item.on{color:var(--ink)}
+    .bnav-item.on .bnav-pill{background:var(--gold-soft)}
+    .bnav-badge{
+      position:absolute; top:-2px; left:calc(50% + 8px);
+      background:var(--gold); color:#1C1914; font-size:9px; font-weight:700;
+      border-radius:8px; padding:1px 5px; min-width:16px; text-align:center;
+    }
+    .moresheet.open{
+      display:flex; position:fixed; right:10px; bottom:calc(66px + env(safe-area-inset-bottom, 0px)); z-index:21;
+      background:var(--surface); border:1px solid var(--line); border-radius:14px;
+      box-shadow:var(--shadow); flex-direction:column; min-width:190px; overflow:hidden;
+    }
+    .moresheet button{
+      appearance:none; border:0; background:none; color:var(--ink); text-align:left;
+      padding:13px 18px; font-size:15px; font-weight:600; border-bottom:1px solid var(--line); cursor:pointer;
+    }
+    .moresheet button:last-child{border-bottom:0}
+    .moresheet button:hover{background:var(--surface2)}
+  }
+
+  /* ---------- onboarding ---------- */
+  .ob-scrim{position:fixed; inset:0; background:rgba(28,25,20,.55); z-index:50;
+    display:flex; align-items:center; justify-content:center; padding:20px}
+  .ob-card{background:var(--surface); color:var(--ink); border-radius:16px; max-width:440px; width:100%;
+    padding:30px 26px 22px; box-shadow:var(--shadow); text-align:center; max-height:88vh; overflow-y:auto}
+  .ob-card h2{font-family:Futura,"Century Gothic","Avenir Next",sans-serif; margin:0 0 10px; font-size:24px; text-wrap:balance}
+  .ob-card p{color:var(--muted); font-size:15px; line-height:1.5; margin:0 0 12px}
+  .ob-genders{display:flex; gap:14px; justify-content:center; font-weight:700; font-size:19px; margin:14px 0;
+    font-family:Futura,"Century Gothic",sans-serif}
+  .ob-grades{display:flex; flex-direction:column; gap:8px; text-align:left; margin:14px 0}
+  .ob-grade{display:flex; gap:10px; align-items:center; font-size:13.5px; color:var(--muted)}
+  .ob-grade b{min-width:76px; text-align:center; border-radius:8px; padding:5px 8px; font-size:13px; flex-shrink:0}
+  .ob-lvls{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:14px 0 6px}
+  .ob-lvls button{appearance:none; border:1px solid var(--line2); background:var(--surface);
+    color:var(--ink); border-radius:10px; padding:10px 16px; font-weight:700; font-size:15px; cursor:pointer}
+  .ob-lvls button:hover{background:var(--gold-soft); border-color:var(--gold)}
+  .ob-dots{display:flex; gap:6px; justify-content:center; margin:16px 0 10px}
+  .ob-dots i{width:8px; height:8px; border-radius:50%; background:var(--line2)}
+  .ob-dots i.on{background:var(--gold)}
+  .ob-actions{display:flex; gap:10px; justify-content:center}
+  .ob-skip{appearance:none; border:0; background:none; color:var(--muted); font-size:13px;
+    margin-top:12px; text-decoration:underline; cursor:pointer}
+  @media (prefers-reduced-motion: no-preference){ .ob-card{animation:reveal .3s ease} }
+
+  /* ---------- backup nudge ---------- */
+  .backup-nudge{margin-top:20px; background:var(--gold-soft); border-radius:10px; padding:12px 16px;
+    font-size:14px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; max-width:480px}
+  .backup-nudge .btn-sec{padding:7px 14px; font-size:13px}
 
   /* ---------- study ---------- */
   .sess-bar{display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap}
@@ -715,6 +782,7 @@
     <button class="btn-sec" id="btn-import">Importieren</button>
     <input type="file" id="import-file" accept=".json" style="display:none">
   </div>
+  <p class="listmeta" id="backup-info"></p>
   <p class="listmeta">Dein Fortschritt wird lokal in diesem Browser gespeichert. Nutze jeden Tag dasselbe Gerät — oder exportiere regelmäßig ein Backup.</p>
 </section>
 
@@ -828,6 +896,7 @@
 <!-- ============ HELP / ABOUT ============ -->
 <section class="view" id="view-help">
   <p class="plan-intro" style="margin-top:0"><strong>Wortschatz</strong> is a free German trainer that takes you from A1 to C2: a spaced-repetition card deck built from real course material and exam wordlists, the complete grammar spine, everyday spoken German, and domain vocabulary for university, work and research. Everything runs in your browser — no account, no server, your progress stays on your device.</p>
+  <p><button class="btn-sec" id="ob-replay">Intro-Tour erneut ansehen</button></p>
 
   <h3 class="sec">Was ist wo? — The tour</h3>
   <div class="gtable"><table>
@@ -918,6 +987,34 @@
   </div></div>
 </section>
 </main>
+
+<nav class="bottomnav" aria-label="Hauptnavigation">
+  <button class="bnav-item on" data-v="study" aria-label="Lernen">
+    <span class="bnav-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="14" height="12" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg></span>
+    Lernen<span class="bnav-badge" id="bnav-due" hidden>0</span>
+  </button>
+  <button class="bnav-item" data-v="browse" aria-label="Wörterbuch">
+    <span class="bnav-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></span>
+    Wörter
+  </button>
+  <button class="bnav-item" data-v="grammar" aria-label="Grammatik">
+    <span class="bnav-pill"><svg viewBox="0 0 24 24" fill="none"><text x="12" y="18" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor" font-family="Georgia,serif">§</text></svg></span>
+    Grammatik
+  </button>
+  <button class="bnav-item" data-v="stats" aria-label="Fortschritt">
+    <span class="bnav-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 20V14"/><path d="M10 20V9"/><path d="M15 20V12"/><path d="M20 20V5"/></svg></span>
+    Fortschritt
+  </button>
+  <button class="bnav-item" id="bnav-more" aria-label="Mehr" aria-haspopup="true">
+    <span class="bnav-pill"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></span>
+    Mehr
+  </button>
+</nav>
+<div class="moresheet" id="moresheet" role="menu">
+  <button data-v="test">Einstufungstest</button>
+  <button data-v="plan">Fahrplan</button>
+  <button data-v="help">Hilfe</button>
+</div>
 
 <footer class="app">Wortschatz · A1–C2 · © Jeel Swami · CC BY-NC 4.0 — frei zum Lernen, nicht kommerziell · Quellen &amp; Danksagung: siehe Hilfe</footer>
 
@@ -2165,10 +2262,25 @@ function renderStage(){
   const holder=$("#stage-holder");
   const lg=dayLog();
   if(!current){
+    const st=streak(), totalRev=Object.values(S.log).reduce((a,l)=>a+l.rev,0);
+    const words=Object.keys(S.cards).length;
+    const milestone=[7,30,100,365].includes(st)&&S.backupDate!==todayStr();
+    const volume=totalRev-(S.backupAtRev||0)>=250;
+    const daysSinceBackup=S.backupDate?Math.floor((Date.now()-new Date(S.backupDate+"T12:00:00").getTime())/86400000):Infinity;
+    const stale=S.backupDate&&totalRev>(S.backupAtRev||0)&&daysSinceBackup>=14;
+    const nudge=(milestone||volume||stale)&&S.backupSnooze!==todayStr();
+    const nudgeHtml=nudge?'<div class="backup-nudge">🔒 '+
+      (milestone?'<b>'+st+'-Tage-Serie!</b> Deine Serie und '+words+' gelernte Wörter leben nur auf diesem Gerät — sichere sie jetzt.':
+       volume?'<b>'+(totalRev-(S.backupAtRev||0))+' Wiederholungen</b> seit dem letzten Backup — Zeit für eine Sicherung.':
+       'Deine letzte Sicherung ist über zwei Wochen her — '+words+' Wörter sind ungesichert.')+
+      ' <button class="btn-sec" id="nudge-backup">Backup exportieren</button>'+
+      '<button class="btn-sec" id="nudge-later">Später</button></div>':"";
     holder.innerHTML='<div class="stage done-box"><h2>Fertig für heute! 🎉</h2>'+
-      '<p class="num">'+lg.rev+' Wiederholungen · '+lg.neu+' neue Wörter · Serie: '+streak()+' Tage</p>'+
+      '<p class="num">'+lg.rev+' Wiederholungen · '+lg.neu+' neue Wörter · Serie: '+st+' Tage</p>'+
       '<p>Komm morgen wieder — die Wiederholung zur richtigen Zeit ist der ganze Trick.</p>'+
-      '<button class="btn-sec" id="btn-more">+5 extra neue Karten</button></div>';
+      '<button class="btn-sec" id="btn-more">+5 extra neue Karten</button>'+nudgeHtml+'</div>';
+    const nb=$("#nudge-backup"); if(nb) nb.onclick=()=>{ doExport(); renderStage(); };
+    const nl=$("#nudge-later"); if(nl) nl.onclick=()=>{ S.backupSnooze=todayStr(); save(); renderStage(); };
     const b=$("#btn-more");
     if(b) b.onclick=()=>{
       const fresh=allCards().filter(c=>!cardState(cid(c))).slice(0,5);
@@ -2185,6 +2297,10 @@ function renderStage(){
     front=chips+wordHtml(c)+(c.p?'<div class="prepnote">'+esc(c.p)+'</div>':"");
   } else {
     front=chips+'<div class="bigword">'+esc(c.e)+'</div>';
+  }
+  if(firstGradeNote&&!revealed){
+    front+='<div class="hintbox" style="margin-top:14px">'+esc(firstGradeNote)+'</div>';
+    firstGradeNote=null;
   }
   let html='<div class="stage">'+front;
   if(!revealed&&hintShown){
@@ -2256,10 +2372,16 @@ function hintHtml(c,dir){
   }
   return esc(stem[0])+"&thinsp;"+"·".repeat(Math.max(2,stem.length-1))+' <small>('+stem.length+' Buchstaben'+(c.art?", "+c.art:"")+')</small>';
 }
+let firstGradeNote=null;
 function doGrade(g){
   if(!current||!revealed) return;
   const c=current;
   grade(c,g);
+  if(!S.firstGraded){
+    S.firstGraded=true; save();
+    const st=cardState(cid(c));
+    firstGradeNote="✓ Geplant! Du siehst „"+c.g+"“ "+(g===0?"gleich":"in "+fmtIv(st.iv))+" wieder — ehrliches Bewerten steuert deinen Lernplan.";
+  }
   if(g===0){ requeue(c); } else { sessDone++; }
   nextCard();
 }
@@ -2288,7 +2410,10 @@ function dueCount(){
 function renderHeader(){
   $("#h-streak").textContent=streak();
   $("#h-due").textContent=dueCount();
-  $("#tab-due").textContent=String(queue.length+(current?1:0));
+  const remaining=queue.length+(current?1:0);
+  $("#tab-due").textContent=String(remaining);
+  const bd=$("#bnav-due");
+  if(bd){ bd.textContent=String(remaining); bd.hidden=remaining===0; }
   $("#h-known").textContent=Object.keys(S.cards).length;
 }
 
@@ -2360,12 +2485,16 @@ function renderStats(){
     const v=(S.log[k]||{rev:0}).rev; max=Math.max(max,v);
     days.push({k,v,lab:d.getDate()+"."}); d.setDate(d.getDate()+1); }
   $("#days").innerHTML=days.map(o=>'<div class="day"><i class="'+(o.v?'':'zero')+'" style="height:'+(o.v?Math.max(6,Math.round(o.v/max*64)):2)+'px" title="'+o.v+'"></i><span>'+o.lab+'</span></div>').join("");
+  $("#backup-info").textContent="Letzte Sicherung: "+(S.backupDate||"noch nie");
 }
-$("#btn-export").onclick=()=>{
+function doExport(){
   const blob=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
   a.download="wortschatz-backup-"+todayStr()+".json"; a.click(); URL.revokeObjectURL(a.href);
-};
+  S.backupAtRev=Object.values(S.log).reduce((x,l)=>x+l.rev,0);
+  S.backupDate=todayStr(); save();
+}
+$("#btn-export").onclick=doExport;
 $("#btn-import").onclick=()=>$("#import-file").click();
 $("#import-file").onchange=e=>{
   const f=e.target.files[0]; if(!f) return;
@@ -2487,19 +2616,81 @@ function finishTest(){
         '<div class="t">→ Grammatik: '+esc(o.q.topic)+'</div></div>').join("")+'</div>':"")+
     '</div>';
   $("#t-apply").onclick=()=>{ S.settings.lvl=nextLvl; save(); $("#lvl-sel").value=nextLvl; buildSession();
-    document.querySelector('[data-v="study"]').click(); };
+    showView("study"); };
   $("#t-again").onclick=testStart;
 }
 
-/* =================== TABS =================== */
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
-  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===t));
-  document.querySelectorAll("section.view").forEach(v=>v.classList.toggle("on",v.id==="view-"+t.dataset.v));
-  if(t.dataset.v==="stats") renderStats();
-  if(t.dataset.v==="browse") renderList();
-  if(t.dataset.v==="test"&&!tActive) renderTest();
-  if(t.dataset.v==="study"&&!current&&queue.length===0) buildSession();
+/* =================== NAVIGATION =================== */
+const MORE_VIEWS=["test","plan","help"];
+function showView(v){
+  document.querySelectorAll("section.view").forEach(s=>s.classList.toggle("on",s.id==="view-"+v));
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x.dataset.v===v));
+  document.querySelectorAll(".bnav-item").forEach(b=>{
+    if(b.id==="bnav-more") b.classList.toggle("on",MORE_VIEWS.includes(v));
+    else b.classList.toggle("on",b.dataset.v===v);
+  });
+  const ms=$("#moresheet"); if(ms) ms.classList.remove("open");
+  if(v==="stats") renderStats();
+  if(v==="browse") renderList();
+  if(v==="test"&&!tActive) renderTest();
+  if(v==="study"&&!current&&queue.length===0) buildSession();
+  window.scrollTo({top:0});
+}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>showView(t.dataset.v));
+document.querySelectorAll(".bnav-item[data-v], .moresheet button[data-v]").forEach(b=>b.onclick=()=>showView(b.dataset.v));
+$("#bnav-more").onclick=e=>{ e.stopPropagation(); $("#moresheet").classList.toggle("open") };
+document.addEventListener("click",e=>{
+  if(!e.target.closest("#moresheet")&&!e.target.closest("#bnav-more")) $("#moresheet").classList.remove("open");
 });
+
+/* =================== ONBOARDING =================== */
+function obStart(){
+  let step=0;
+  const scrim=document.createElement("div"); scrim.className="ob-scrim";
+  document.body.appendChild(scrim);
+  function close(){ S.onboarded=true; save(); scrim.remove(); }
+  function render(){
+    const dots='<div class="ob-dots">'+[0,1,2].map(i=>'<i class="'+(i===step?"on":"")+'"></i>').join("")+'</div>';
+    let body="";
+    if(step===0){
+      body='<h2>Willkommen bei Wortschatz</h2>'+
+        '<p>Dein täglicher Deutsch-Trainer von A1 bis C2 — Vokabeln, Grammatik, Alltagsdeutsch.</p>'+
+        '<p>Nomen tragen ihr Genus als Farbe. Lern die Farbe immer mit:</p>'+
+        '<div class="ob-genders"><span class="g-der">der Tisch</span><span class="g-die">die Zeit</span><span class="g-das">das Haus</span></div>'+
+        dots+'<div class="ob-actions"><button class="btn-flip" id="ob-next">Weiter</button></div>'+
+        '<button class="ob-skip" id="ob-skip">Überspringen</button>';
+    } else if(step===1){
+      body='<h2>Bewerte dich ehrlich</h2>'+
+        '<p>Karte lesen, Antwort im Kopf abrufen, <em>Aufdecken</em> drücken — dann ehrlich bewerten:</p>'+
+        '<div class="ob-grades">'+
+        '<div class="ob-grade"><b style="background:var(--again-bg);color:var(--again)">Nochmal</b><span>nicht gewusst → kommt in Minuten wieder</span></div>'+
+        '<div class="ob-grade"><b style="background:var(--hard-bg);color:var(--hard)">Schwer</b><span>gerade so → kürzerer Abstand</span></div>'+
+        '<div class="ob-grade"><b style="background:var(--good-bg);color:var(--good)">Gut</b><span>gewusst → 1 Tag, dann 3, dann Wochen</span></div>'+
+        '<div class="ob-grade"><b style="background:var(--easy-bg);color:var(--easy)">Leicht</b><span>sofort gewusst → langer Abstand</span></div>'+
+        '</div>'+
+        '<p>Die App zeigt dir jede Karte genau dann wieder, wenn du sie vergessen würdest. Ehrlich bewerten = schneller lernen.</p>'+
+        dots+'<div class="ob-actions"><button class="btn-sec" id="ob-back">Zurück</button><button class="btn-flip" id="ob-next">Weiter</button></div>'+
+        '<button class="ob-skip" id="ob-skip">Überspringen</button>';
+    } else {
+      body='<h2>Wo stehst du?</h2>'+
+        '<p>Neue Karten kommen aus deinem Niveau — so bleibt es fordernd, aber fair.</p>'+
+        '<div class="ob-lvls">'+LEVELS.map(l=>'<button data-l="'+l+'">'+l+'</button>').join("")+'</div>'+
+        '<p style="margin-top:4px">Unsicher? Der Einstufungstest findet es in 10 Minuten heraus.</p>'+
+        dots+'<div class="ob-actions"><button class="btn-sec" id="ob-back">Zurück</button><button class="btn-flip" id="ob-test">Test machen</button></div>'+
+        '<button class="ob-skip" id="ob-skip">Später entscheiden</button>';
+    }
+    scrim.innerHTML='<div class="ob-card" role="dialog" aria-modal="true">'+body+'</div>';
+    const nx=scrim.querySelector("#ob-next"); if(nx) nx.onclick=()=>{step++;render()};
+    const bk=scrim.querySelector("#ob-back"); if(bk) bk.onclick=()=>{step--;render()};
+    const sk=scrim.querySelector("#ob-skip"); if(sk) sk.onclick=close;
+    const ts=scrim.querySelector("#ob-test"); if(ts) ts.onclick=()=>{close(); showView("test")};
+    scrim.querySelectorAll(".ob-lvls button").forEach(b=>b.onclick=()=>{
+      S.settings.lvl=b.dataset.l; $("#lvl-sel").value=b.dataset.l;
+      close(); buildSession(); showView("study");
+    });
+  }
+  render();
+}
 
 /* =================== INIT =================== */
 load();
@@ -2518,6 +2709,9 @@ document.querySelectorAll("#dir-seg button").forEach(b=>{
 $("#a-save").onclick=saveCustom;
 renderFilters(); renderList(); initChecks();
 buildSession(); renderHeader();
+$("#ob-replay").onclick=()=>obStart();
+if(navigator.storage&&navigator.storage.persist){ try{navigator.storage.persist().catch(()=>{})}catch(e){} }
+if(!S.onboarded) obStart();
 </script>
 
 <script>

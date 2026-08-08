@@ -1,5 +1,5 @@
 /* Wortschatz service worker — offline-first shell for a single-file app */
-const CACHE = "wortschatz-v4";
+const CACHE = "wortschatz-v5";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
