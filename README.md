@@ -1,3 +1,5 @@
+![Wortschatz — free German trainer, A1 to C2](banner.png)
+
 # Wortschatz — Dein Weg zu C2 🇩🇪
 
 A free, open-source German trainer that runs entirely in your browser — from your first

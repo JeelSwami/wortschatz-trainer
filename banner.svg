@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <rect width="1280" height="640" fill="#FAF8F2"/>
+  <!-- wordmark -->
+  <rect x="80" y="96" width="58" height="72" fill="#F2B705"/>
+  <text x="88" y="152" font-family="Futura, 'Avenir Next', sans-serif" font-size="58" font-weight="800" fill="#1C1914">W</text>
+  <text x="146" y="152" font-family="Futura, 'Avenir Next', sans-serif" font-size="58" font-weight="800" fill="#1C1914">ortschatz</text>
+  <text x="82" y="200" font-family="Futura, 'Avenir Next', sans-serif" font-size="21" font-weight="600" letter-spacing="4" fill="#6E675C">DEIN WEG ZU C2</text>
+  <!-- value props -->
+  <text x="82" y="290" font-family="'Avenir Next', 'Helvetica Neue', sans-serif" font-size="27" font-weight="600" fill="#1C1914">Free German trainer · A1 → C2</text>
+  <text x="82" y="336" font-family="'Avenir Next', 'Helvetica Neue', sans-serif" font-size="21" fill="#6E675C">1,132 verified cards · 38 grammar topics</text>
+  <text x="82" y="372" font-family="'Avenir Next', 'Helvetica Neue', sans-serif" font-size="21" fill="#6E675C">Placement test · Spaced repetition · Alltagsdeutsch</text>
+  <text x="82" y="408" font-family="'Avenir Next', 'Helvetica Neue', sans-serif" font-size="21" fill="#6E675C">Offline PWA · No account · Data stays on device</text>
+  <!-- gender legend -->
+  <text x="82" y="486" font-family="Futura, 'Avenir Next', sans-serif" font-size="26" font-weight="700" fill="#2456C6">der Tisch</text>
+  <text x="228" y="486" font-family="Futura, 'Avenir Next', sans-serif" font-size="26" font-weight="700" fill="#C6273B">die Zeit</text>
+  <text x="352" y="486" font-family="Futura, 'Avenir Next', sans-serif" font-size="26" font-weight="700" fill="#1E8E5A">das Haus</text>
+  <text x="82" y="540" font-family="'Avenir Next', sans-serif" font-size="17" fill="#6E675C">© Jeel Swami · CC BY-NC 4.0 · jeelswami.github.io/wortschatz-trainer</text>
+  <!-- card mock -->
+  <g>
+    <rect x="700" y="110" width="480" height="420" rx="20" fill="#FFFFFF" stroke="#E5E0D2"/>
+    <rect x="852" y="150" width="82" height="30" rx="15" fill="#FBEBBB"/>
+    <text x="893" y="171" font-family="'Avenir Next', sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#7A5C00" text-anchor="middle">B1</text>
+    <rect x="944" y="150" width="92" height="30" rx="15" fill="none" stroke="#D8D2C0"/>
+    <text x="990" y="171" font-family="'Avenir Next', sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#6E675C" text-anchor="middle">NOMEN</text>
+    <text x="940" y="268" font-family="Futura, 'Avenir Next', sans-serif" font-size="52" font-weight="700" fill="#C6273B" text-anchor="middle">die Gelegenheit</text>
+    <text x="940" y="312" font-family="'Avenir Next', sans-serif" font-size="21" fill="#6E675C" text-anchor="middle">opportunity · Plural: -en</text>
+    <text x="940" y="368" font-family="Georgia, serif" font-size="23" font-style="italic" fill="#1C1914" text-anchor="middle">„Das ist eine gute Gelegenheit,</text>
+    <text x="940" y="400" font-family="Georgia, serif" font-size="23" font-style="italic" fill="#1C1914" text-anchor="middle">Deutsch zu sprechen.“</text>
+    <!-- grade buttons -->
+    <rect x="742" y="446" width="100" height="44" rx="10" fill="#F9E4E6"/>
+    <text x="792" y="474" font-family="'Avenir Next', sans-serif" font-size="17" font-weight="700" fill="#C6273B" text-anchor="middle">Nochmal</text>
+    <rect x="852" y="446" width="100" height="44" rx="10" fill="#F7EDCF"/>
+    <text x="902" y="474" font-family="'Avenir Next', sans-serif" font-size="17" font-weight="700" fill="#B07C00" text-anchor="middle">Schwer</text>
+    <rect x="962" y="446" width="100" height="44" rx="10" fill="#E1F1E8"/>
+    <text x="1012" y="474" font-family="'Avenir Next', sans-serif" font-size="17" font-weight="700" fill="#1E8E5A" text-anchor="middle">Gut</text>
+    <rect x="1072" y="446" width="66" height="44" rx="10" fill="#E3EAF9"/>
+    <text x="1105" y="474" font-family="'Avenir Next', sans-serif" font-size="17" font-weight="700" fill="#2456C6" text-anchor="middle">Leicht</text>
+  </g>
+</svg>
